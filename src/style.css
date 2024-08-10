@@ -172,10 +172,11 @@ body {
   gap: 30px;
 }
 
-.left-side p {
+.left-side-headline h1 {
   color: beige;
-  font-size: 2rem;
   margin-top: 10px;
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 .create-diary-button {
