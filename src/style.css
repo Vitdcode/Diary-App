@@ -1,0 +1,179 @@
+:root {
+  --boxshadowCardTemplate: 1px 1px 5px 0px rgb(128, 128, 128, 0.7);
+  --green-color-button: rgb(122, 224, 160);
+  --font-family-poppins: "Poppins", sans-serif;
+}
+
+body {
+  position: relative;
+  font-family: var(--font-family-poppins);
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' %3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2380F'/%3E%3Cstop offset='1' stop-color='%23f40'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpattern id='b' width='24' height='24' patternUnits='userSpaceOnUse'%3E%3Ccircle fill='%23ffffff' cx='12' cy='12' r='12'/%3E%3C/pattern%3E%3Crect width='100%25' height='100%25' fill='url(%23a)'/%3E%3Crect width='100%25' height='100%25' fill='url(%23b)' fill-opacity='0.1'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* animations */
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.main-wrapper {
+  position: relative;
+  display: flex;
+  height: 95%;
+  width: 95%;
+}
+
+#background-attribution {
+  position: absolute;
+  bottom: 0;
+  right: 2%;
+  color: rgb(71, 71, 71);
+}
+
+#background-attribution a {
+  text-decoration: none;
+  color: rgba(70, 238, 159, 0.938);
+}
+
+#background-attribution a:hover {
+  color: rgb(0, 255, 136);
+}
+
+/* prompt */
+
+.prompt-window {
+  position: relative;
+  font-weight: bold;
+  font-size: 1.3rem;
+  height: 300px;
+  width: 500px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 10px;
+  gap: 35px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(80, 80, 80, 0.527);
+  box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.664);
+  animation: fadeIn 350ms ease-in;
+  z-index: 2;
+}
+
+.prompt-headline {
+  color: beige;
+}
+
+.close-prompt-window-icon {
+  position: absolute;
+  top: 3%;
+  right: 2%;
+  height: 44px;
+  width: 44px;
+  border-radius: 100%;
+}
+
+.close-prompt-window-icon:hover {
+  background-color: rgba(194, 78, 78, 0.815);
+  cursor: pointer;
+}
+
+#create-new-diary-input {
+  font-family: var(--font-family-poppins);
+  border-radius: 10px;
+  width: 300px;
+  height: 40px;
+  padding-left: 7px;
+  font-size: 1rem;
+}
+
+#create-new-diary-input:focus {
+  outline: 2px solid var(--green-color-button);
+}
+
+.create-diary-button-prompt {
+  font-family: var(--font-family-poppins);
+  font-size: 1rem;
+  font-weight: 600;
+  height: 50px;
+  width: 200px;
+  border-radius: 10px;
+  background-color: var(--green-color-button);
+  transition-duration: 150ms;
+}
+
+.create-diary-button-prompt:hover {
+  background-color: var(--green-color-button);
+  background-color: rgb(140, 255, 182);
+  cursor: pointer;
+}
+
+/* left side */
+
+.left-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(1, 22, 39, 0.8);
+  border-radius: 10px;
+  width: 30%;
+  gap: 30px;
+}
+
+.left-side p {
+  color: beige;
+  font-size: 2rem;
+  margin-top: 10px;
+}
+
+.create-diary-button {
+  font-family: var(--font-family-poppins);
+  height: 60px;
+  width: 200px;
+  border-radius: 10px;
+  outline: transparent;
+  background-color: var(--green-color-button);
+  font-weight: bold;
+  font-size: 1rem;
+  transition-duration: 150ms;
+}
+
+.create-diary-button:hover {
+  background-color: rgb(140, 255, 182);
+  cursor: pointer;
+}
+
+.right-side {
+  background-color: rgb(1, 22, 39, 0.9);
+  width: 70%;
+  border-radius: 10px;
+}
