@@ -201,6 +201,27 @@ body {
   color: beige;
 }
 
+.saved-icon {
+  position: absolute;
+  height: 36px;
+  width: 36px;
+  animation: fadeIn 350ms ease-in;
+  bottom: 12%;
+  left: 38%;
+}
+
+.saved-text {
+  position: absolute;
+  color: var(--green-color-button);
+  animation: fadeIn 350ms ease-in;
+  bottom: 12%;
+  left: 48%;
+}
+
+.fade-out {
+  animation: fadeOut 1s forwards;
+}
+
 /* left side */
 
 .left-side {
@@ -305,7 +326,6 @@ body {
 .diary-description-item {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
   margin-top: 20px;
   padding-top: 20px;
   padding-bottom: 40px;

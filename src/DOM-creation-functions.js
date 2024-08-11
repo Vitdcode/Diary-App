@@ -1,7 +1,8 @@
 import closeicon from "../src/images/close-icon.png";
 import quoteicon from "../src/images/quote-icon.png";
 import menuicon from "../src/images/3dots.png";
-import { closePrompt } from "../src/ui-functions.js";
+import savedicon from "../src/images/saved-icon.png";
+import { closePrompt, deleteItemsFromLeftSide } from "../src/ui-functions.js";
 import { pushToDiariesArray, diaries } from "../src/diary-list-handling.js";
 import { v4 as uuidv4 } from "uuid";
 
@@ -188,26 +189,49 @@ function editDiary(diaryID, diaryMenu3Dots) {
     mainWrapper.appendChild(editMenu);
 
     closePrompt(editMenu);
-    saveEditedDiary(editDiarySaveButton, diary, textarea, promptInput);
+    saveEditedDiary(
+      editDiarySaveButton,
+      diary,
+      textarea,
+      promptInput,
+      editMenu
+    );
   });
 }
 
-function saveEditedDiary(editDiarySaveButton, diary, textarea, promptInput) {
+function saveEditedDiary(
+  editDiarySaveButton,
+  diary,
+  textarea,
+  promptInput,
+  prompt
+) {
   editDiarySaveButton.addEventListener("click", () => {
     diary.name = promptInput.value;
     diary.description = textarea.value;
     deleteItemsFromLeftSide();
+
+    const savedIcon = document.createElement("img");
+    savedIcon.classList.add("saved-icon");
+    savedIcon.src = savedicon;
+    const savedText = document.createElement("p");
+    savedText.classList.add("saved-text");
+    savedText.textContent = "Saved";
+    prompt.appendChild(savedIcon);
+    prompt.appendChild(savedText);
+
+    setTimeout(() => {
+      savedIcon.classList.add("fade-out");
+      savedText.classList.add("fade-out");
+    }, 1000);
+
+    setTimeout(() => {
+      prompt.removeChild(savedIcon);
+      prompt.removeChild(savedText);
+    }, 2000);
+
     localStorage.setItem("diaries", JSON.stringify(diaries));
     createDiariesFromLocalStorage();
-    console.log(diaries);
-  });
-}
-
-function deleteItemsFromLeftSide() {
-  diaries.forEach((diary) => {
-    const leftSide = document.querySelector(".left-side");
-    const diaryItemWrapper = document.querySelector(".diary-item-wrapper");
-    leftSide.removeChild(diaryItemWrapper);
   });
 }
 
