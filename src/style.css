@@ -222,6 +222,64 @@ body {
   animation: fadeOut 1s forwards;
 }
 
+/* delete diary prompt */
+
+.delete-prompt-window {
+  position: relative;
+  font-weight: bold;
+  font-size: 1.2rem;
+  height: 400px;
+  width: 500px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 10px;
+  gap: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(80, 80, 80, 0.527);
+  box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.664);
+  animation: fadeIn 350ms ease-in;
+  z-index: 2;
+}
+
+.delete-diary-headline {
+  color: beige;
+  margin-inline: 30px;
+  text-align: center;
+}
+
+.yes-button {
+  font-family: var(--font-family-poppins);
+  font-size: 1.1rem;
+  height: 70px;
+  width: 150px;
+  border-radius: 15px;
+  background-color: var(--green-color-button);
+}
+
+.no-button {
+  font-family: var(--font-family-poppins);
+  font-size: 1.1rem;
+  height: 70px;
+  width: 150px;
+  border-radius: 15px;
+  background-color: var(--green-color-button);
+}
+
+.yes-button:hover {
+  background-color: rgba(194, 78, 78, 0.815);
+  cursor: pointer;
+}
+
+.no-button:hover {
+  cursor: pointer;
+  background-color: rgb(138, 255, 189);
+}
+
 /* left side */
 
 .left-side {
@@ -289,17 +347,19 @@ body {
 
 .dot-menu-diary-item {
   position: absolute;
-  height: 36px;
-  width: 36px;
-  top: 1%;
-  right: 3%;
+  height: 32px;
+  width: 32px;
+  top: 2%;
+  left: 3%;
   transition-duration: 150ms;
-  padding: 3px;
 }
 
-.dot-menu-diary-item:hover {
-  background-color: rgba(88, 98, 197, 0.377);
-  border-radius: 100%;
+.delete-diary-icon {
+  position: absolute;
+  top: 1%;
+  right: 3%;
+  height: 36px;
+  width: 36px;
 }
 
 .diary-item-name {

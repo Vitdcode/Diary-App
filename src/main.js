@@ -4,9 +4,10 @@ import {
   createDiariesFromLocalStorage,
 } from "./DOM-creation-functions.js";
 import { pushToDiariesArray, diaries } from "./diary-list-handling.js";
+import { randomizeSvgWallpaper } from "./ui-functions.js";
 
 createDiaryButtonInDom();
-
+randomizeSvgWallpaper(document.body);
 document.addEventListener("DOMContentLoaded", () => {
   console.log(diaries);
   const localStorageDiaries = localStorage.getItem("diaries");

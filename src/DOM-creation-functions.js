@@ -1,8 +1,15 @@
+//images
 import closeicon from "../src/images/close-icon.png";
+import deleteicon from "../src/images/delete-icon.png";
 import quoteicon from "../src/images/quote-icon.png";
 import menuicon from "../src/images/3dots.png";
 import savedicon from "../src/images/saved-icon.png";
-import { closePrompt, deleteItemsFromLeftSide } from "../src/ui-functions.js";
+import {
+  closePrompt,
+  deleteItemsFromLeftSide,
+  deleteAndMenuIconHover,
+  deleteDiary,
+} from "../src/ui-functions.js";
 import { pushToDiariesArray, diaries } from "../src/diary-list-handling.js";
 import { v4 as uuidv4 } from "uuid";
 
@@ -90,10 +97,21 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
         diaryItemWrapper.id = uuidv4();
         diaryItemWrapper.classList.add("diary-item-wrapper");
 
-        const diaryMenu3Dots = document.createElement("img");
-        diaryMenu3Dots.classList.add("dot-menu-diary-item");
-        diaryMenu3Dots.id = diaryItemWrapper.id;
-        diaryMenu3Dots.src = menuicon;
+        const diaryMenuIcon = document.createElement("img");
+        diaryMenuIcon.classList.add("dot-menu-diary-item");
+        diaryMenuIcon.id = diaryItemWrapper.id;
+        diaryMenuIcon.src = menuicon;
+
+        const deleteDiaryIcon = document.createElement("img");
+        deleteDiaryIcon.classList.add("delete-diary-icon");
+        deleteDiaryIcon.id = diaryItemWrapper.id;
+        deleteDiaryIcon.src = deleteicon;
+        deleteAndMenuIconHover(
+          diaryItemWrapper,
+          deleteDiaryIcon,
+          diaryMenuIcon
+        );
+        deleteDiaryPrompt(diaryItemWrapper, deleteDiaryIcon);
 
         const diaryItemName = document.createElement("p");
         diaryItemName.classList.add("diary-item-name");
@@ -106,7 +124,8 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
         const diaryDescriptionItem = document.createElement("p");
         diaryDescriptionItem.classList.add("diary-description-item");
         diaryDescriptionItem.textContent = diaryDescription.value;
-        diaryItemWrapper.appendChild(diaryMenu3Dots);
+        diaryItemWrapper.appendChild(diaryMenuIcon);
+        diaryItemWrapper.appendChild(deleteDiaryIcon);
         diaryItemWrapper.appendChild(diaryItemName);
         diaryItemWrapper.appendChild(quoteIcon);
         diaryItemWrapper.appendChild(diaryDescriptionItem);
@@ -118,7 +137,7 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
           diaryDescriptionItem.textContent
         );
         console.log(diaries);
-        editDiary(diaryItemWrapper.id, diaryMenu3Dots);
+        editDiary(diaryItemWrapper.id, diaryMenuIcon);
         localStorage.setItem("diaries", JSON.stringify(diaries));
       } else {
         alert("Diary Name cannot be Empty");
@@ -127,8 +146,8 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
   }
 }
 
-function editDiary(diaryID, diaryMenu3Dots) {
-  diaryMenu3Dots.addEventListener("click", () => {
+function editDiary(diaryID, diaryMenuIcon) {
+  diaryMenuIcon.addEventListener("click", () => {
     const mainWrapper = document.querySelector(".main-wrapper");
 
     const backdrop = document.createElement("div");
@@ -238,24 +257,38 @@ function saveEditedDiary(
 export function createDiariesFromLocalStorage() {
   diaries.forEach((diary) => {
     const leftSide = document.querySelector(".left-side");
+
     const diaryItemWrapper = document.createElement("div");
     diaryItemWrapper.id = diary.id;
     diaryItemWrapper.classList.add("diary-item-wrapper");
-    const diaryMenu3Dots = document.createElement("img");
-    diaryMenu3Dots.classList.add("dot-menu-diary-item");
-    diaryMenu3Dots.id = diaryItemWrapper.id;
-    diaryMenu3Dots.src = menuicon;
-    editDiary(diary.id, diaryMenu3Dots);
+
+    const diaryMenuIcon = document.createElement("img");
+    diaryMenuIcon.classList.add("dot-menu-diary-item");
+    diaryMenuIcon.id = diaryItemWrapper.id;
+    diaryMenuIcon.src = menuicon;
+
+    const deleteDiaryIcon = document.createElement("img");
+    deleteDiaryIcon.classList.add("delete-diary-icon");
+    deleteDiaryIcon.id = diaryItemWrapper.id;
+    deleteDiaryIcon.src = deleteicon;
+    deleteAndMenuIconHover(diaryItemWrapper, deleteDiaryIcon, diaryMenuIcon);
+    editDiary(diary.id, diaryMenuIcon);
+    deleteDiaryPrompt(diaryItemWrapper, deleteDiaryIcon);
+
     const diaryItemName = document.createElement("p");
     diaryItemName.classList.add("diary-item-name");
     diaryItemName.textContent = diary.name;
+
     const quoteIcon = document.createElement("img");
     quoteIcon.classList.add("quote-icon");
     quoteIcon.src = quoteicon;
+
     const diaryDescriptionItem = document.createElement("p");
     diaryDescriptionItem.classList.add("diary-description-item");
     diaryDescriptionItem.textContent = diary.description;
-    diaryItemWrapper.appendChild(diaryMenu3Dots);
+
+    diaryItemWrapper.appendChild(diaryMenuIcon);
+    diaryItemWrapper.appendChild(deleteDiaryIcon);
     diaryItemWrapper.appendChild(diaryItemName);
     diaryItemWrapper.appendChild(quoteIcon);
     diaryItemWrapper.appendChild(diaryDescriptionItem);
@@ -275,4 +308,41 @@ function textareaCharCounter(textarea, promptWindow) {
   });
 
   promptWindow.appendChild(charCounter);
+}
+
+function deleteDiaryPrompt(diaryItemWrapper, deleteIcon) {
+  deleteIcon.addEventListener("click", () => {
+    const mainWrapper = document.querySelector(".main-wrapper");
+    const backdrop = document.createElement("div");
+    backdrop.classList.add("backdrop");
+
+    const deletePromptWindow = document.createElement("div");
+    deletePromptWindow.classList.add("delete-prompt-window");
+
+    const deleteDiaryHeadline = document.createElement("h1");
+    deleteDiaryHeadline.classList.add("delete-diary-headline");
+    deleteDiaryHeadline.textContent = "Do you want to delete this Diary?";
+
+    const yesButton = document.createElement("button");
+    yesButton.classList.add("yes-button");
+    yesButton.textContent = "YES";
+
+    const noButton = document.createElement("button");
+    noButton.classList.add("no-button");
+    noButton.textContent = "NO";
+
+    document.body.appendChild(backdrop);
+    deletePromptWindow.appendChild(deleteDiaryHeadline);
+    deletePromptWindow.appendChild(yesButton);
+    deletePromptWindow.appendChild(noButton);
+    mainWrapper.appendChild(deletePromptWindow);
+    deleteDiary(
+      yesButton,
+      noButton,
+      diaryItemWrapper,
+      backdrop,
+      deletePromptWindow,
+      mainWrapper
+    );
+  });
 }
