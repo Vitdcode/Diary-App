@@ -84,11 +84,9 @@ export function deleteDiary(
   yesButton.addEventListener("click", () => {
     const leftSide = document.querySelector(".left-side");
     const diaryItemWrapperID = document.getElementById(diaryItemWrapper.id);
-
     leftSide.removeChild(diaryItemWrapperID);
     document.body.removeChild(backdrop);
     mainWrapper.removeChild(deletePromptWindow);
-    console.log(diaries);
     const diaryIndex = diaries.findIndex(
       (item) => item.id === diaryItemWrapper.id
     );
@@ -97,7 +95,6 @@ export function deleteDiary(
       diaries.splice(diaryIndex, 1);
     }
     localStorage.setItem("diaries", JSON.stringify(diaries));
-    console.log(diaries);
   });
 
   noButton.addEventListener("click", () => {

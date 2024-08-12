@@ -398,6 +398,21 @@ body {
   border-radius: 5px;
 }
 
+.diary-timestamp {
+  position: absolute;
+  margin-top: auto;
+  font-size: 0.8rem;
+  text-align: center;
+  width: 80%;
+  margin-inline: auto;
+  padding: 1px;
+  background-color: rgb(140, 255, 182);
+  bottom: -6%;
+  left: 10%;
+  border-radius: 5px;
+  color: rgba(34, 34, 34, 0.8);
+}
+
 /* right side */
 
 .right-side {

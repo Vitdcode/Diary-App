@@ -9,9 +9,10 @@ import {
   deleteItemsFromLeftSide,
   deleteAndMenuIconHover,
   deleteDiary,
-} from "../src/ui-functions.js";
-import { pushToDiariesArray, diaries } from "../src/diary-list-handling.js";
+} from "./ui-functions.js";
+import { pushToDiariesArray, diaries } from "./diary-list-handling.js";
 import { v4 as uuidv4 } from "uuid";
+import { format } from "date-fns";
 
 export function createDiaryButtonInDom() {
   const leftSide = document.querySelector(".left-side");
@@ -134,16 +135,36 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
         pushToDiariesArray(
           diaryItemName.textContent,
           diaryItemWrapper.id,
-          diaryDescriptionItem.textContent
+          diaryDescriptionItem.textContent,
+          diaryTimestamp(diaryItemWrapper)
         );
         console.log(diaries);
         editDiary(diaryItemWrapper.id, diaryMenuIcon);
+
         localStorage.setItem("diaries", JSON.stringify(diaries));
+        console.log(diaries);
       } else {
         alert("Diary Name cannot be Empty");
       }
     });
   }
+}
+
+function diaryTimestamp(diaryItemWrapper) {
+  const timestamp = document.createElement("p");
+  timestamp.classList.add("diary-timestamp");
+  diaryItemWrapper.appendChild(timestamp);
+  return (timestamp.textContent = `Created on: ${format(
+    new Date(),
+    "dd-MM-yyyy-ss"
+  )}`);
+}
+
+function diaryTimestampFromLocalStorage(diaryItemWrapper, diary) {
+  const timestamp = document.createElement("p");
+  timestamp.classList.add("diary-timestamp");
+  timestamp.textContent = diary.timestamp;
+  diaryItemWrapper.appendChild(timestamp);
 }
 
 function editDiary(diaryID, diaryMenuIcon) {
@@ -287,6 +308,9 @@ export function createDiariesFromLocalStorage() {
     diaryDescriptionItem.classList.add("diary-description-item");
     diaryDescriptionItem.textContent = diary.description;
 
+    diaryTimestampFromLocalStorage(diaryItemWrapper, diary);
+    console.log(diaries);
+
     diaryItemWrapper.appendChild(diaryMenuIcon);
     diaryItemWrapper.appendChild(deleteDiaryIcon);
     diaryItemWrapper.appendChild(diaryItemName);
@@ -297,14 +321,14 @@ export function createDiariesFromLocalStorage() {
 }
 
 function textareaCharCounter(textarea, promptWindow) {
-  textarea.setAttribute("maxlength", 90);
+  textarea.setAttribute("maxlength", 80);
   const charCounter = document.createElement("p");
   charCounter.classList.add("char-counter");
-  charCounter.textContent = `Max. Characters: ${textarea.value.length} / 90`;
+  charCounter.textContent = `Max. Characters: ${textarea.value.length} / 80`;
 
   textarea.addEventListener("input", () => {
     const currentLength = textarea.value.length;
-    charCounter.textContent = `Max. Characters: ${currentLength} / 90`;
+    charCounter.textContent = `Max. Characters: ${currentLength} / 80`;
   });
 
   promptWindow.appendChild(charCounter);
