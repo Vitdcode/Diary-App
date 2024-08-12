@@ -94,7 +94,9 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(80, 80, 80, 0.527);
+  background-image: var(--svg-background-image4-animated);
+  background-repeat: no-repeat;
+  background-size: cover;
   box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.664);
   animation: fadeIn 350ms ease-in;
   z-index: 2;
@@ -154,15 +156,15 @@ body {
   background-color: rgba(114, 118, 173, 0.699);
 }
 
+#describe-your-diary-textarea:focus {
+  outline: 1px solid rgb(119, 218, 185, 0.7);
+}
+
 .char-counter {
   font-size: 1rem;
   position: absolute;
   bottom: 23%;
   color: rgba(39, 39, 39, 0.774);
-}
-
-#describe-your-diary-textarea:focus {
-  outline: 1px solid rgb(119, 218, 185, 0.7);
 }
 
 #create-new-diary-input {
@@ -240,7 +242,9 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(80, 80, 80, 0.527);
+  background-image: var(--svg-background-image4-animated);
+  background-repeat: no-repeat;
+  background-size: cover;
   box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.664);
   animation: fadeIn 350ms ease-in;
   z-index: 2;
@@ -427,4 +431,106 @@ body {
   font-size: 2rem;
   font-weight: 500;
   text-align: center;
+}
+
+.create-new-entry-button {
+  font-family: var(--font-family-poppins);
+  height: 60px;
+  width: 200px;
+  margin-block: 65px;
+  margin-left: 30px;
+  border-radius: 10px;
+  outline: transparent;
+  background-color: var(--green-color-button);
+  font-weight: bold;
+  font-size: 1rem;
+  transition-duration: 150ms;
+}
+
+.create-new-entry-button:hover {
+  background-color: rgb(140, 255, 182);
+  cursor: pointer;
+}
+
+.year-text {
+  text-align: center;
+  font-size: 2rem;
+  color: rgb(140, 255, 182);
+}
+
+.month-text {
+  text-align: center;
+  font-size: 2rem;
+  color: rgb(140, 255, 182);
+}
+
+/* prompt new entry */
+
+.prompt-window-new-entry {
+  position: relative;
+  font-weight: bold;
+  font-size: 1.3rem;
+  height: 80%;
+  width: 80%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 10px;
+  gap: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: var(--svg-background-image4-animated);
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.664);
+  animation: fadeIn 350ms ease-in;
+  z-index: 2;
+}
+
+#create-new-entry-textarea {
+  position: relative;
+  width: 60%;
+  height: 60%;
+  background-color: rgba(37, 139, 153, 0.7);
+  backdrop-filter: blur(10px);
+  color: rgba(0, 0, 0, 0.829);
+  font-size: 1.3rem;
+  resize: none;
+  border-radius: 10px;
+  padding: 40px;
+}
+
+#create-new-entry-textarea:focus {
+  outline: 1px solid rgb(119, 218, 185, 0.7);
+}
+
+.prompt-new-entry-headline {
+  color: beige;
+}
+
+.create-entry-button {
+  font-family: var(--font-family-poppins);
+  font-size: 1rem;
+  font-weight: 600;
+  height: 50px;
+  width: 200px;
+  border-radius: 10px;
+  background-color: var(--green-color-button);
+  transition-duration: 150ms;
+}
+
+.create-entry-button:hover {
+  background-color: var(--green-color-button);
+  background-color: rgb(140, 255, 182);
+  cursor: pointer;
+}
+
+.quote-icon-new-entry {
+  position: absolute;
+  z-index: 1;
+  left: 17%;
+  top: 13%;
 }

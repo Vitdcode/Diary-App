@@ -83,6 +83,8 @@ export function deleteDiary(
 ) {
   yesButton.addEventListener("click", () => {
     const leftSide = document.querySelector(".left-side");
+    const rightSide = document.querySelector(".right-side");
+    rightSide.innerHTML = "";
     const diaryItemWrapperID = document.getElementById(diaryItemWrapper.id);
     leftSide.removeChild(diaryItemWrapperID);
     document.body.removeChild(backdrop);
