@@ -4,6 +4,10 @@ import deleteicon from "../src/images/delete-icon.png";
 import quoteicon from "../src/images/quote-icon.png";
 import menuicon from "../src/images/3dots.png";
 import savedicon from "../src/images/saved-icon.png";
+//libraries
+import { v4 as uuidv4 } from "uuid";
+import { format } from "date-fns";
+//functions
 import {
   closePrompt,
   deleteItemsFromLeftSide,
@@ -11,8 +15,7 @@ import {
   deleteDiary,
 } from "./ui-functions.js";
 import { pushToDiariesArray, diaries } from "./diary-list-handling.js";
-import { v4 as uuidv4 } from "uuid";
-import { format } from "date-fns";
+import { createDiaryDetailsRightSide } from "./DOM-creation-functions-right-side.js";
 
 export function createDiaryButtonInDom() {
   const leftSide = document.querySelector(".left-side");
@@ -138,11 +141,11 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
           diaryDescriptionItem.textContent,
           diaryTimestamp(diaryItemWrapper)
         );
-        console.log(diaries);
+
         editDiary(diaryItemWrapper.id, diaryMenuIcon);
+        createDiaryDetailsRightSide(diaryItemWrapper.id);
 
         localStorage.setItem("diaries", JSON.stringify(diaries));
-        console.log(diaries);
       } else {
         alert("Diary Name cannot be Empty");
       }
@@ -208,7 +211,6 @@ function editDiary(diaryID, diaryMenuIcon) {
     editDiarySaveButton.classList.add("create-diary-button-prompt");
     editDiarySaveButton.textContent = "Save";
 
-    console.log(diary);
     const diary = diaries.find((item) => item.id === diaryID);
     if (diary) {
       promptInput.value = diary.name;
@@ -309,7 +311,6 @@ export function createDiariesFromLocalStorage() {
     diaryDescriptionItem.textContent = diary.description;
 
     diaryTimestampFromLocalStorage(diaryItemWrapper, diary);
-    console.log(diaries);
 
     diaryItemWrapper.appendChild(diaryMenuIcon);
     diaryItemWrapper.appendChild(deleteDiaryIcon);
@@ -317,6 +318,7 @@ export function createDiariesFromLocalStorage() {
     diaryItemWrapper.appendChild(quoteIcon);
     diaryItemWrapper.appendChild(diaryDescriptionItem);
     leftSide.appendChild(diaryItemWrapper);
+    createDiaryDetailsRightSide(diary.id);
   });
 }
 
