@@ -140,16 +140,7 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
           diaryItemWrapper.id,
           diaryDescriptionItem.textContent,
           diaryTimestamp(diaryItemWrapper),
-          [
-            {
-              year: format(new Date(), "yyyy"),
-              month: format(new Date(), "MMMM"),
-              day: format(new Date(), "dd"),
-              seconds: format(new Date(), "ss"),
-              text: "",
-              id: uuidv4(),
-            },
-          ]
+          []
         );
         console.log(diaries);
 

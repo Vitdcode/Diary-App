@@ -457,10 +457,63 @@ body {
   cursor: pointer;
 }
 
+.diary-entries-wrapper {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.2s ease-out;
+}
+
+/* .notes-text-and-area-wrapper {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-left: 20px;
+  gap: 20px;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.2s ease-out;
+}
+
+.notes-text-and-area-wrapper:after {
+  background-color: beige;
+}
+
+.to-do-checkbox-and-text-wrapper:after {
+  display: flex;
+  align-items: center;
+  content: "\002B";
+  color: black;
+  font-weight: bold;
+  grid-column: 1/2;
+  grid-row: 1/2;
+  margin-left: 5px;
+} */
+
 .year-text {
+  width: 95%;
+  margin-inline: auto;
   text-align: center;
   font-size: 2rem;
   color: rgb(140, 255, 182);
+  background-color: rgba(6, 53, 65, 0.959);
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.year-text:after {
+  margin-left: 5px;
+  content: "\002B";
+  float: left;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.year-text:hover {
+  cursor: pointer;
+  background-color: rgba(26, 95, 112, 0.959);
 }
 
 .month-text {
@@ -476,6 +529,7 @@ body {
 }
 
 .diary-entry-text {
+  position: relative;
   margin-top: 30px;
   margin-inline: 40px;
   /*   text-align: center; */
@@ -483,12 +537,21 @@ body {
   font-size: 1.3rem;
   padding: 30px;
   background-color: rgb(14, 42, 71);
-  /*  background-image: var(--svg-background-image1);
-  background-repeat: no-repeat;
-  background-size: cover; */
   border-radius: 10px;
   white-space: pre;
   text-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.diary-entry-timestamp {
+  position: absolute;
+  padding: 4px;
+  font-size: 1.1rem;
+  color: rgb(140, 255, 182);
+  background-color: rgba(6, 53, 65, 0.959);
+  border-radius: 10px;
+  text-align: center;
+  top: 50%;
 }
 
 /* prompt new entry */

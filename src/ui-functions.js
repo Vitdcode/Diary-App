@@ -12,6 +12,8 @@ import svgbackground9 from "../src/images/svgs/svg9.svg";
 import svgbackground10 from "../src/images/svgs/svg10.svg";
 import svgbackground11 from "../src/images/svgs/svg11.svg";
 
+import { format } from "date-fns";
+
 export function closePrompt(prompt) {
   if (prompt) {
     const mainWrapper = document.querySelector(".main-wrapper");
@@ -102,5 +104,21 @@ export function deleteDiary(
   noButton.addEventListener("click", () => {
     document.body.removeChild(backdrop);
     mainWrapper.removeChild(deletePromptWindow);
+  });
+}
+
+export function yearCollapsible() {
+  const year = document.getElementById(
+    `year-text-${format(new Date(), "yyyy")}`
+  );
+
+  year.addEventListener("click", function () {
+    this.classList.toggle("active");
+    const content = this.nextElementSibling;
+    if (content.style.height) {
+      content.style.height = null;
+    } else {
+      content.style.height = 100 + "vh";
+    }
   });
 }
