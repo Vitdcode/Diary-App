@@ -65,6 +65,9 @@ body {
   bottom: 0;
   right: 2%;
   color: rgba(199, 199, 199, 0.582);
+  border-radius: 5px;
+  padding-inline: 2px;
+  backdrop-filter: brightness(70%);
 }
 
 #background-attribution a {
@@ -423,6 +426,8 @@ body {
   background-color: rgb(1, 22, 39, 0.9);
   width: 70%;
   border-radius: 10px;
+  overflow: auto;
+  padding-bottom: 20px;
 }
 
 .right-side-headline {
@@ -462,6 +467,28 @@ body {
   text-align: center;
   font-size: 2rem;
   color: rgb(140, 255, 182);
+}
+
+.seconds-text {
+  text-align: center;
+  font-size: 2rem;
+  color: rgb(140, 255, 182);
+}
+
+.diary-entry-text {
+  margin-top: 30px;
+  margin-inline: 40px;
+  /*   text-align: center; */
+  color: rgba(245, 245, 245, 0.87);
+  font-size: 1.3rem;
+  padding: 30px;
+  background-color: rgb(14, 42, 71);
+  /*  background-image: var(--svg-background-image1);
+  background-repeat: no-repeat;
+  background-size: cover; */
+  border-radius: 10px;
+  white-space: pre;
+  text-wrap: wrap;
 }
 
 /* prompt new entry */

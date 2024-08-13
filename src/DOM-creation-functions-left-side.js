@@ -139,8 +139,19 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
           diaryItemName.textContent,
           diaryItemWrapper.id,
           diaryDescriptionItem.textContent,
-          diaryTimestamp(diaryItemWrapper)
+          diaryTimestamp(diaryItemWrapper),
+          [
+            {
+              year: format(new Date(), "yyyy"),
+              month: format(new Date(), "MMMM"),
+              day: format(new Date(), "dd"),
+              seconds: format(new Date(), "ss"),
+              text: "",
+              id: uuidv4(),
+            },
+          ]
         );
+        console.log(diaries);
 
         editDiary(diaryItemWrapper.id, diaryMenuIcon);
         createDiaryDetailsRightSide(diaryItemWrapper.id);

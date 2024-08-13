@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
         diary.name,
         diary.id,
         diary.description,
-        diary.timestamp
+        diary.timestamp,
+        diary.entries
       );
     });
   }
