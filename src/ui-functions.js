@@ -107,7 +107,7 @@ export function deleteDiary(
   });
 }
 
-export function yearCollapsible() {
+/* export function yearCollapsible() {
   const year = document.getElementById(
     `year-text-${format(new Date(), "yyyy")}`
   );
@@ -116,9 +116,28 @@ export function yearCollapsible() {
     this.classList.toggle("active");
     const content = this.nextElementSibling;
     if (content.style.height) {
-      content.style.height = null;
+      content.style.maxHeight = null;
     } else {
-      content.style.height = 100 + "vh";
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+} */
+
+export function yearCollapsible() {
+  const year = document.getElementById(
+    `year-text-${format(new Date(), "yyyy")}`
+  );
+
+  year.addEventListener("click", function () {
+    this.classList.toggle("active");
+    const content = this.nextElementSibling;
+
+    if (content.style.maxHeight) {
+      // If the content is already expanded, collapse it
+      content.style.maxHeight = null;
+    } else {
+      // Expand the content to its full height
+      content.style.maxHeight = content.scrollHeight + "px";
     }
   });
 }

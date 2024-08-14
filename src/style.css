@@ -458,37 +458,10 @@ body {
 }
 
 .diary-entries-wrapper {
-  height: 0;
+  max-height: 0;
   overflow: hidden;
-  transition: height 0.2s ease-out;
+  transition: max-height 150ms ease-out;
 }
-
-/* .notes-text-and-area-wrapper {
-  display: flex;
-  flex-shrink: 0;
-  flex-direction: column;
-  margin-top: 10px;
-  margin-left: 20px;
-  gap: 20px;
-  height: 0;
-  overflow: hidden;
-  transition: height 0.2s ease-out;
-}
-
-.notes-text-and-area-wrapper:after {
-  background-color: beige;
-}
-
-.to-do-checkbox-and-text-wrapper:after {
-  display: flex;
-  align-items: center;
-  content: "\002B";
-  color: black;
-  font-weight: bold;
-  grid-column: 1/2;
-  grid-row: 1/2;
-  margin-left: 5px;
-} */
 
 .year-text {
   width: 95%;
@@ -499,6 +472,7 @@ body {
   background-color: rgba(6, 53, 65, 0.959);
   border-radius: 5px;
   margin-bottom: 30px;
+  user-select: none;
 }
 
 .year-text:after {
