@@ -1,10 +1,13 @@
 import closeicon from "../src/images/close-icon.png";
 import quoteicon from "../src/images/quote-icon.png";
+import savedicon from "../src/images/saved-icon.png";
+import deleteicon from "../src/images/delete-icon.png";
 
 import { diaries, pushToDiariesArray } from "./diary-list-handling";
 import { format } from "date-fns";
 import { v4 as uuidv4 } from "uuid";
 import { closePrompt, yearCollapsible } from "./ui-functions";
+import { savedText } from "./DOM-creation-functions-left-side";
 
 export function createDiaryDetailsRightSide(diaryID) {
   console.log(diaryID);
@@ -139,49 +142,142 @@ function createEntry(
     };
     diary.entries.push(newEntry);
     diaryText.textContent = newEntry.text;
-    /*  entriesWrapper.innerHTML = ""; */
 
-    /*     if (!document.getElementById(`year-text-${format(new Date(), "yyyy")}`)) {
-      const printYearRightSide = document.createElement("p");
-      printYearRightSide.id = `year-text-${format(new Date(), "yyyy")}`;
-      printYearRightSide.classList.add("year-text");
-      printYearRightSide.textContent = format(new Date(), "yyyy");
-      entriesWrapper.appendChild(printYearRightSide);
-    }
- */
-
-    /*     document
-      .getElementById(`year-text-${format(new Date(), "yyyy")}`)
-      .addEventListener("click", () => { */
-    entriesWrapper.innerHTML = "";
-    diary.entries.forEach((entry) => {
-      if (entry.year == "2024") {
-        const printMonthRightSide = document.createElement("p");
-        printMonthRightSide.classList.add("month-text");
-        printMonthRightSide.textContent = entry.month;
-        entriesWrapper.appendChild(printMonthRightSide);
-
-        const printSecondsRightSide = document.createElement("p");
-        printSecondsRightSide.classList.add("seconds-text");
-        printSecondsRightSide.textContent = entry.seconds;
-        entriesWrapper.appendChild(printSecondsRightSide);
-
-        const diaryText = document.createElement("p");
-        diaryText.classList.add("diary-entry-text");
-        diaryText.textContent = entry.text;
-
-        const entryTimestamp = document.createElement("p");
-        entryTimestamp.classList.add("diary-entry-timestamp");
-        entryTimestamp.textContent = entry.entryTimestamp;
-
-        entriesWrapper.appendChild(diaryText);
-        entriesWrapper.appendChild(entryTimestamp);
-      }
-      /*    }); */
-    });
-    rightSide.appendChild(entriesWrapper);
+    printEntriesInDom(diary);
   });
+  editDiaryEntries(entriesWrapper, diary);
   localStorage.setItem("diaries", JSON.stringify(diaries));
 
   console.log(diaries);
+}
+
+function editDiaryEntries(entriesWrapper, diary) {
+  entriesWrapper.addEventListener("click", (event) => {
+    const clickedElement = event.target;
+
+    if (clickedElement.classList.contains("diary-entry-text")) {
+      console.log("test");
+      const diaryEntryId = clickedElement.id;
+      createPromptEditDiary(diary, diaryEntryId);
+    }
+  });
+}
+
+function createPromptEditDiary(diary, diaryEntryId) {
+  const mainWrapper = document.querySelector(".main-wrapper");
+  const promptWindow = document.createElement("div");
+  promptWindow.classList.add("prompt-window-edit-diary-entry");
+  //creating a backdrop div to darken the background if the prompt is open and make the background unresponsive until he prompt is closed
+  const backdrop = document.createElement("div");
+  backdrop.classList.add("backdrop");
+
+  const promptHeadline = document.createElement("p");
+  promptHeadline.classList.add("prompt-new-entry-headline");
+  promptHeadline.textContent = "Edit Diary Entry";
+
+  const closeWindowIcon = document.createElement("img");
+  closeWindowIcon.classList.add("close-prompt-window-icon");
+  closeWindowIcon.src = closeicon;
+  console.log(diaryEntryId);
+  const diaryIndex = diary.entries.findIndex(
+    (item) => item.id === diaryEntryId
+  );
+
+  const entryText = document.createElement("textarea");
+  entryText.value = diary.entries[diaryIndex].text;
+  entryText.id = "create-new-entry-textarea";
+  const entryTextLabel = document.createElement("label");
+  entryTextLabel.setAttribute("for", "create-new-entry-textarea");
+
+  const quoteIcon = document.createElement("img");
+  quoteIcon.classList.add("quote-icon-new-entry");
+  quoteIcon.src = quoteicon;
+
+  const editEntryButton = document.createElement("button");
+  editEntryButton.classList.add("edit-entry-button");
+  editEntryButton.textContent = "Edit Entry";
+
+  promptWindow.appendChild(promptHeadline);
+  promptWindow.appendChild(closeWindowIcon);
+  promptWindow.appendChild(quoteIcon);
+  promptWindow.appendChild(entryTextLabel);
+  promptWindow.appendChild(entryText);
+  promptWindow.appendChild(editEntryButton);
+  mainWrapper.appendChild(promptWindow);
+  document.body.appendChild(backdrop);
+  deleteDiaryEntry(diary, diaryIndex, promptWindow);
+  closePrompt(promptWindow);
+  editDiaryButton(diary, diaryIndex, editEntryButton, entryText, promptWindow);
+}
+
+function editDiaryButton(
+  diary,
+  diaryIndex,
+  editEntryButton,
+  entryText,
+  promptWindow
+) {
+  editEntryButton.addEventListener("click", () => {
+    diary.entries[diaryIndex].text = entryText.value;
+    savedText(
+      promptWindow,
+      "saved-icon-edit-entry-prompt",
+      "saved-text-entry-edit"
+    );
+
+    printEntriesInDom(diary);
+  });
+}
+
+function printEntriesInDom(diary) {
+  const entriesWrapper = document.querySelector(".diary-entries-wrapper");
+  const rightSide = document.querySelector(".right-side");
+  entriesWrapper.innerHTML = "";
+  diary.entries.forEach((entry) => {
+    if (entry.year == "2024") {
+      const printMonthRightSide = document.createElement("p");
+      printMonthRightSide.classList.add("month-text");
+      printMonthRightSide.textContent = entry.month;
+      entriesWrapper.appendChild(printMonthRightSide);
+
+      const printSecondsRightSide = document.createElement("p");
+      printSecondsRightSide.classList.add("seconds-text");
+      printSecondsRightSide.textContent = entry.seconds;
+      entriesWrapper.appendChild(printSecondsRightSide);
+
+      const diaryText = document.createElement("p");
+      diaryText.classList.add("diary-entry-text");
+      diaryText.id = entry.id;
+      diaryText.textContent = entry.text;
+
+      entriesWrapper.appendChild(diaryText);
+      rightSide.appendChild(entriesWrapper);
+    }
+  });
+}
+
+function deleteDiaryEntry(diary, diaryIndex, promptWindow) {
+  const deleteDiaryEntryIcon = document.createElement("img");
+  deleteDiaryEntryIcon.classList.add("delete-diary-entry-icon");
+  deleteDiaryEntryIcon.src = deleteicon;
+
+  deleteDiaryEntryIcon.addEventListener("mouseenter", () => {
+    promptWindow.style.outline = "2px solid rgba(194, 78, 78, 0.815)";
+  });
+
+  deleteDiaryEntryIcon.addEventListener("mouseleave", () => {
+    promptWindow.style.outline = ""; // Removes the outline when the mouse leaves
+  });
+
+  /* deleteDiaryEntryIcon.addEventListener("mouseenter", () => {
+    diaryItemWrapper.style.outline = "1px solid rgba(120, 98, 173, 0.671)";
+  });
+
+  deleteDiaryEntryIcon.addEventListener("mouseleave", () => {
+    diaryItemWrapper.style.outline = ""; // Removes the outline when the mouse leaves
+  });
+ */
+
+  promptWindow.appendChild(deleteDiaryEntryIcon);
+  deleteDiaryEntryIcon.addEventListener("click", () => {});
 }

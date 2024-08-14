@@ -254,29 +254,33 @@ function saveEditedDiary(
     diary.name = promptInput.value;
     diary.description = textarea.value;
     deleteItemsFromLeftSide();
-
-    const savedIcon = document.createElement("img");
-    savedIcon.classList.add("saved-icon");
-    savedIcon.src = savedicon;
-    const savedText = document.createElement("p");
-    savedText.classList.add("saved-text");
-    savedText.textContent = "Saved";
-    prompt.appendChild(savedIcon);
-    prompt.appendChild(savedText);
-
-    setTimeout(() => {
-      savedIcon.classList.add("fade-out");
-      savedText.classList.add("fade-out");
-    }, 1000);
-
-    setTimeout(() => {
-      prompt.removeChild(savedIcon);
-      prompt.removeChild(savedText);
-    }, 2000);
-
+    savedText(prompt, "saved-icon-edit-diary-prompt", "saved-text-diary-edit");
     localStorage.setItem("diaries", JSON.stringify(diaries));
     createDiariesFromLocalStorage();
   });
+}
+
+export function savedText(prompt, iconClass, textClass) {
+  const savedIcon = document.createElement("img");
+  savedIcon.classList.add(iconClass);
+  savedIcon.src = savedicon;
+
+  const savedText = document.createElement("p");
+  savedText.classList.add(textClass);
+  savedText.textContent = "Saved";
+
+  prompt.appendChild(savedIcon);
+  prompt.appendChild(savedText);
+
+  setTimeout(() => {
+    savedIcon.classList.add("fade-out");
+    savedText.classList.add("fade-out");
+  }, 1000);
+
+  setTimeout(() => {
+    prompt.removeChild(savedIcon);
+    prompt.removeChild(savedText);
+  }, 2000);
 }
 
 export function createDiariesFromLocalStorage() {

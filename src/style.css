@@ -206,7 +206,7 @@ body {
   color: beige;
 }
 
-.saved-icon {
+.saved-icon-edit-diary-prompt {
   position: absolute;
   height: 36px;
   width: 36px;
@@ -215,7 +215,7 @@ body {
   left: 38%;
 }
 
-.saved-text {
+.saved-text-diary-edit {
   position: absolute;
   color: var(--green-color-button);
   animation: fadeIn 350ms ease-in;
@@ -517,7 +517,12 @@ body {
   margin-bottom: 40px;
 }
 
-.diary-entry-timestamp {
+.diary-entry-text:hover {
+  outline: 1px solid rgb(140, 255, 182);
+  cursor: pointer;
+}
+
+/* .diary-entry-timestamp {
   position: absolute;
   padding: 4px;
   font-size: 1.1rem;
@@ -526,12 +531,11 @@ body {
   border-radius: 10px;
   text-align: center;
   top: 50%;
-}
+} */
 
 /* prompt new entry */
 
 .prompt-window-new-entry {
-  position: relative;
   font-weight: bold;
   font-size: 1.3rem;
   height: 80%;
@@ -597,4 +601,74 @@ body {
   z-index: 1;
   left: 17%;
   top: 13%;
+}
+
+/* edit diary entry prompt window */
+
+.prompt-window-edit-diary-entry {
+  position: relative;
+  font-weight: bold;
+  font-size: 1.3rem;
+  height: 80%;
+  width: 80%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 10px;
+  gap: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: var(--svg-background-image4-animated);
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.664);
+  animation: fadeIn 350ms ease-in;
+  z-index: 2;
+}
+
+.delete-diary-entry-icon {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+}
+
+.delete-diary-entry-icon:hover {
+  cursor: pointer;
+}
+
+.saved-text-entry-edit {
+  position: absolute;
+  color: var(--green-color-button);
+  animation: fadeIn 350ms ease-in;
+  bottom: 9%;
+  left: 48%;
+}
+
+.saved-icon-edit-entry-prompt {
+  position: absolute;
+  height: 36px;
+  width: 36px;
+  animation: fadeIn 350ms ease-in;
+  bottom: 9%;
+  left: 43%;
+}
+
+.edit-entry-button {
+  font-family: var(--font-family-poppins);
+  font-size: 1rem;
+  font-weight: 600;
+  height: 50px;
+  width: 200px;
+  border-radius: 10px;
+  background-color: var(--green-color-button);
+  transition-duration: 150ms;
+}
+
+.edit-entry-button:hover {
+  background-color: var(--green-color-button);
+  background-color: rgb(140, 255, 182);
+  cursor: pointer;
 }
