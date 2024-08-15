@@ -13,6 +13,7 @@ import svgbackground10 from "../src/images/svgs/svg10.svg";
 import svgbackground11 from "../src/images/svgs/svg11.svg";
 
 import { format } from "date-fns";
+import deleteicon from "../src/images/delete-icon.png";
 
 export function closePrompt(prompt) {
   if (prompt) {
@@ -107,21 +108,31 @@ export function deleteDiary(
   });
 }
 
-/* export function yearCollapsible() {
-  const year = document.getElementById(
-    `year-text-${format(new Date(), "yyyy")}`
-  );
+export function deleteDiaryEntry(diary, diaryIndex, promptWindow) {
+  const deleteDiaryEntryIcon = document.createElement("img");
+  deleteDiaryEntryIcon.classList.add("delete-diary-entry-icon");
+  deleteDiaryEntryIcon.src = deleteicon;
 
-  year.addEventListener("click", function () {
-    this.classList.toggle("active");
-    const content = this.nextElementSibling;
-    if (content.style.height) {
-      content.style.maxHeight = null;
-    } else {
-      content.style.maxHeight = content.scrollHeight + "px";
-    }
+  deleteDiaryEntryIcon.addEventListener("mouseenter", () => {
+    promptWindow.style.outline = "2px solid rgba(194, 78, 78, 0.815)";
   });
-} */
+
+  deleteDiaryEntryIcon.addEventListener("mouseleave", () => {
+    promptWindow.style.outline = ""; // Removes the outline when the mouse leaves
+  });
+
+  promptWindow.appendChild(deleteDiaryEntryIcon);
+  deleteDiaryEntryIcon.addEventListener("click", () => {
+    const entryId = document.getElementById(diary.entries[diaryIndex].id);
+    entryId.remove();
+
+    diary.entries.splice(diaryIndex, 1);
+    console.log(diaries);
+    document.querySelector(".main-wrapper").removeChild(promptWindow);
+    document.body.removeChild(document.querySelector(".backdrop"));
+    localStorage.setItem("diaries", JSON.stringify(diaries));
+  });
+}
 
 export function yearCollapsible() {
   const year = document.getElementById(
