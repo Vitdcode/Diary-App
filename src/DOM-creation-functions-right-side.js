@@ -54,10 +54,10 @@ export function createDiaryDetailsRightSide(diaryID) {
         printMonthRightSide.textContent = entry.month;
         entryDetailsWrapper.appendChild(printMonthRightSide);
 
-        const printSecondsRightSide = document.createElement("p");
-        printSecondsRightSide.classList.add("seconds-text");
-        printSecondsRightSide.textContent = entry.seconds;
-        entryDetailsWrapper.appendChild(printSecondsRightSide);
+        const printEntryTimestampRightSide = document.createElement("p");
+        printEntryTimestampRightSide.classList.add("diary-entry-timestamp");
+        printEntryTimestampRightSide.textContent = entry.entryTimestamp;
+        entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
 
         const diaryText = document.createElement("p");
         diaryText.classList.add("diary-entry-text");
@@ -246,10 +246,10 @@ function printEntriesInDom(diary) {
       printMonthRightSide.textContent = entry.month;
       entryDetailsWrapper.appendChild(printMonthRightSide);
 
-      const printSecondsRightSide = document.createElement("p");
-      printSecondsRightSide.classList.add("seconds-text");
-      printSecondsRightSide.textContent = entry.seconds;
-      entryDetailsWrapper.appendChild(printSecondsRightSide);
+      const printEntryTimestampRightSide = document.createElement("p");
+      printEntryTimestampRightSide.classList.add("diary-entry-timestamp");
+      printEntryTimestampRightSide.textContent = entry.entryTimestamp;
+      entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
 
       const diaryText = document.createElement("p");
       diaryText.classList.add("diary-entry-text");
@@ -261,6 +261,9 @@ function printEntriesInDom(diary) {
       rightSide.appendChild(entriesWrapper);
     }
   });
-  entriesWrapper.style.maxHeight = entriesWrapper.scrollHeight + "px";
-  /*   yearCollapsible(); */
+  entriesWrapper.style.maxHeight = entriesWrapper.scrollHeight + "px"; // adding additional height to the collapsable menu so the new entry is seen in the DOM
+  const year = document.getElementById(
+    `year-text-${format(new Date(), "yyyy")}`
+  );
+  year.classList.toggle("active"); // adding classlist active to the clickable year text so the + symbol correctly changes to the - symbol
 }

@@ -504,7 +504,7 @@ body {
 
 .diary-entry-text {
   position: relative;
-  margin-top: 30px;
+  /*   margin-top: 30px; */
   margin-inline: 40px;
   /*   text-align: center; */
   color: rgba(245, 245, 245, 0.87);
@@ -522,16 +522,18 @@ body {
   cursor: pointer;
 }
 
-/* .diary-entry-timestamp {
-  position: absolute;
-  padding: 4px;
+.diary-entry-timestamp {
+  width: 15%;
+  /*   padding: 4px; */
+  padding-block: 5px;
   font-size: 1.1rem;
   color: rgb(140, 255, 182);
   background-color: rgba(6, 53, 65, 0.959);
   border-radius: 10px;
   text-align: center;
-  top: 50%;
-} */
+  margin-inline: auto;
+  margin-top: 40px;
+}
 
 /* prompt new entry */
 
