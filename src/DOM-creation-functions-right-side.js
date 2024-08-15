@@ -261,4 +261,6 @@ function printEntriesInDom(diary) {
       rightSide.appendChild(entriesWrapper);
     }
   });
+  entriesWrapper.style.maxHeight = entriesWrapper.scrollHeight + "px";
+  /*   yearCollapsible(); */
 }
