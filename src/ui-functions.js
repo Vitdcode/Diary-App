@@ -135,20 +135,29 @@ export function deleteDiaryEntry(diary, diaryIndex, promptWindow) {
 }
 
 export function yearCollapsible() {
-  const year = document.getElementById(
-    `year-text-${format(new Date(), "yyyy")}`
-  );
+  document.querySelector(".right-side").addEventListener("click", (event) => {
+    const clickedElement = event.target;
+    console.log(clickedElement);
+    if (clickedElement.classList.contains("year-text")) {
+      const yearId = clickedElement.id;
 
-  year.addEventListener("click", function () {
-    this.classList.toggle("active");
-    const content = this.nextElementSibling;
+      clickedElement.classList.toggle("active");
+      const content = clickedElement.nextElementSibling;
 
-    if (content.style.maxHeight) {
-      // If the content is already expanded, collapse it
-      content.style.maxHeight = null;
-    } else {
-      // Expand the content to its full height
-      content.style.maxHeight = content.scrollHeight + "px";
+      if (content.style.maxHeight) {
+        // If the content is already expanded, collapse it
+        content.style.maxHeight = null;
+      } else {
+        // Expand the content to its full height
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
     }
   });
+}
+
+export function addingHeightToCollapsableMenu() {
+  const entriesWrapper = document.getElementById(format(new Date(), "dd"));
+  entriesWrapper.style.maxHeight = entriesWrapper.scrollHeight + "px"; // adding additional height to the collapsable menu so the new entry is seen in the DOM
+  const year = document.getElementById(`year-text-${format(new Date(), "dd")}`);
+  year.classList.toggle("active"); // adding classlist active to the clickable year text so the + symbol correctly changes to the - symbol
 }
