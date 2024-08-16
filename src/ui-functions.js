@@ -137,11 +137,36 @@ export function deleteDiaryEntry(diary, diaryIndex, promptWindow) {
 export function yearCollapsible() {
   document.querySelector(".right-side").addEventListener("click", (event) => {
     const clickedElement = event.target;
-    console.log(clickedElement);
     if (clickedElement.classList.contains("year-text")) {
       const yearId = clickedElement.id;
 
-      clickedElement.classList.toggle("active");
+      clickedElement.classList.toggle("active-year");
+      const month = clickedElement.nextElementSibling;
+      const diaryEntries = month.nextElementSibling;
+
+      if (
+        month.style.maxHeight ||
+        (diaryEntries.style.maxHeight && month.style.maxHeight)
+      ) {
+        // If the content is already expanded, collapse it
+        month.style.maxHeight = null;
+        diaryEntries.style.maxHeight = null;
+        month.classList.remove("active-month");
+      } else {
+        // Expand the content to its full height
+        month.style.maxHeight = month.scrollHeight + "px";
+      }
+    }
+  });
+}
+
+export function monthCollapsible() {
+  document.querySelector(".right-side").addEventListener("click", (event) => {
+    const clickedElement = event.target;
+    if (clickedElement.classList.contains("month-text")) {
+      const yearId = clickedElement.id;
+
+      clickedElement.classList.toggle("active-month");
       const content = clickedElement.nextElementSibling;
 
       if (content.style.maxHeight) {
@@ -156,8 +181,17 @@ export function yearCollapsible() {
 }
 
 export function addingHeightToCollapsableMenu() {
+  const year = document.getElementById(`year-text-${format(new Date(), "dd")}`);
+  console.log(year.id);
+  year.classList.toggle("active-year"); // adding classlist active to the clickable year text so the + symbol correctly changes to the - symbol
+  const month = document.getElementById(
+    `${format(new Date(), "dd")}-${format(new Date(), "MMMM")}`
+  );
+  console.log(month);
+  month.classList.toggle("active-month");
+
   const entriesWrapper = document.getElementById(format(new Date(), "dd"));
   entriesWrapper.style.maxHeight = entriesWrapper.scrollHeight + "px"; // adding additional height to the collapsable menu so the new entry is seen in the DOM
-  const year = document.getElementById(`year-text-${format(new Date(), "dd")}`);
-  year.classList.toggle("active"); // adding classlist active to the clickable year text so the + symbol correctly changes to the - symbol
+  month.style.maxHeight = month.scrollHeight + "px";
+  year.style.maxHeight = year.scrollHeight + "px";
 }

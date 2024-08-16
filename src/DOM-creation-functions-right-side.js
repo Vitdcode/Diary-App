@@ -10,6 +10,7 @@ import {
   yearCollapsible,
   deleteDiaryEntry,
   addingHeightToCollapsableMenu,
+  monthCollapsible,
 } from "./ui-functions";
 import { savedText } from "./DOM-creation-functions-left-side";
 
@@ -38,9 +39,12 @@ export function createDiaryDetailsRightSide(diaryID) {
       createNewEntryButton(rightSide, diary);
 
       let uniqueDays = new Set();
+      let uniqueMonths = new Set();
       diary.entries.forEach((entry) => {
         uniqueDays.add(entry.day);
+        uniqueMonths.add(entry.month);
       });
+      console.log(uniqueMonths);
 
       uniqueDays.forEach((day) => {
         const printYearRightSide = document.createElement("p");
@@ -54,36 +58,41 @@ export function createDiaryDetailsRightSide(diaryID) {
         entriesWrapper.id = day;
         rightSide.appendChild(entriesWrapper);
 
-        diary.entries.forEach((entry) => {
-          if (entry.day === entriesWrapper.id) {
-            const entryDetailsWrapper = document.createElement("div");
-            entryDetailsWrapper.classList.add("entry-details-wrapper");
-            entryDetailsWrapper.id = entry.id;
+        uniqueMonths.forEach((month) => {
+          const printMonthRightSide = document.createElement("p");
+          printMonthRightSide.classList.add("month-text");
+          printMonthRightSide.id = `${day}-${format(new Date(), "MMMM")}`;
+          printMonthRightSide.textContent = month;
+          rightSide.appendChild(printMonthRightSide);
 
-            const printMonthRightSide = document.createElement("p");
-            printMonthRightSide.classList.add("month-text");
-            printMonthRightSide.textContent = entry.month;
-            entryDetailsWrapper.appendChild(printMonthRightSide);
+          diary.entries.forEach((entry) => {
+            if (entry.day === entriesWrapper.id) {
+              const entryDetailsWrapper = document.createElement("div");
+              entryDetailsWrapper.classList.add("entry-details-wrapper");
+              entryDetailsWrapper.id = entry.id;
 
-            const printEntryTimestampRightSide = document.createElement("p");
-            printEntryTimestampRightSide.classList.add("diary-entry-timestamp");
-            printEntryTimestampRightSide.textContent = entry.entryTimestamp;
-            entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
+              const printEntryTimestampRightSide = document.createElement("p");
+              printEntryTimestampRightSide.classList.add(
+                "diary-entry-timestamp"
+              );
+              printEntryTimestampRightSide.textContent = entry.entryTimestamp;
+              entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
 
-            const diaryText = document.createElement("p");
-            diaryText.classList.add("diary-entry-text");
-            diaryText.textContent = entry.text;
-            diaryText.id = entry.id;
-            entryDetailsWrapper.appendChild(diaryText);
+              const diaryText = document.createElement("p");
+              diaryText.classList.add("diary-entry-text");
+              diaryText.textContent = entry.text;
+              diaryText.id = entry.id;
+              entryDetailsWrapper.appendChild(diaryText);
 
-            entriesWrapper.appendChild(entryDetailsWrapper);
-          }
+              entriesWrapper.appendChild(entryDetailsWrapper);
+            }
+          });
         });
-
         rightSide.appendChild(entriesWrapper);
         editDiaryEntriesEventListener(entriesWrapper, diary);
       });
       yearCollapsible();
+      monthCollapsible();
       console.log(diaries);
     }
   });
@@ -97,11 +106,11 @@ function createNewEntryButton(rightSide, diary) {
   rightSide.appendChild(createNewEntryButton);
 
   createNewEntryButton.addEventListener("click", () => {
-    createEntryPrompt(diary, rightSide);
+    createEntryPrompt(diary);
   });
 }
 
-function createEntryPrompt(diary, rightSide) {
+function createEntryPrompt(diary) {
   const mainWrapper = document.querySelector(".main-wrapper");
   const promptWindow = document.createElement("div");
   promptWindow.classList.add("prompt-window-new-entry");
@@ -160,7 +169,6 @@ function createEntry(diary, entryText, createEntryButton) {
 
     printEntriesInDom(diary);
     localStorage.setItem("diaries", JSON.stringify(diaries));
-    addingHeightToCollapsableMenu();
   });
 
   console.log(diaries);
@@ -241,41 +249,130 @@ function editDiaryButton(
       "saved-text-entry-edit"
     );
     localStorage.setItem("diaries", JSON.stringify(diaries));
+
     printEntriesInDom(diary);
   });
 }
 
 function printEntriesInDom(diary) {
-  console.log(entriesWrapper);
-  const entriesWrapper = document.getElementById(format(new Date(), "dd"));
-  console.log(entriesWrapper);
+  const entriesWrappers = document.querySelectorAll(".diary-entries-wrapper");
+
+  entriesWrappers.forEach((wrapper) => {
+    wrapper.remove();
+  });
+
+  const years = document.querySelectorAll(".year-text");
+
+  years.forEach((year) => {
+    year.remove();
+  });
+
+  const months = document.querySelectorAll(".month-text");
+
+  months.forEach((month) => {
+    month.remove();
+  });
+
   const rightSide = document.querySelector(".right-side");
-  entriesWrapper.innerHTML = "";
-
+  let uniqueDays = new Set();
+  let uniqueMonths = new Set();
   diary.entries.forEach((entry) => {
-    if (entry.day === entriesWrapper.id) {
-      const entryDetailsWrapper = document.createElement("div");
-      entryDetailsWrapper.classList.add("entry-details-wrapper");
-      entryDetailsWrapper.id = entry.id;
+    uniqueDays.add(entry.day);
+    uniqueMonths.add(entry.month);
+  });
+  console.log(uniqueMonths);
 
+  uniqueDays.forEach((day) => {
+    const printYearRightSide = document.createElement("p");
+    printYearRightSide.id = `year-text-${day}`;
+    printYearRightSide.classList.add("year-text");
+    printYearRightSide.textContent = day;
+    rightSide.appendChild(printYearRightSide);
+
+    const entriesWrapper = document.createElement("div");
+    entriesWrapper.classList.add("diary-entries-wrapper");
+    entriesWrapper.id = day;
+    rightSide.appendChild(entriesWrapper);
+
+    uniqueMonths.forEach((month) => {
       const printMonthRightSide = document.createElement("p");
       printMonthRightSide.classList.add("month-text");
-      printMonthRightSide.textContent = entry.month;
-      entryDetailsWrapper.appendChild(printMonthRightSide);
+      printMonthRightSide.id = `${day}-${format(new Date(), "MMMM")}`;
+      printMonthRightSide.textContent = month;
+      rightSide.appendChild(printMonthRightSide);
 
-      const printEntryTimestampRightSide = document.createElement("p");
-      printEntryTimestampRightSide.classList.add("diary-entry-timestamp");
-      printEntryTimestampRightSide.textContent = entry.entryTimestamp;
-      entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
+      diary.entries.forEach((entry) => {
+        if (entry.day === entriesWrapper.id) {
+          const entryDetailsWrapper = document.createElement("div");
+          entryDetailsWrapper.classList.add("entry-details-wrapper");
+          entryDetailsWrapper.id = entry.id;
 
-      const diaryText = document.createElement("p");
-      diaryText.classList.add("diary-entry-text");
-      diaryText.id = entry.id;
-      diaryText.textContent = entry.text;
-      entryDetailsWrapper.appendChild(diaryText);
+          const printEntryTimestampRightSide = document.createElement("p");
+          printEntryTimestampRightSide.classList.add("diary-entry-timestamp");
+          printEntryTimestampRightSide.textContent = entry.entryTimestamp;
+          entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
 
-      entriesWrapper.appendChild(entryDetailsWrapper);
-      rightSide.appendChild(entriesWrapper);
-    }
+          const diaryText = document.createElement("p");
+          diaryText.classList.add("diary-entry-text");
+          diaryText.textContent = entry.text;
+          diaryText.id = entry.id;
+          entryDetailsWrapper.appendChild(diaryText);
+
+          entriesWrapper.appendChild(entryDetailsWrapper);
+        }
+      });
+    });
+    rightSide.appendChild(entriesWrapper);
+    editDiaryEntriesEventListener(entriesWrapper, diary);
   });
+  addingHeightToCollapsableMenu();
+  console.log(diaries);
 }
+
+/* function printEntriesInDom(diary) {
+  const rightSide = document.querySelector(".right-side");
+  if (!document.getElementById(format(new Date(), "dd"))) {
+    const entriesWrapper = document.createElement("div");
+    entriesWrapper.classList.add("diary-entries-wrapper");
+    entriesWrapper.id = format(new Date(), "dd");
+
+    const printYearRightSide = document.createElement("p");
+    printYearRightSide.id = `year-text-${format(new Date(), "dd")}`;
+    printYearRightSide.classList.add("year-text");
+    printYearRightSide.textContent = format(new Date(), "dd");
+    rightSide.appendChild(printYearRightSide);
+
+    const printMonthRightSide = document.createElement("p");
+    printMonthRightSide.classList.add("month-text");
+    printMonthRightSide.textContent = entry.month;
+    printMonthRightSide.id = `${format(new Date(), "dd")}-${format(
+      new Date(),
+      "MMMM"
+    )}`;
+    entriesWrapper.appendChild(printMonthRightSide);
+
+    entriesWrapper.innerHTML = "";
+
+    diary.entries.forEach((entry) => {
+      if (entry.day === entriesWrapper.id) {
+        const entryDetailsWrapper = document.createElement("div");
+        entryDetailsWrapper.classList.add("entry-details-wrapper");
+        entryDetailsWrapper.id = entry.id;
+
+        const printEntryTimestampRightSide = document.createElement("p");
+        printEntryTimestampRightSide.classList.add("diary-entry-timestamp");
+        printEntryTimestampRightSide.textContent = entry.entryTimestamp;
+        entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
+
+        const diaryText = document.createElement("p");
+        diaryText.classList.add("diary-entry-text");
+        diaryText.id = entry.id;
+        diaryText.textContent = entry.text;
+        entryDetailsWrapper.appendChild(diaryText);
+
+        entriesWrapper.appendChild(entryDetailsWrapper);
+        rightSide.appendChild(entriesWrapper);
+      }
+    });
+  }
+} */
