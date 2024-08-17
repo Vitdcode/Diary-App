@@ -8,12 +8,7 @@ import savedicon from "../src/images/saved-icon.png";
 import { v4 as uuidv4 } from "uuid";
 import { format } from "date-fns";
 //functions
-import {
-  closePrompt,
-  deleteItemsFromLeftSide,
-  deleteAndMenuIconHover,
-  deleteDiary,
-} from "./ui-functions.js";
+import { closePrompt, deleteItemsFromLeftSide, deleteAndMenuIconHover, deleteDiary } from "./ui-functions.js";
 import { pushToDiariesArray, diaries } from "./diary-list-handling.js";
 import { createDiaryDetailsRightSide } from "./DOM-creation-functions-right-side.js";
 
@@ -91,9 +86,7 @@ function createPromptWindowElements() {
 
 function createDiaryItem(prompt, promptInput, diaryDescription) {
   if (prompt) {
-    const createDiaryButton = document.querySelector(
-      ".create-diary-button-prompt"
-    );
+    const createDiaryButton = document.querySelector(".create-diary-button-prompt");
     const leftSide = document.querySelector(".left-side");
     createDiaryButton.addEventListener("click", () => {
       if (promptInput.value != "") {
@@ -110,11 +103,7 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
         deleteDiaryIcon.classList.add("delete-diary-icon");
         deleteDiaryIcon.id = diaryItemWrapper.id;
         deleteDiaryIcon.src = deleteicon;
-        deleteAndMenuIconHover(
-          diaryItemWrapper,
-          deleteDiaryIcon,
-          diaryMenuIcon
-        );
+        deleteAndMenuIconHover(diaryItemWrapper, deleteDiaryIcon, diaryMenuIcon);
         deleteDiaryPrompt(diaryItemWrapper, deleteDiaryIcon);
 
         const diaryItemName = document.createElement("p");
@@ -135,13 +124,7 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
         diaryItemWrapper.appendChild(diaryDescriptionItem);
 
         leftSide.appendChild(diaryItemWrapper);
-        pushToDiariesArray(
-          diaryItemName.textContent,
-          diaryItemWrapper.id,
-          diaryDescriptionItem.textContent,
-          diaryTimestamp(diaryItemWrapper),
-          []
-        );
+        pushToDiariesArray(diaryItemName.textContent, diaryItemWrapper.id, diaryDescriptionItem.textContent, diaryTimestamp(diaryItemWrapper), []);
         console.log(diaries);
 
         editDiary(diaryItemWrapper.id, diaryMenuIcon);
@@ -159,10 +142,7 @@ function diaryTimestamp(diaryItemWrapper) {
   const timestamp = document.createElement("p");
   timestamp.classList.add("diary-timestamp");
   diaryItemWrapper.appendChild(timestamp);
-  return (timestamp.textContent = `Created on: ${format(
-    new Date(),
-    "dd-MM-yyyy"
-  )}`);
+  return (timestamp.textContent = `Created on: ${format(new Date(), "dd-MM-yyyy")}`);
 }
 
 function diaryTimestampFromLocalStorage(diaryItemWrapper, diary) {
@@ -180,9 +160,7 @@ function editDiary(diaryID, diaryMenuIcon) {
     backdrop.classList.add("backdrop");
 
     const inputAndTextWrapper = document.createElement("div");
-    inputAndTextWrapper.classList.add(
-      "prompt-input-and-input-headline-wrapper"
-    );
+    inputAndTextWrapper.classList.add("prompt-input-and-input-headline-wrapper");
 
     const editHeadlline = document.createElement("p");
     editHeadlline.classList.add("diary-edit-prompt-headline");
@@ -233,23 +211,11 @@ function editDiary(diaryID, diaryMenuIcon) {
     mainWrapper.appendChild(editMenu);
 
     closePrompt(editMenu);
-    saveEditedDiary(
-      editDiarySaveButton,
-      diary,
-      textarea,
-      promptInput,
-      editMenu
-    );
+    saveEditedDiary(editDiarySaveButton, diary, textarea, promptInput, editMenu);
   });
 }
 
-function saveEditedDiary(
-  editDiarySaveButton,
-  diary,
-  textarea,
-  promptInput,
-  prompt
-) {
+function saveEditedDiary(editDiarySaveButton, diary, textarea, promptInput, prompt) {
   editDiarySaveButton.addEventListener("click", () => {
     diary.name = promptInput.value;
     diary.description = textarea.value;
@@ -368,13 +334,6 @@ function deleteDiaryPrompt(diaryItemWrapper, deleteIcon) {
     deletePromptWindow.appendChild(yesButton);
     deletePromptWindow.appendChild(noButton);
     mainWrapper.appendChild(deletePromptWindow);
-    deleteDiary(
-      yesButton,
-      noButton,
-      diaryItemWrapper,
-      backdrop,
-      deletePromptWindow,
-      mainWrapper
-    );
+    deleteDiary(yesButton, noButton, diaryItemWrapper, backdrop, deletePromptWindow, mainWrapper);
   });
 }

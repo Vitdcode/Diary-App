@@ -1,7 +1,7 @@
 import closeicon from "../src/images/close-icon.png";
 import quoteicon from "../src/images/quote-icon.png";
 import savedicon from "../src/images/saved-icon.png";
-import profileimg from "../src/images/profile-pic4.jpeg";
+import profileimg from "../src/images/profile-pic.jpeg";
 
 import { diaries, pushToDiariesArray } from "./diary-list-handling";
 import { format } from "date-fns";
@@ -14,7 +14,6 @@ export function createDiaryDetailsRightSide(diaryID) {
 
   const diaryId = document.getElementById(diaryID);
   diaryId.addEventListener("click", () => {
-    console.log(diaries);
     rightSide.innerHTML = "";
     const diary = diaries.find((item) => item.id === diaryID);
     if (diary) {
@@ -56,15 +55,16 @@ export function createDiaryDetailsRightSide(diaryID) {
           printMonthRightSide.textContent = month;
           rightSide.appendChild(printMonthRightSide);
 
-          diary.entries.forEach((entry) => {
-            if (entry.year === entriesWrapper.id) {
+          for (let i = diary.entries.length - 1; i >= 0; i--) {
+            //looping backwards through the object to display the newest entries on top
+            if (diary.entries[i].year === entriesWrapper.id) {
               const entryDetailsWrapper = document.createElement("div");
               entryDetailsWrapper.classList.add("entry-details-wrapper");
-              entryDetailsWrapper.id = entry.id;
+              entryDetailsWrapper.id = diary.entries[i].id;
 
               const printEntryTimestampRightSide = document.createElement("p");
               printEntryTimestampRightSide.classList.add("diary-entry-timestamp");
-              printEntryTimestampRightSide.textContent = entry.entryTimestamp;
+              printEntryTimestampRightSide.textContent = diary.entries[i].entryTimestamp;
               entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
 
               const diaryEntryTextAndProfilePicWrapper = document.createElement("div");
@@ -74,14 +74,14 @@ export function createDiaryDetailsRightSide(diaryID) {
 
               const diaryText = document.createElement("p");
               diaryText.classList.add("diary-entry-text");
-              diaryText.textContent = entry.text;
-              diaryText.id = entry.id;
+              diaryText.textContent = diary.entries[i].text;
+              diaryText.id = diary.entries[i].id;
               diaryEntryTextAndProfilePicWrapper.appendChild(diaryText);
 
               entryDetailsWrapper.appendChild(diaryEntryTextAndProfilePicWrapper);
               entriesWrapper.appendChild(entryDetailsWrapper);
             }
-          });
+          }
         });
         rightSide.appendChild(entriesWrapper);
         editDiaryEntriesEventListener(entriesWrapper, diary);
@@ -177,7 +177,6 @@ function editDiaryEntriesEventListener(entriesWrapper, diary) {
   // using event delegation to select the clicked id and passing it to the edit prompt
   entriesWrapper.addEventListener("click", (event) => {
     const clickedElement = event.target;
-    console.log(clickedElement);
     if (clickedElement.classList.contains("diary-entry-text")) {
       const diaryEntryId = clickedElement.id;
       createPromptEditDiary(diary, diaryEntryId);
@@ -200,7 +199,6 @@ function createPromptEditDiary(diary, diaryEntryId) {
   const closeWindowIcon = document.createElement("img");
   closeWindowIcon.classList.add("close-prompt-window-icon");
   closeWindowIcon.src = closeicon;
-  console.log(diaryEntryId);
   const diaryIndex = diary.entries.findIndex((item) => item.id === diaryEntryId);
 
   const entryText = document.createElement("textarea");
@@ -287,15 +285,15 @@ function printEntriesInDom(diary) {
       printMonthRightSide.textContent = month;
       rightSide.appendChild(printMonthRightSide);
 
-      diary.entries.forEach((entry) => {
-        if (entry.year === entriesWrapper.id) {
+      for (let i = diary.entries.length - 1; i >= 0; i--) {
+        if (diary.entries[i].year === entriesWrapper.id) {
           const entryDetailsWrapper = document.createElement("div");
           entryDetailsWrapper.classList.add("entry-details-wrapper");
-          entryDetailsWrapper.id = entry.id;
+          entryDetailsWrapper.id = diary.entries[i].id;
 
           const printEntryTimestampRightSide = document.createElement("p");
           printEntryTimestampRightSide.classList.add("diary-entry-timestamp");
-          printEntryTimestampRightSide.textContent = entry.entryTimestamp;
+          printEntryTimestampRightSide.textContent = diary.entries[i].entryTimestamp;
           entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
 
           const diaryEntryTextAndProfilePicWrapper = document.createElement("div");
@@ -305,14 +303,14 @@ function printEntriesInDom(diary) {
 
           const diaryText = document.createElement("p");
           diaryText.classList.add("diary-entry-text");
-          diaryText.textContent = entry.text;
-          diaryText.id = entry.id;
+          diaryText.textContent = diary.entries[i].text;
+          diaryText.id = diary.entries[i].id;
           diaryEntryTextAndProfilePicWrapper.appendChild(diaryText);
 
           entryDetailsWrapper.appendChild(diaryEntryTextAndProfilePicWrapper);
           entriesWrapper.appendChild(entryDetailsWrapper);
         }
-      });
+      }
     });
     rightSide.appendChild(entriesWrapper);
     editDiaryEntriesEventListener(entriesWrapper, diary);
