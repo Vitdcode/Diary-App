@@ -25,7 +25,9 @@ export function createDiaryDetailsRightSide(diaryID) {
       const rightSideHeadline = document.createElement("h1");
       rightSideHeadline.classList.add("right-side-headline");
       rightSideHeadline.textContent = diary.name;
-      const diariesItemWrapper = document.querySelectorAll(".diary-item-wrapper");
+      const diariesItemWrapper = document.querySelectorAll(
+        ".diary-item-wrapper",
+      );
       diariesItemWrapper.forEach((diary) => {
         diary.style.boxShadow = "none";
       });
@@ -68,16 +70,22 @@ export function createDiaryDetailsRightSide(diaryID) {
               entryDetailsWrapper.id = diary.entries[i].id;
 
               const printEntryTimestampRightSide = document.createElement("p");
-              printEntryTimestampRightSide.classList.add("diary-entry-timestamp");
-              printEntryTimestampRightSide.textContent = diary.entries[i].entryTimestamp;
+              printEntryTimestampRightSide.classList.add(
+                "diary-entry-timestamp",
+              );
+              printEntryTimestampRightSide.textContent =
+                diary.entries[i].entryTimestamp;
               entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
 
-              const diaryEntryTextAndProfilePicWrapper = document.createElement("div");
+              const diaryEntryTextAndProfilePicWrapper =
+                document.createElement("div");
               diaryEntryTextAndProfilePicWrapper.classList.add(
-                "diary-entry-text-and-profile-pic-wrapper"
+                "diary-entry-text-and-profile-pic-wrapper",
               );
 
-              diaryEntryTextAndProfilePicWrapper.appendChild(createProfilePic());
+              diaryEntryTextAndProfilePicWrapper.appendChild(
+                createProfilePic(),
+              );
 
               const diaryText = document.createElement("p");
               diaryText.classList.add("diary-entry-text");
@@ -85,7 +93,9 @@ export function createDiaryDetailsRightSide(diaryID) {
               diaryText.id = diary.entries[i].id;
               diaryEntryTextAndProfilePicWrapper.appendChild(diaryText);
 
-              entryDetailsWrapper.appendChild(diaryEntryTextAndProfilePicWrapper);
+              entryDetailsWrapper.appendChild(
+                diaryEntryTextAndProfilePicWrapper,
+              );
               entriesWrapper.appendChild(entryDetailsWrapper);
             }
           }
@@ -206,7 +216,9 @@ function createPromptEditDiary(diary, diaryEntryId) {
   const closeWindowIcon = document.createElement("img");
   closeWindowIcon.classList.add("close-prompt-window-icon");
   closeWindowIcon.src = closeicon;
-  const diaryIndex = diary.entries.findIndex((item) => item.id === diaryEntryId);
+  const diaryIndex = diary.entries.findIndex(
+    (item) => item.id === diaryEntryId,
+  );
 
   const entryText = document.createElement("textarea");
   entryText.value = diary.entries[diaryIndex].text;
@@ -235,10 +247,20 @@ function createPromptEditDiary(diary, diaryEntryId) {
   editDiaryButton(diary, diaryIndex, editEntryButton, entryText, promptWindow);
 }
 
-function editDiaryButton(diary, diaryIndex, editEntryButton, entryText, promptWindow) {
+function editDiaryButton(
+  diary,
+  diaryIndex,
+  editEntryButton,
+  entryText,
+  promptWindow,
+) {
   editEntryButton.addEventListener("click", () => {
     diary.entries[diaryIndex].text = entryText.value;
-    savedText(promptWindow, "saved-icon-edit-entry-prompt", "saved-text-entry-edit");
+    savedText(
+      promptWindow,
+      "saved-icon-edit-entry-prompt",
+      "saved-text-entry-edit",
+    );
     localStorage.setItem("diaries", JSON.stringify(diaries));
 
     printEntriesInDom(diary);
@@ -297,12 +319,14 @@ function printEntriesInDom(diary) {
 
           const printEntryTimestampRightSide = document.createElement("p");
           printEntryTimestampRightSide.classList.add("diary-entry-timestamp");
-          printEntryTimestampRightSide.textContent = diary.entries[i].entryTimestamp;
+          printEntryTimestampRightSide.textContent =
+            diary.entries[i].entryTimestamp;
           entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
 
-          const diaryEntryTextAndProfilePicWrapper = document.createElement("div");
+          const diaryEntryTextAndProfilePicWrapper =
+            document.createElement("div");
           diaryEntryTextAndProfilePicWrapper.classList.add(
-            "diary-entry-text-and-profile-pic-wrapper"
+            "diary-entry-text-and-profile-pic-wrapper",
           );
 
           diaryEntryTextAndProfilePicWrapper.appendChild(createProfilePic());
