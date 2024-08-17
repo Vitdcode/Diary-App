@@ -9,7 +9,6 @@ import { randomizeSvgWallpaper } from "./ui-functions.js";
 createDiaryButtonInDom();
 randomizeSvgWallpaper(document.body);
 document.addEventListener("DOMContentLoaded", () => {
-  console.log(diaries);
   const localStorageDiaries = localStorage.getItem("diaries");
   if (localStorageDiaries) {
     const parsedDiaries = JSON.parse(localStorageDiaries);
@@ -23,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     });
   }
-  console.log(localStorage);
+
   createDiariesFromLocalStorage();
 });
 document.querySelector("#clear-local-storage").addEventListener("click", () => {

@@ -181,16 +181,18 @@ export function monthCollapsible() {
 }
 
 export function addingHeightToCollapsableMenu() {
-  const year = document.getElementById(`year-text-${format(new Date(), "dd")}`);
+  const year = document.getElementById(
+    `year-text-${format(new Date(), "yyyy")}`
+  );
   console.log(year.id);
   year.classList.toggle("active-year"); // adding classlist active to the clickable year text so the + symbol correctly changes to the - symbol
   const month = document.getElementById(
-    `${format(new Date(), "dd")}-${format(new Date(), "MMMM")}`
+    `${format(new Date(), "yyyy")}-${format(new Date(), "MMMM")}`
   );
   console.log(month);
   month.classList.toggle("active-month");
 
-  const entriesWrapper = document.getElementById(format(new Date(), "dd"));
+  const entriesWrapper = document.getElementById(format(new Date(), "yyyy"));
   entriesWrapper.style.maxHeight = entriesWrapper.scrollHeight + "px"; // adding additional height to the collapsable menu so the new entry is seen in the DOM
   month.style.maxHeight = month.scrollHeight + "px";
   year.style.maxHeight = year.scrollHeight + "px";

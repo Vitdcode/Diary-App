@@ -15,7 +15,6 @@ import {
 import { savedText } from "./DOM-creation-functions-left-side";
 
 export function createDiaryDetailsRightSide(diaryID) {
-  console.log(diaryID);
   const rightSide = document.querySelector(".right-side");
 
   const diaryId = document.getElementById(diaryID);
@@ -38,35 +37,33 @@ export function createDiaryDetailsRightSide(diaryID) {
 
       createNewEntryButton(rightSide, diary);
 
-      let uniqueDays = new Set();
+      let uniqueYears = new Set();
       let uniqueMonths = new Set();
       diary.entries.forEach((entry) => {
-        uniqueDays.add(entry.day);
+        uniqueYears.add(entry.year);
         uniqueMonths.add(entry.month);
       });
-      console.log(uniqueMonths);
-
-      uniqueDays.forEach((day) => {
+      uniqueYears.forEach((year) => {
         const printYearRightSide = document.createElement("p");
-        printYearRightSide.id = `year-text-${day}`;
+        printYearRightSide.id = `year-text-${year}`;
         printYearRightSide.classList.add("year-text");
-        printYearRightSide.textContent = day;
+        printYearRightSide.textContent = year;
         rightSide.appendChild(printYearRightSide);
 
         const entriesWrapper = document.createElement("div");
         entriesWrapper.classList.add("diary-entries-wrapper");
-        entriesWrapper.id = day;
+        entriesWrapper.id = year;
         rightSide.appendChild(entriesWrapper);
 
         uniqueMonths.forEach((month) => {
           const printMonthRightSide = document.createElement("p");
           printMonthRightSide.classList.add("month-text");
-          printMonthRightSide.id = `${day}-${format(new Date(), "MMMM")}`;
+          printMonthRightSide.id = `${year}-${format(new Date(), "MMMM")}`;
           printMonthRightSide.textContent = month;
           rightSide.appendChild(printMonthRightSide);
 
           diary.entries.forEach((entry) => {
-            if (entry.day === entriesWrapper.id) {
+            if (entry.year === entriesWrapper.id) {
               const entryDetailsWrapper = document.createElement("div");
               entryDetailsWrapper.classList.add("entry-details-wrapper");
               entryDetailsWrapper.id = entry.id;
@@ -93,7 +90,6 @@ export function createDiaryDetailsRightSide(diaryID) {
       });
       yearCollapsible();
       monthCollapsible();
-      console.log(diaries);
     }
   });
 }
@@ -170,8 +166,6 @@ function createEntry(diary, entryText, createEntryButton) {
     printEntriesInDom(diary);
     localStorage.setItem("diaries", JSON.stringify(diaries));
   });
-
-  console.log(diaries);
 }
 
 function editDiaryEntriesEventListener(entriesWrapper, diary) {
@@ -274,35 +268,35 @@ function printEntriesInDom(diary) {
   });
 
   const rightSide = document.querySelector(".right-side");
-  let uniqueDays = new Set();
+  let uniqueYears = new Set();
   let uniqueMonths = new Set();
   diary.entries.forEach((entry) => {
-    uniqueDays.add(entry.day);
+    uniqueYears.add(entry.year);
     uniqueMonths.add(entry.month);
   });
   console.log(uniqueMonths);
 
-  uniqueDays.forEach((day) => {
+  uniqueYears.forEach((year) => {
     const printYearRightSide = document.createElement("p");
-    printYearRightSide.id = `year-text-${day}`;
+    printYearRightSide.id = `year-text-${year}`;
     printYearRightSide.classList.add("year-text");
-    printYearRightSide.textContent = day;
+    printYearRightSide.textContent = year;
     rightSide.appendChild(printYearRightSide);
 
     const entriesWrapper = document.createElement("div");
     entriesWrapper.classList.add("diary-entries-wrapper");
-    entriesWrapper.id = day;
+    entriesWrapper.id = year;
     rightSide.appendChild(entriesWrapper);
 
     uniqueMonths.forEach((month) => {
       const printMonthRightSide = document.createElement("p");
       printMonthRightSide.classList.add("month-text");
-      printMonthRightSide.id = `${day}-${format(new Date(), "MMMM")}`;
+      printMonthRightSide.id = `${year}-${format(new Date(), "MMMM")}`;
       printMonthRightSide.textContent = month;
       rightSide.appendChild(printMonthRightSide);
 
       diary.entries.forEach((entry) => {
-        if (entry.day === entriesWrapper.id) {
+        if (entry.year === entriesWrapper.id) {
           const entryDetailsWrapper = document.createElement("div");
           entryDetailsWrapper.classList.add("entry-details-wrapper");
           entryDetailsWrapper.id = entry.id;
@@ -328,51 +322,3 @@ function printEntriesInDom(diary) {
   addingHeightToCollapsableMenu();
   console.log(diaries);
 }
-
-/* function printEntriesInDom(diary) {
-  const rightSide = document.querySelector(".right-side");
-  if (!document.getElementById(format(new Date(), "dd"))) {
-    const entriesWrapper = document.createElement("div");
-    entriesWrapper.classList.add("diary-entries-wrapper");
-    entriesWrapper.id = format(new Date(), "dd");
-
-    const printYearRightSide = document.createElement("p");
-    printYearRightSide.id = `year-text-${format(new Date(), "dd")}`;
-    printYearRightSide.classList.add("year-text");
-    printYearRightSide.textContent = format(new Date(), "dd");
-    rightSide.appendChild(printYearRightSide);
-
-    const printMonthRightSide = document.createElement("p");
-    printMonthRightSide.classList.add("month-text");
-    printMonthRightSide.textContent = entry.month;
-    printMonthRightSide.id = `${format(new Date(), "dd")}-${format(
-      new Date(),
-      "MMMM"
-    )}`;
-    entriesWrapper.appendChild(printMonthRightSide);
-
-    entriesWrapper.innerHTML = "";
-
-    diary.entries.forEach((entry) => {
-      if (entry.day === entriesWrapper.id) {
-        const entryDetailsWrapper = document.createElement("div");
-        entryDetailsWrapper.classList.add("entry-details-wrapper");
-        entryDetailsWrapper.id = entry.id;
-
-        const printEntryTimestampRightSide = document.createElement("p");
-        printEntryTimestampRightSide.classList.add("diary-entry-timestamp");
-        printEntryTimestampRightSide.textContent = entry.entryTimestamp;
-        entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
-
-        const diaryText = document.createElement("p");
-        diaryText.classList.add("diary-entry-text");
-        diaryText.id = entry.id;
-        diaryText.textContent = entry.text;
-        entryDetailsWrapper.appendChild(diaryText);
-
-        entriesWrapper.appendChild(entryDetailsWrapper);
-        rightSide.appendChild(entriesWrapper);
-      }
-    });
-  }
-} */

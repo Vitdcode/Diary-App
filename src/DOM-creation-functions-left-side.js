@@ -1,6 +1,6 @@
 //images
 import closeicon from "../src/images/close-icon.png";
-import deleteicon from "../src/images/delete-icon.png";
+import deleteicon from "../src/images/delete-icon2.png";
 import quoteicon from "../src/images/quote-icon.png";
 import menuicon from "../src/images/3dots.png";
 import savedicon from "../src/images/saved-icon.png";
@@ -161,7 +161,7 @@ function diaryTimestamp(diaryItemWrapper) {
   diaryItemWrapper.appendChild(timestamp);
   return (timestamp.textContent = `Created on: ${format(
     new Date(),
-    "dd-MM-yyyy-ss"
+    "dd-MM-yyyy"
   )}`);
 }
 
