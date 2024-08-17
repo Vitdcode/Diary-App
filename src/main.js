@@ -1,6 +1,9 @@
 import "./style.css";
-import { createDiaryButtonInDom, createDiariesFromLocalStorage } from "./DOM-creation-functions-left-side.js";
-import { pushToDiariesArray, diaries } from "./diary-list-handling.js";
+import {
+  createDiaryButtonInDom,
+  createDiariesFromLocalStorage,
+} from "./DOM-creation-functions-left-side.js";
+import { pushToDiariesArray } from "./diary-list-handling.js";
 import { randomizeSvgWallpaper } from "./ui-functions.js";
 
 createDiaryButtonInDom();

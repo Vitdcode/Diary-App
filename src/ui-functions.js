@@ -54,11 +54,7 @@ export function randomizeSvgWallpaper(element) {
   element.style.backgroundImage = svgsArray[randomizeNum];
 }
 
-export function deleteAndMenuIconHover(
-  diaryItemWrapper,
-  deleteIcon,
-  diaryMenuIcon
-) {
+export function deleteAndMenuIconHover(diaryItemWrapper, deleteIcon, diaryMenuIcon) {
   deleteIcon.addEventListener("mouseenter", () => {
     diaryItemWrapper.style.outline = "1px solid rgba(194, 78, 78, 0.815)";
   });
@@ -92,9 +88,7 @@ export function deleteDiary(
     leftSide.removeChild(diaryItemWrapperID);
     document.body.removeChild(backdrop);
     mainWrapper.removeChild(deletePromptWindow);
-    const diaryIndex = diaries.findIndex(
-      (item) => item.id === diaryItemWrapper.id
-    );
+    const diaryIndex = diaries.findIndex((item) => item.id === diaryItemWrapper.id);
     console.log(diaryIndex);
     if (diaries[diaryIndex]) {
       diaries.splice(diaryIndex, 1);
@@ -138,16 +132,11 @@ export function yearCollapsible() {
   document.querySelector(".right-side").addEventListener("click", (event) => {
     const clickedElement = event.target;
     if (clickedElement.classList.contains("year-text")) {
-      const yearId = clickedElement.id;
-
       clickedElement.classList.toggle("active-year");
       const month = clickedElement.nextElementSibling;
       const diaryEntries = month.nextElementSibling;
 
-      if (
-        month.style.maxHeight ||
-        (diaryEntries.style.maxHeight && month.style.maxHeight)
-      ) {
+      if (month.style.maxHeight || (diaryEntries.style.maxHeight && month.style.maxHeight)) {
         // If the content is already expanded, collapse it
         month.style.maxHeight = null;
         diaryEntries.style.maxHeight = null;
@@ -164,8 +153,6 @@ export function monthCollapsible() {
   document.querySelector(".right-side").addEventListener("click", (event) => {
     const clickedElement = event.target;
     if (clickedElement.classList.contains("month-text")) {
-      const yearId = clickedElement.id;
-
       clickedElement.classList.toggle("active-month");
       const content = clickedElement.nextElementSibling;
 
@@ -181,9 +168,7 @@ export function monthCollapsible() {
 }
 
 export function addingHeightToCollapsableMenu() {
-  const year = document.getElementById(
-    `year-text-${format(new Date(), "yyyy")}`
-  );
+  const year = document.getElementById(`year-text-${format(new Date(), "yyyy")}`);
   console.log(year.id);
   year.classList.toggle("active-year"); // adding classlist active to the clickable year text so the + symbol correctly changes to the - symbol
   const month = document.getElementById(

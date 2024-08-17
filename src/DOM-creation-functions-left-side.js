@@ -8,7 +8,12 @@ import savedicon from "../src/images/saved-icon.png";
 import { v4 as uuidv4 } from "uuid";
 import { format } from "date-fns";
 //functions
-import { closePrompt, deleteItemsFromLeftSide, deleteAndMenuIconHover, deleteDiary } from "./ui-functions.js";
+import {
+  closePrompt,
+  deleteItemsFromLeftSide,
+  deleteAndMenuIconHover,
+  deleteDiary,
+} from "./ui-functions.js";
 import { pushToDiariesArray, diaries } from "./diary-list-handling.js";
 import { createDiaryDetailsRightSide } from "./DOM-creation-functions-right-side.js";
 
@@ -124,7 +129,13 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
         diaryItemWrapper.appendChild(diaryDescriptionItem);
 
         leftSide.appendChild(diaryItemWrapper);
-        pushToDiariesArray(diaryItemName.textContent, diaryItemWrapper.id, diaryDescriptionItem.textContent, diaryTimestamp(diaryItemWrapper), []);
+        pushToDiariesArray(
+          diaryItemName.textContent,
+          diaryItemWrapper.id,
+          diaryDescriptionItem.textContent,
+          diaryTimestamp(diaryItemWrapper),
+          []
+        );
         console.log(diaries);
 
         editDiary(diaryItemWrapper.id, diaryMenuIcon);
