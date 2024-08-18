@@ -1,7 +1,5 @@
-import closeicon from '../src/images/close-icon.png';
-import quoteicon from '../src/images/quote-icon.png';
-import profileimg from '../src/images/profile-pic.jpeg';
-import speechbubble from '../src/images/speech-bubble.png';
+//icons
+import { closeIcon, quoteIcon, profilePic, speechBubble } from './icons-creation-functions.js';
 
 import { diaries } from './diary-list-handling';
 import { format } from 'date-fns';
@@ -81,12 +79,10 @@ export function createDiaryDetailsRightSide(diaryID) {
 
               const profilePicAndSpeechBubbleWrapper = document.createElement('div');
               profilePicAndSpeechBubbleWrapper.classList.add('profile-pic-speechbubble-wrapper');
-              profilePicAndSpeechBubbleWrapper.appendChild(createSpeechBubble());
-              profilePicAndSpeechBubbleWrapper.appendChild(createProfilePic());
+              profilePicAndSpeechBubbleWrapper.appendChild(speechBubble());
+              profilePicAndSpeechBubbleWrapper.appendChild(profilePic());
 
               diaryEntryTextAndProfilePicWrapper.appendChild(profilePicAndSpeechBubbleWrapper);
-              /*   diaryEntryTextAndProfilePicWrapper.appendChild(createProfilePic());
-              diaryEntryTextAndProfilePicWrapper.appendChild(createSpeechBubble()); */
 
               const diaryText = document.createElement('p');
               diaryText.classList.add('diary-entry-text');
@@ -109,28 +105,6 @@ export function createDiaryDetailsRightSide(diaryID) {
       console.log(diary);
     }
   });
-}
-
-function createQuoteIcon(idName) {
-  const quoteIcon = document.createElement('img');
-  quoteIcon.classList.add('quote-icon-new-entry');
-  quoteIcon.id = `${idName}`;
-  quoteIcon.src = quoteicon;
-  return quoteIcon;
-}
-
-function createSpeechBubble() {
-  const speechBubble = document.createElement('img');
-  speechBubble.classList.add('speech-bubble-diary-entries');
-  speechBubble.src = speechbubble;
-  return speechBubble;
-}
-
-function createProfilePic() {
-  const profilePic = document.createElement('img');
-  profilePic.classList.add('profile-pic');
-  profilePic.src = profileimg;
-  return profilePic;
 }
 
 function createNewEntryButton(rightSide, diary) {
@@ -221,10 +195,6 @@ function createEntryPrompt(diary) {
   promptHeadline.classList.add('prompt-new-entry-headline');
   promptHeadline.textContent = 'Create a new Diary Entry';
 
-  const closeWindowIcon = document.createElement('img');
-  closeWindowIcon.classList.add('close-prompt-window-icon');
-  closeWindowIcon.src = closeicon;
-
   const entryText = document.createElement('textarea');
   entryText.id = 'create-new-entry-textarea';
   const entryTextLabel = document.createElement('label');
@@ -235,8 +205,8 @@ function createEntryPrompt(diary) {
   createEntryButton.textContent = 'Create new Entry';
 
   promptWindow.appendChild(promptHeadline);
-  promptWindow.appendChild(closeWindowIcon);
-  promptWindow.appendChild(createQuoteIcon());
+  promptWindow.appendChild(closeIcon());
+  promptWindow.appendChild(quoteIcon('quote-icon-new-entry-prompt'));
   promptWindow.appendChild(entryTextLabel);
   promptWindow.appendChild(entryText);
   promptWindow.appendChild(createEntryButton);
@@ -290,9 +260,6 @@ function createPromptEditDiary(diary, diaryEntryId) {
   promptHeadline.classList.add('prompt-new-entry-headline');
   promptHeadline.textContent = 'Edit Diary Entry';
 
-  const closeWindowIcon = document.createElement('img');
-  closeWindowIcon.classList.add('close-prompt-window-icon');
-  closeWindowIcon.src = closeicon;
   const diaryIndex = diary.entries.findIndex((item) => item.id === diaryEntryId);
 
   const entryText = document.createElement('textarea');
@@ -306,8 +273,8 @@ function createPromptEditDiary(diary, diaryEntryId) {
   editEntryButton.textContent = 'Edit Entry';
 
   promptWindow.appendChild(promptHeadline);
-  promptWindow.appendChild(closeWindowIcon);
-  promptWindow.appendChild(createQuoteIcon('edit-entry-prompt-quote-icon'));
+  promptWindow.appendChild(closeIcon());
+  promptWindow.appendChild(quoteIcon('edit-entry-prompt-quote-icon'));
   promptWindow.appendChild(entryTextLabel);
   promptWindow.appendChild(entryText);
   promptWindow.appendChild(editEntryButton);
@@ -389,8 +356,8 @@ function printEntriesInDom(diary) {
 
           const profilePicAndSpeechBubbleWrapper = document.createElement('div');
           profilePicAndSpeechBubbleWrapper.classList.add('profile-pic-speechbubble-wrapper');
-          profilePicAndSpeechBubbleWrapper.appendChild(createSpeechBubble());
-          profilePicAndSpeechBubbleWrapper.appendChild(createProfilePic());
+          profilePicAndSpeechBubbleWrapper.appendChild(speechBubble());
+          profilePicAndSpeechBubbleWrapper.appendChild(profilePic());
 
           diaryEntryTextAndProfilePicWrapper.appendChild(profilePicAndSpeechBubbleWrapper);
 

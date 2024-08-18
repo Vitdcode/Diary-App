@@ -355,7 +355,7 @@ body {
   cursor: pointer;
 }
 
-.dot-menu-diary-item {
+.menu-diary-icon {
   position: absolute;
   height: 32px;
   width: 32px;
@@ -702,8 +702,11 @@ body {
   cursor: pointer;
 }
 
-.quote-icon-new-entry {
+#quote-icon-new-entry-prompt,
+#edit-entry-prompt-quote-icon {
   position: absolute;
+  height: 64px;
+  width: 64px;
   z-index: 1;
   left: 17%;
   top: 13%;
