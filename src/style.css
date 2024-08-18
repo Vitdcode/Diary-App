@@ -473,6 +473,11 @@ body {
   grid-row: 2/3;
 }
 
+.color-picker-entries:hover {
+  cursor: pointer;
+  outline: 2px solid rgb(255, 255, 255);
+}
+
 #color1-picker {
   background-color: rgba(37, 139, 153, 0.7);
 }
@@ -589,7 +594,6 @@ body {
   padding-inline: 80px;
   white-space: pre;
   text-wrap: wrap;
-
   text-shadow: 1px 1px 1px #000000;
 }
 
@@ -615,14 +619,11 @@ body {
 }
 
 .speech-bubble-diary-entries {
-  right: 10%;
-  top: 0.5%;
   width: 64px;
   height: 64px;
 }
 
 .profile-pic {
-  float: right;
   margin-top: 10px;
   margin-right: 10px;
   height: 95px;
