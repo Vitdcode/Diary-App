@@ -1,13 +1,13 @@
 :root {
   --boxshadowCardTemplate: 1px 1px 5px 0px rgb(128, 128, 128, 0.7);
   --green-color-button: rgb(122, 224, 160);
-  --font-family-poppins: "Poppins", sans-serif;
+  --font-family-poppins: 'Poppins', sans-serif;
   --svg-background-image1: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='300' height='560' preserveAspectRatio='none' viewBox='0 0 300 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1092%26quot%3b)' fill='none'%3e%3crect width='300' height='560' x='0' y='0' fill='%230e2a47'%3e%3c/rect%3e%3cuse xlink:href='%23SvgjsPath1093' x='30' y='30' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1094' x='30' y='90' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='30' y='150' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='30' y='210' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1094' x='30' y='270' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1094' x='30' y='330' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1095' x='30' y='390' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='30' y='450' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='30' y='510' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1095' x='30' y='570' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='90' y='30' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='90' y='90' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1094' x='90' y='150' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1094' x='90' y='210' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1095' x='90' y='270' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='90' y='330' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1096' x='90' y='390' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='90' y='450' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='90' y='510' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1095' x='90' y='570' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1096' x='150' y='30' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1095' x='150' y='90' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='150' y='150' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1097' x='150' y='210' stroke='%231c538e' stroke-width='3'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1096' x='150' y='270' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1094' x='150' y='330' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1095' x='150' y='390' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1095' x='150' y='450' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1097' x='150' y='510' stroke='%231c538e' stroke-width='3'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1095' x='150' y='570' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1098' x='210' y='30' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='210' y='90' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='210' y='150' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1096' x='210' y='210' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1098' x='210' y='270' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1096' x='210' y='330' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1096' x='210' y='390' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1097' x='210' y='450' stroke='%231c538e' stroke-width='3'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1094' x='210' y='510' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='210' y='570' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1096' x='270' y='30' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1098' x='270' y='90' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='270' y='150' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1097' x='270' y='210' stroke='%231c538e' stroke-width='3'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1095' x='270' y='270' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='270' y='330' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='270' y='390' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1095' x='270' y='450' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1093' x='270' y='510' stroke='%231c538e'%3e%3c/use%3e%3cuse xlink:href='%23SvgjsPath1094' x='270' y='570' stroke='%231c538e'%3e%3c/use%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1092'%3e%3crect width='300' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cpath d='M-1 0 a1 1 0 1 0 2 0 a1 1 0 1 0 -2 0z' id='SvgjsPath1098'%3e%3c/path%3e%3cpath d='M-3 0 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0z' id='SvgjsPath1096'%3e%3c/path%3e%3cpath d='M-5 0 a5 5 0 1 0 10 0 a5 5 0 1 0 -10 0z' id='SvgjsPath1095'%3e%3c/path%3e%3cpath d='M2 -2 L-2 2z' id='SvgjsPath1094'%3e%3c/path%3e%3cpath d='M6 -6 L-6 6z' id='SvgjsPath1093'%3e%3c/path%3e%3cpath d='M30 -30 L-30 30z' id='SvgjsPath1097'%3e%3c/path%3e%3c/defs%3e%3c/svg%3e");
   --svg-background-image2: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' %3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2380F'/%3E%3Cstop offset='1' stop-color='%23f40'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpattern id='b' width='24' height='24' patternUnits='userSpaceOnUse'%3E%3Ccircle fill='%23ffffff' cx='12' cy='12' r='12'/%3E%3C/pattern%3E%3Crect width='100%25' height='100%25' fill='url(%23a)'/%3E%3Crect width='100%25' height='100%25' fill='url(%23b)' fill-opacity='0.1'/%3E%3C/svg%3E");
   --svg-background-image3-animated-diary: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='300' height='560' preserveAspectRatio='none' viewBox='0 0 300 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1038%26quot%3b)' fill='none'%3e%3crect width='300' height='560' x='0' y='0' fill='%230e2a47'%3e%3c/rect%3e%3cpath d='M35.91 61.64 a94.3 94.3 0 1 0 188.6 0 a94.3 94.3 0 1 0 -188.6 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M114.7 511.93 a87.05 87.05 0 1 0 174.1 0 a87.05 87.05 0 1 0 -174.1 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M58.17 338.28 a60.15 60.15 0 1 0 120.3 0 a60.15 60.15 0 1 0 -120.3 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M-19.64 487.23 a99.9 99.9 0 1 0 199.8 0 a99.9 99.9 0 1 0 -199.8 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1038'%3e%3crect width='300' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
   --svg-background-image4-animated: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1000' height='560' preserveAspectRatio='none' viewBox='0 0 1000 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1684%26quot%3b)' fill='none'%3e%3crect width='1000' height='560' x='0' y='0' fill='url(%26quot%3b%23SvgjsLinearGradient1685%26quot%3b)'%3e%3c/rect%3e%3cpath d='M381.284%2c594.449C414.962%2c595.809%2c451.356%2c587.671%2c468.592%2c558.707C486.12%2c529.252%2c477.779%2c492.129%2c459.382%2c463.209C442.4%2c436.514%2c412.837%2c423.794%2c381.284%2c421.457C343.867%2c418.686%2c299.046%2c417.496%2c280.201%2c449.939C261.317%2c482.449%2c283.839%2c521.309%2c305.389%2c552.117C323.184%2c577.558%2c350.262%2c593.196%2c381.284%2c594.449' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M234.95 97.99 a147.61 147.61 0 1 0 295.22 0 a147.61 147.61 0 1 0 -295.22 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M356.91 519.48 a121.82 121.82 0 1 0 243.64 0 a121.82 121.82 0 1 0 -243.64 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M597.47 482.67 a167.13 167.13 0 1 0 334.26 0 a167.13 167.13 0 1 0 -334.26 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M544.45 237.64 a121.97 121.97 0 1 0 243.94 0 a121.97 121.97 0 1 0 -243.94 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1684'%3e%3crect width='1000' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='11%25' y1='-19.64%25' x2='89%25' y2='119.64%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1685'%3e%3cstop stop-color='%230e2a47' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(0%2c 89%2c 158%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
-  --svg-background-image5: url("./images/svgs/svg7.svg");
-  --svg-background-image6: url("./images/svgs/svg2.svg");
+  --svg-background-image5: url('./images/svgs/svg7.svg');
+  --svg-background-image6: url('./images/svgs/svg2.svg');
 }
 
 body {
@@ -441,11 +441,64 @@ body {
   text-align: center;
 }
 
+.color-picker-and-create-entry-button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-inline: 20px;
+  margin-top: 70px;
+  margin-bottom: 50px;
+}
+
+.colors-and-headline-text-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+}
+
+.colors-picker-headline-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-column: span 5;
+  color: rgb(240, 240, 217);
+  font-size: 1.2rem;
+}
+
+.color-picker-entries {
+  height: 64px;
+  width: 64px;
+  border-radius: 100%;
+  grid-column: span 1;
+  grid-row: 2/3;
+}
+
+#color1-picker {
+  background-color: rgba(37, 139, 153, 0.7);
+}
+
+#color2-picker {
+  background-color: rgba(68, 149, 160, 0.7);
+}
+
+#color3-picker {
+  background-color: rgba(62, 93, 158, 0.7);
+}
+
+#color4-picker {
+  background-color: rgba(41, 150, 132, 0.747);
+}
+
+.diary-entry-text-and-profile-pic-wrapper:hover {
+  outline: 1px solid rgb(140, 255, 182);
+  cursor: pointer;
+}
+
 .create-new-entry-button {
   font-family: var(--font-family-poppins);
   height: 60px;
   width: 200px;
-  margin-block: 65px;
+  /*   margin-block: 65px; */
   margin-left: 30px;
   border-radius: 10px;
   outline: transparent;
@@ -464,6 +517,9 @@ body {
   max-height: 0;
   overflow: hidden;
   transition: max-height 150ms ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .year-text {
@@ -480,7 +536,7 @@ body {
 
 .year-text:after {
   margin-left: 5px;
-  content: "\002B";
+  content: '\002B';
   float: left;
 }
 
@@ -490,7 +546,7 @@ body {
 }
 
 .active-year:after {
-  content: "\2212";
+  content: '\2212';
 }
 
 .month-text {
@@ -510,7 +566,7 @@ body {
 
 .month-text:after {
   margin-left: 5px;
-  content: "\002B";
+  content: '\002B';
   float: left;
 }
 
@@ -520,25 +576,21 @@ body {
 }
 
 .active-month:after {
-  content: "\2212";
+  content: '\2212';
 }
 
 .diary-entry-text {
   position: relative;
   margin-inline: 40px;
+  margin-bottom: 40px;
   color: rgba(245, 245, 245, 0.87);
   font-size: 1.3rem;
-  padding-block: 80px;
+  padding-top: 40px;
   padding-inline: 80px;
   white-space: pre;
   text-wrap: wrap;
-  margin-bottom: 40px;
-  text-shadow: 1px 1px 1px #000000;
-}
 
-.diary-entry-text-and-profile-pic-wrapper:hover {
-  outline: 1px solid rgb(140, 255, 182);
-  cursor: pointer;
+  text-shadow: 1px 1px 1px #000000;
 }
 
 .diary-entry-timestamp {
@@ -546,7 +598,7 @@ body {
   padding-block: 5px;
   font-size: 1.1rem;
   color: beige;
-  background-color: rgb(40, 168, 119);
+  background-color: rgba(40, 168, 119, 0.863);
   border-radius: 10px;
   text-align: center;
   margin-inline: auto;
@@ -554,27 +606,36 @@ body {
 }
 
 .diary-entry-text-and-profile-pic-wrapper {
-  position: relative;
-  background-image: var(--svg-background-image6);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: rgba(37, 139, 153, 0.7);
+  backdrop-filter: blur(10px);
   margin-inline: 40px;
+  margin-bottom: 20px;
   border-radius: 10px;
+  padding: 20px;
+}
+
+.speech-bubble-diary-entries {
+  right: 10%;
+  top: 0.5%;
+  width: 64px;
+  height: 64px;
 }
 
 .profile-pic {
   float: right;
   margin-top: 10px;
   margin-right: 10px;
-  height: 90px;
+  height: 95px;
   width: 80px;
   background-color: rgba(255, 255, 255, 0.74);
   border-radius: 100%;
   padding: 2px;
-  z-index: 2;
-  right: 5%;
-  top: 2%;
   z-index: 1;
+}
+
+.profile-pic-speechbubble-wrapper {
+  display: flex;
+  justify-content: end;
 }
 
 /* prompt new entry */
