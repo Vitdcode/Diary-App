@@ -1,8 +1,7 @@
 //images
-import { closeIcon, quoteIcon, diaryMenuIcon } from './icons-creation-functions.js';
-import deleteicon from '../src/images/delete-icon2.png';
+import { closeIcon, quoteIcon, diaryMenuIcon, deleteDiaryIcon, savedIcon } from './icons-creation-functions.js';
 
-import savedicon from '../src/images/saved-icon.png';
+/* import savedicon from '../src/images/saved-icon.png'; */
 //libraries
 import { v4 as uuidv4 } from 'uuid';
 import { format } from 'date-fns';
@@ -90,13 +89,10 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
         diaryItemWrapper.id = uuidv4();
         diaryItemWrapper.classList.add('diary-item-wrapper');
 
-        const deleteDiaryIcon = document.createElement('img');
-        deleteDiaryIcon.classList.add('delete-diary-icon');
-        deleteDiaryIcon.id = diaryItemWrapper.id;
-        deleteDiaryIcon.src = deleteicon;
+        const deleteDiaryIconElement = deleteDiaryIcon();
         const diaryMenuIconElement = diaryMenuIcon(diaryItemWrapper);
-        deleteAndMenuIconHover(diaryItemWrapper, deleteDiaryIcon, diaryMenuIconElement);
-        deleteDiaryPrompt(diaryItemWrapper, deleteDiaryIcon);
+        deleteAndMenuIconHover(diaryItemWrapper, deleteDiaryIconElement, diaryMenuIconElement);
+        deleteDiaryPrompt(diaryItemWrapper, deleteDiaryIconElement);
 
         const diaryItemName = document.createElement('p');
         diaryItemName.classList.add('diary-item-name');
@@ -106,7 +102,7 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
         diaryDescriptionItem.classList.add('diary-description-item');
         diaryDescriptionItem.textContent = diaryDescription.value;
         diaryItemWrapper.appendChild(diaryMenuIcon(diaryItemWrapper));
-        diaryItemWrapper.appendChild(deleteDiaryIcon);
+        diaryItemWrapper.appendChild(deleteDiaryIconElement);
         diaryItemWrapper.appendChild(diaryItemName);
         diaryItemWrapper.appendChild(quoteIcon());
         diaryItemWrapper.appendChild(diaryDescriptionItem);
@@ -217,24 +213,22 @@ function saveEditedDiary(editDiarySaveButton, diary, textarea, promptInput, prom
 }
 
 export function savedText(prompt, iconClass, textClass) {
-  const savedIcon = document.createElement('img');
-  savedIcon.classList.add(iconClass);
-  savedIcon.src = savedicon;
+  const savedIconElement = savedIcon(iconClass);
 
   const savedText = document.createElement('p');
   savedText.classList.add(textClass);
   savedText.textContent = 'Saved';
 
-  prompt.appendChild(savedIcon);
+  prompt.appendChild(savedIconElement);
   prompt.appendChild(savedText);
 
   setTimeout(() => {
-    savedIcon.classList.add('fade-out');
+    savedIconElement.classList.add('fade-out');
     savedText.classList.add('fade-out');
   }, 1000);
 
   setTimeout(() => {
-    prompt.removeChild(savedIcon);
+    prompt.removeChild(savedIconElement);
     prompt.removeChild(savedText);
   }, 2000);
 }
@@ -247,14 +241,11 @@ export function createDiariesFromLocalStorage() {
     diaryItemWrapper.id = diary.id;
     diaryItemWrapper.classList.add('diary-item-wrapper');
 
-    const deleteDiaryIcon = document.createElement('img');
-    deleteDiaryIcon.classList.add('delete-diary-icon');
-    deleteDiaryIcon.id = diaryItemWrapper.id;
-    deleteDiaryIcon.src = deleteicon;
+    const deleteDiaryIconElement = deleteDiaryIcon();
 
     const diaryMenuIconElement = diaryMenuIcon(diaryItemWrapper);
     editDiary(diary.id, diaryMenuIconElement);
-    deleteDiaryPrompt(diaryItemWrapper, deleteDiaryIcon);
+    deleteDiaryPrompt(diaryItemWrapper, deleteDiaryIconElement);
 
     const diaryItemName = document.createElement('p');
     diaryItemName.classList.add('diary-item-name');
@@ -268,8 +259,8 @@ export function createDiariesFromLocalStorage() {
 
     diaryItemWrapper.appendChild(diaryMenuIconElement);
 
-    deleteAndMenuIconHover(diaryItemWrapper, deleteDiaryIcon, diaryMenuIconElement);
-    diaryItemWrapper.appendChild(deleteDiaryIcon);
+    deleteAndMenuIconHover(diaryItemWrapper, deleteDiaryIconElement, diaryMenuIconElement);
+    diaryItemWrapper.appendChild(deleteDiaryIconElement);
     diaryItemWrapper.appendChild(diaryItemName);
     diaryItemWrapper.appendChild(quoteIcon());
     diaryItemWrapper.appendChild(diaryDescriptionItem);

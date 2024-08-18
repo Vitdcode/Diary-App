@@ -2,8 +2,10 @@ import closeicon from '../src/images/close-icon.png';
 import quoteicon from '../src/images/quote-icon.png';
 import profileimg from '../src/images/profile-pic.jpeg';
 import speechbubble from '../src/images/speech-bubble.png';
-import deleteicon from '../src/images/delete-icon.png';
+import deleteentryicon from '../src/images/delete-icon.png';
+import deletediaryicon from '../src/images/delete-icon2.png';
 import menuicon from '../src/images/3dots.png';
+import savedicon from '../src/images/saved-icon.png';
 
 export function closeIcon() {
   const closeWindowIcon = document.createElement('img');
@@ -37,8 +39,15 @@ export function speechBubble() {
 export function deleteDiaryEntryIcon() {
   const deleteDiaryEntryIcon = document.createElement('img');
   deleteDiaryEntryIcon.classList.add('delete-diary-entry-icon');
-  deleteDiaryEntryIcon.src = deleteicon;
+  deleteDiaryEntryIcon.src = deleteentryicon;
   return deleteDiaryEntryIcon;
+}
+
+export function deleteDiaryIcon() {
+  const deleteDiaryIcon = document.createElement('img');
+  deleteDiaryIcon.classList.add('delete-diary-icon');
+  deleteDiaryIcon.src = deletediaryicon;
+  return deleteDiaryIcon;
 }
 
 export function diaryMenuIcon(diaryItemWrapper) {
@@ -47,4 +56,11 @@ export function diaryMenuIcon(diaryItemWrapper) {
   diaryMenuIcon.id = diaryItemWrapper.id;
   diaryMenuIcon.src = menuicon;
   return diaryMenuIcon;
+}
+
+export function savedIcon(className) {
+  const savedIcon = document.createElement('img');
+  savedIcon.classList.add(className);
+  savedIcon.src = savedicon;
+  return savedIcon;
 }
