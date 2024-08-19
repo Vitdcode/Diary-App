@@ -1,5 +1,7 @@
 import { diaries } from '../src/diary-list-handling.js';
 import { deleteDiaryEntryIcon } from './icons-creation-functions.js';
+import { saveToLocalStorage } from './local-storage-handling';
+
 //svgs
 import svgbackground1 from '../src/images/svgs/svg1.svg';
 import svgbackground2 from '../src/images/svgs/svg2.svg';
@@ -28,10 +30,10 @@ export function closePrompt(prompt) {
 }
 
 export function deleteItemsFromLeftSide() {
-  diaries.forEach((diary) => {
-    const leftSide = document.querySelector('.left-side');
-    const diaryItemWrapper = document.querySelector('.diary-item-wrapper');
-    leftSide.removeChild(diaryItemWrapper);
+  const leftSide = document.querySelector('.left-side');
+  const diaryItemWrapper = document.querySelectorAll('.diary-item-wrapper');
+  diaryItemWrapper.forEach((diaryElement) => {
+    leftSide.removeChild(diaryElement);
   });
 }
 
@@ -49,11 +51,9 @@ export function randomizeSvgWallpaper(element) {
     `url(${svgbackground10})`,
     `url(${svgbackground11})`,
   ];
-
   const randomizeNum = Math.floor(Math.random() * svgsArray.length);
   element.style.backgroundImage = svgsArray[randomizeNum];
 }
-
 export function deleteAndMenuIconHover(diaryItemWrapper, deleteIcon, diaryMenuIcon) {
   deleteIcon.addEventListener('mouseenter', () => {
     diaryItemWrapper.style.outline = '1px solid rgba(194, 78, 78, 0.815)';
@@ -82,13 +82,11 @@ export function deleteDiary(yesButton, noButton, diaryItemWrapper, backdrop, del
     document.body.removeChild(backdrop);
     mainWrapper.removeChild(deletePromptWindow);
     const diaryIndex = diaries.findIndex((item) => item.id === diaryItemWrapper.id);
-    console.log(diaryIndex);
     if (diaries[diaryIndex]) {
       diaries.splice(diaryIndex, 1);
     }
-    localStorage.setItem('diaries', JSON.stringify(diaries));
+    saveToLocalStorage();
   });
-
   noButton.addEventListener('click', () => {
     document.body.removeChild(backdrop);
     mainWrapper.removeChild(deletePromptWindow);
@@ -98,11 +96,9 @@ export function deleteDiary(yesButton, noButton, diaryItemWrapper, backdrop, del
 export function deleteDiaryEntry(diary, diaryIndex, promptWindow) {
   const deleteIcon = deleteDiaryEntryIcon();
   promptWindow.appendChild(deleteIcon);
-
   deleteIcon.addEventListener('mouseenter', () => {
     promptWindow.style.outline = '2px solid rgba(194, 78, 78, 0.815)';
   });
-
   deleteIcon.addEventListener('mouseleave', () => {
     promptWindow.style.outline = ''; // Removes the outline when the mouse leaves
   });
@@ -110,12 +106,10 @@ export function deleteDiaryEntry(diary, diaryIndex, promptWindow) {
   deleteIcon.addEventListener('click', () => {
     const entryId = document.getElementById(diary.entries[diaryIndex].id);
     entryId.remove();
-
     diary.entries.splice(diaryIndex, 1);
-    console.log(diaries);
     document.querySelector('.main-wrapper').removeChild(promptWindow);
     document.body.removeChild(document.querySelector('.backdrop'));
-    localStorage.setItem('diaries', JSON.stringify(diaries));
+    saveToLocalStorage();
   });
 }
 
@@ -126,7 +120,6 @@ export function yearCollapsible() {
       clickedElement.classList.toggle('active-year');
       const month = clickedElement.nextElementSibling;
       const diaryEntries = month.nextElementSibling;
-
       if (month.style.maxHeight || (diaryEntries.style.maxHeight && month.style.maxHeight)) {
         // If the content is already expanded, collapse it
         month.style.maxHeight = null;
@@ -146,7 +139,6 @@ export function monthCollapsible() {
     if (clickedElement.classList.contains('month-text')) {
       clickedElement.classList.toggle('active-month');
       const content = clickedElement.nextElementSibling;
-
       if (content.style.maxHeight) {
         // If the content is already expanded, collapse it
         content.style.maxHeight = null;
@@ -160,12 +152,9 @@ export function monthCollapsible() {
 
 export function addingHeightToCollapsableMenu() {
   const year = document.getElementById(`year-text-${format(new Date(), 'yyyy')}`);
-  console.log(year.id);
   year.classList.toggle('active-year'); // adding classlist active to the clickable year text so the + symbol correctly changes to the - symbol
   const month = document.getElementById(`${format(new Date(), 'yyyy')}-${format(new Date(), 'MMMM')}`);
-  console.log(month);
   month.classList.toggle('active-month');
-
   const entriesWrapper = document.getElementById(format(new Date(), 'yyyy'));
   entriesWrapper.style.maxHeight = entriesWrapper.scrollHeight + 'px'; // adding additional height to the collapsable menu so the new entry is seen in the DOM
   month.style.maxHeight = month.scrollHeight + 'px';

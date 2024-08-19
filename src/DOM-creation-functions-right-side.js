@@ -1,9 +1,19 @@
-//icons
-import { closeIcon, quoteIcon, profilePic, speechBubble } from './icons-creation-functions.js';
-
-import { diaries } from './diary-list-handling';
+//libraries
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
+//icons
+import { closeIcon, quoteIcon, profilePic, speechBubble } from './icons-creation-functions.js';
+//functions for creating DOM elements
+import {
+  createBackdrop,
+  createFormLabel,
+  createTextarea,
+  createButton,
+  createPromptWindow,
+  createParagraph,
+} from './reused-DOM-functions.js';
+//other functions
+import { diaries } from './diary-list-handling';
 import {
   closePrompt,
   yearCollapsible,
@@ -12,6 +22,7 @@ import {
   monthCollapsible,
 } from './ui-functions';
 import { savedText } from './DOM-creation-functions-left-side';
+import { saveToLocalStorage } from './local-storage-handling';
 
 export function createDiaryDetailsRightSide(diaryID) {
   const rightSide = document.querySelector('.right-side');
@@ -21,10 +32,7 @@ export function createDiaryDetailsRightSide(diaryID) {
     rightSide.innerHTML = '';
     const diary = diaries.find((item) => item.id === diaryID);
     if (diary) {
-      const rightSideHeadline = document.createElement('h1');
-      rightSideHeadline.classList.add('right-side-headline');
-      rightSideHeadline.textContent = diary.name;
-
+      const rightSideHeadline = createParagraph('right-side-headline', diary.name);
       rightSide.appendChild(rightSideHeadline);
 
       createNewEntryButton(rightSide, diary);
@@ -38,16 +46,13 @@ export function createDiaryDetailsRightSide(diaryID) {
 
       let uniqueYears = new Set();
       let uniqueMonths = new Set();
-      console.log(diaries);
       diary.entries.forEach((entry) => {
         uniqueYears.add(entry.year);
         uniqueMonths.add(entry.month);
       });
       uniqueYears.forEach((year) => {
-        const printYearRightSide = document.createElement('p');
+        const printYearRightSide = createParagraph('year-text', year);
         printYearRightSide.id = `year-text-${year}`;
-        printYearRightSide.classList.add('year-text');
-        printYearRightSide.textContent = year;
         rightSide.appendChild(printYearRightSide);
 
         const entriesWrapper = document.createElement('div');
@@ -56,10 +61,8 @@ export function createDiaryDetailsRightSide(diaryID) {
         rightSide.appendChild(entriesWrapper);
 
         uniqueMonths.forEach((month) => {
-          const printMonthRightSide = document.createElement('p');
-          printMonthRightSide.classList.add('month-text');
+          const printMonthRightSide = createParagraph('month-text', month);
           printMonthRightSide.id = `${year}-${format(new Date(), 'MMMM')}`;
-          printMonthRightSide.textContent = month;
           rightSide.appendChild(printMonthRightSide);
 
           for (let i = diary.entries.length - 1; i >= 0; i--) {
@@ -68,30 +71,22 @@ export function createDiaryDetailsRightSide(diaryID) {
               const entryDetailsWrapper = document.createElement('div');
               entryDetailsWrapper.classList.add('entry-details-wrapper');
               entryDetailsWrapper.id = diary.entries[i].id;
-
-              const printEntryTimestampRightSide = document.createElement('p');
-              printEntryTimestampRightSide.classList.add('diary-entry-timestamp');
-              printEntryTimestampRightSide.textContent = diary.entries[i].entryTimestamp;
+              const printEntryTimestampRightSide = createParagraph(
+                'diary-entry-timestamp',
+                diary.entries[i].entryTimestamp
+              );
               entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
-
               const diaryEntryTextAndProfilePicWrapper = document.createElement('div');
               diaryEntryTextAndProfilePicWrapper.classList.add('diary-entry-text-and-profile-pic-wrapper');
-
               const profilePicAndSpeechBubbleWrapper = document.createElement('div');
               profilePicAndSpeechBubbleWrapper.classList.add('profile-pic-speechbubble-wrapper');
               profilePicAndSpeechBubbleWrapper.appendChild(speechBubble());
               profilePicAndSpeechBubbleWrapper.appendChild(profilePic());
-
               diaryEntryTextAndProfilePicWrapper.appendChild(profilePicAndSpeechBubbleWrapper);
-
-              const diaryText = document.createElement('p');
-              diaryText.classList.add('diary-entry-text');
-              diaryText.textContent = diary.entries[i].text;
+              const diaryText = createParagraph('diary-entry-text', diary.entries[i].text);
               diaryText.id = diary.entries[i].id;
               diaryEntryTextAndProfilePicWrapper.appendChild(diaryText);
-
               entryDetailsWrapper.appendChild(diaryEntryTextAndProfilePicWrapper);
-
               entriesWrapper.appendChild(entryDetailsWrapper);
             }
           }
@@ -102,18 +97,13 @@ export function createDiaryDetailsRightSide(diaryID) {
       yearCollapsible();
       monthCollapsible();
       initialEntriesColorPicker(diary);
-      console.log(diary);
     }
   });
 }
 
 function createNewEntryButton(rightSide, diary) {
-  const createNewEntryButton = document.createElement('button');
-  createNewEntryButton.classList.add('create-new-entry-button');
-  createNewEntryButton.textContent = 'Create new Entry';
-
+  const createNewEntryButton = createButton('create-new-entry-button', 'Create new Entry');
   rightSide.appendChild(createNewEntryButton);
-
   createNewEntryButton.addEventListener('click', () => {
     createEntryPrompt(diary);
   });
@@ -122,12 +112,9 @@ function createNewEntryButton(rightSide, diary) {
 function colorPickerEntries(rightSide, diary) {
   const colorPickerAndCreateEntryButtonWrapper = document.createElement('div');
   colorPickerAndCreateEntryButtonWrapper.classList.add('color-picker-and-create-entry-button-wrapper');
-
   const colorsAndHeadlineTextWrapper = document.createElement('div');
   colorsAndHeadlineTextWrapper.classList.add('colors-and-headline-text-wrapper');
-  const colorsHeadlineText = document.createElement('p');
-  colorsHeadlineText.classList.add('colors-picker-headline-text');
-  colorsHeadlineText.textContent = 'Diary Entries Color Picker';
+  const colorsHeadlineText = createParagraph('colors-picker-headline-text', 'Diary Entries Color Picker');
 
   const color1 = document.createElement('div');
   color1.classList.add('color-picker-entries');
@@ -158,7 +145,6 @@ function colorPickerEventListener(colorsAndHeadlineTextWrapper, diary, color1, c
     const clickedElement = event.target;
     const diaryEntries = document.querySelectorAll('.diary-entry-text-and-profile-pic-wrapper');
     diaryEntries.forEach((entry) => {
-      console.log(entry);
       if (clickedElement.id === color1.id) {
         entry.style.backgroundColor = 'rgba(37, 139, 153, 0.7)';
       } else if (clickedElement.id === color2.id) {
@@ -171,7 +157,7 @@ function colorPickerEventListener(colorsAndHeadlineTextWrapper, diary, color1, c
         entry.style.backgroundColor = 'rgba(41, 150, 132, 0.747)';
         diary.entriesColor = 'rgba(41, 150, 132, 0.747)';
       }
-      localStorage.setItem('diaries', JSON.stringify(diaries));
+      saveToLocalStorage();
     });
   });
 }
@@ -185,26 +171,13 @@ function initialEntriesColorPicker(diary) {
 
 function createEntryPrompt(diary) {
   const mainWrapper = document.querySelector('.main-wrapper');
-  const promptWindow = document.createElement('div');
-  promptWindow.classList.add('prompt-window-new-entry');
+  const promptWindow = createPromptWindow('prompt-window-new-entry');
   //creating a backdrop div to darken the background if the prompt is open and make the background unresponsive until he prompt is closed
-  const backdrop = document.createElement('div');
-  backdrop.classList.add('backdrop');
+  const backdrop = createBackdrop();
+  const entryTextLabel = createFormLabel('create-new-entry-textarea', 'Create new Entry');
+  const entryText = createTextarea('create-new-entry-textarea');
+  const createEntryButton = createButton('create-entry-button', 'Create new Entry');
 
-  const promptHeadline = document.createElement('p');
-  promptHeadline.classList.add('prompt-new-entry-headline');
-  promptHeadline.textContent = 'Create a new Diary Entry';
-
-  const entryText = document.createElement('textarea');
-  entryText.id = 'create-new-entry-textarea';
-  const entryTextLabel = document.createElement('label');
-  entryTextLabel.setAttribute('for', 'create-new-entry-textarea');
-
-  const createEntryButton = document.createElement('button');
-  createEntryButton.classList.add('create-entry-button');
-  createEntryButton.textContent = 'Create new Entry';
-
-  promptWindow.appendChild(promptHeadline);
   promptWindow.appendChild(closeIcon());
   promptWindow.appendChild(quoteIcon('quote-icon-new-entry-prompt'));
   promptWindow.appendChild(entryTextLabel);
@@ -231,9 +204,8 @@ function createEntry(diary, entryText, createEntryButton) {
     };
     diary.entries.push(newEntry);
     diaryText.textContent = newEntry.text;
-
     printEntriesInDom(diary);
-    localStorage.setItem('diaries', JSON.stringify(diaries));
+    saveToLocalStorage();
   });
 }
 
@@ -250,29 +222,15 @@ function editDiaryEntriesEventListener(entriesWrapper, diary) {
 
 function createPromptEditDiary(diary, diaryEntryId) {
   const mainWrapper = document.querySelector('.main-wrapper');
-  const promptWindow = document.createElement('div');
-  promptWindow.classList.add('prompt-window-edit-diary-entry');
+  const promptWindow = createPromptWindow('prompt-window-edit-diary-entry');
   //creating a backdrop div to darken the background if the prompt is open and make the background unresponsive until he prompt is closed
-  const backdrop = document.createElement('div');
-  backdrop.classList.add('backdrop');
-
-  const promptHeadline = document.createElement('p');
-  promptHeadline.classList.add('prompt-new-entry-headline');
-  promptHeadline.textContent = 'Edit Diary Entry';
-
+  const backdrop = createBackdrop();
   const diaryIndex = diary.entries.findIndex((item) => item.id === diaryEntryId);
-
-  const entryText = document.createElement('textarea');
+  const entryTextLabel = createFormLabel('create-new-entry-textarea', 'Edit Diary Entry');
+  const entryText = createTextarea('create-new-entry-textarea');
   entryText.value = diary.entries[diaryIndex].text;
-  entryText.id = 'create-new-entry-textarea';
-  const entryTextLabel = document.createElement('label');
-  entryTextLabel.setAttribute('for', 'create-new-entry-textarea');
+  const editEntryButton = createButton('edit-entry-button', 'Edit Entry');
 
-  const editEntryButton = document.createElement('button');
-  editEntryButton.classList.add('edit-entry-button');
-  editEntryButton.textContent = 'Edit Entry';
-
-  promptWindow.appendChild(promptHeadline);
   promptWindow.appendChild(closeIcon());
   promptWindow.appendChild(quoteIcon('edit-entry-prompt-quote-icon'));
   promptWindow.appendChild(entryTextLabel);
@@ -289,55 +247,42 @@ function editDiaryButton(diary, diaryIndex, editEntryButton, entryText, promptWi
   editEntryButton.addEventListener('click', () => {
     diary.entries[diaryIndex].text = entryText.value;
     savedText(promptWindow, 'saved-icon-edit-entry-prompt', 'saved-text-entry-edit');
-    localStorage.setItem('diaries', JSON.stringify(diaries));
-
+    saveToLocalStorage();
     printEntriesInDom(diary);
   });
 }
 
 function printEntriesInDom(diary) {
   const entriesWrappers = document.querySelectorAll('.diary-entries-wrapper');
-
   entriesWrappers.forEach((wrapper) => {
     wrapper.remove();
   });
-
   const years = document.querySelectorAll('.year-text');
   years.forEach((year) => {
     year.remove();
   });
-
   const months = document.querySelectorAll('.month-text');
   months.forEach((month) => {
     month.remove();
   });
-
   const rightSide = document.querySelector('.right-side');
-
   let uniqueYears = new Set();
   let uniqueMonths = new Set();
   diary.entries.forEach((entry) => {
     uniqueYears.add(entry.year);
     uniqueMonths.add(entry.month);
   });
-
   uniqueYears.forEach((year) => {
-    const printYearRightSide = document.createElement('p');
+    const printYearRightSide = createParagraph('year-text', year);
     printYearRightSide.id = `year-text-${year}`;
-    printYearRightSide.classList.add('year-text');
-    printYearRightSide.textContent = year;
     rightSide.appendChild(printYearRightSide);
-
     const entriesWrapper = document.createElement('div');
     entriesWrapper.classList.add('diary-entries-wrapper');
     entriesWrapper.id = year;
     rightSide.appendChild(entriesWrapper);
-
     uniqueMonths.forEach((month) => {
-      const printMonthRightSide = document.createElement('p');
-      printMonthRightSide.classList.add('month-text');
+      const printMonthRightSide = createParagraph('month-text', month);
       printMonthRightSide.id = `${year}-${format(new Date(), 'MMMM')}`;
-      printMonthRightSide.textContent = month;
       rightSide.appendChild(printMonthRightSide);
 
       for (let i = diary.entries.length - 1; i >= 0; i--) {
@@ -345,25 +290,19 @@ function printEntriesInDom(diary) {
           const entryDetailsWrapper = document.createElement('div');
           entryDetailsWrapper.classList.add('entry-details-wrapper');
           entryDetailsWrapper.id = diary.entries[i].id;
-
-          const printEntryTimestampRightSide = document.createElement('p');
-          printEntryTimestampRightSide.classList.add('diary-entry-timestamp');
-          printEntryTimestampRightSide.textContent = diary.entries[i].entryTimestamp;
+          const printEntryTimestampRightSide = createParagraph(
+            'diary-entry-timestamp',
+            diary.entries[i].entryTimestamp
+          );
           entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
-
           const diaryEntryTextAndProfilePicWrapper = document.createElement('div');
           diaryEntryTextAndProfilePicWrapper.classList.add('diary-entry-text-and-profile-pic-wrapper');
-
           const profilePicAndSpeechBubbleWrapper = document.createElement('div');
           profilePicAndSpeechBubbleWrapper.classList.add('profile-pic-speechbubble-wrapper');
           profilePicAndSpeechBubbleWrapper.appendChild(speechBubble());
           profilePicAndSpeechBubbleWrapper.appendChild(profilePic());
-
           diaryEntryTextAndProfilePicWrapper.appendChild(profilePicAndSpeechBubbleWrapper);
-
-          const diaryText = document.createElement('p');
-          diaryText.classList.add('diary-entry-text');
-          diaryText.textContent = diary.entries[i].text;
+          const diaryText = createParagraph('diary-entry-text', diary.entries[i].text);
           diaryText.id = diary.entries[i].id;
           diaryEntryTextAndProfilePicWrapper.appendChild(diaryText);
 
@@ -377,5 +316,4 @@ function printEntriesInDom(diary) {
   });
   addingHeightToCollapsableMenu();
   initialEntriesColorPicker(diary);
-  console.log(diaries);
 }

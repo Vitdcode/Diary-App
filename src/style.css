@@ -664,6 +664,10 @@ body {
   z-index: 2;
 }
 
+.prompt-window-new-entry label {
+  color: beige;
+}
+
 #create-new-entry-textarea {
   position: relative;
   width: 60%;
@@ -679,10 +683,6 @@ body {
 
 #create-new-entry-textarea:focus {
   outline: 1px solid rgb(119, 218, 185, 0.7);
-}
-
-.prompt-new-entry-headline {
-  color: beige;
 }
 
 .create-entry-button {
@@ -709,7 +709,7 @@ body {
   width: 64px;
   z-index: 1;
   left: 17%;
-  top: 13%;
+  top: 10%;
 }
 
 /* edit diary entry prompt window */
@@ -736,6 +736,10 @@ body {
   box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.664);
   animation: fadeIn 350ms ease-in;
   z-index: 3;
+}
+
+.prompt-window-edit-diary-entry label {
+  color: beige;
 }
 
 .delete-diary-entry-icon {

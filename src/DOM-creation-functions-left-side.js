@@ -6,7 +6,6 @@ import { closeIcon, quoteIcon, diaryMenuIcon, deleteDiaryIcon, savedIcon } from 
 //functions for creating DOM elements
 import {
   createBackdrop,
-  headline,
   createInputField,
   createFormLabel,
   createTextarea,
@@ -43,7 +42,7 @@ function createPromptWindowElements() {
   const prompt = document.querySelector('.prompt-window');
   //creating a backdrop div to darken the background if the prompt is open and make the background unresponsive until the prompt is closed
   const backdrop = createBackdrop();
-  const promptHeadline = headline('Create a new Diary', 'prompt-headline');
+  const promptHeadline = createParagraph('prompt-headline', 'Create a new Diary');
   const promptInputAndInputHeadlineWrapper = document.createElement('div');
   promptInputAndInputHeadlineWrapper.classList.add("prompt-input-and-input-headline-wrapper"); //prettier-ignore
   //creating all DOM Elements using functions in the reused-DOM-functions js file

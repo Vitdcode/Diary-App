@@ -4,13 +4,6 @@ export function createBackdrop() {
   return backdrop;
 }
 
-export function headline(headlineText, className) {
-  const headline = document.createElement('p');
-  headline.classList.add(className);
-  headline.textContent = headlineText;
-  return headline;
-}
-
 export function createInputField(inputId) {
   const input = document.createElement('input');
   input.id = inputId;
