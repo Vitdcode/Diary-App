@@ -1,13 +1,19 @@
-//images
-import { closeIcon, quoteIcon, diaryMenuIcon, deleteDiaryIcon, savedIcon } from './icons-creation-functions.js';
-
-//functions for DOM elements
-import { createBackdrop, headline, createInputField, createInputFieldLabel } from './reused-DOM-functions.js';
-
 //libraries
 import { v4 as uuidv4 } from 'uuid';
 import { format } from 'date-fns';
-//functions
+//images
+import { closeIcon, quoteIcon, diaryMenuIcon, deleteDiaryIcon, savedIcon } from './icons-creation-functions.js';
+//functions for creating DOM elements
+import {
+  createBackdrop,
+  headline,
+  createInputField,
+  createFormLabel,
+  createTextarea,
+  createButton,
+  createPromptWindow,
+} from './reused-DOM-functions.js';
+//other functions
 import { closePrompt, deleteItemsFromLeftSide, deleteAndMenuIconHover, deleteDiary } from './ui-functions.js';
 import { pushToDiariesArray, diaries } from './diary-list-handling.js';
 import { createDiaryDetailsRightSide } from './DOM-creation-functions-right-side.js';
@@ -16,20 +22,16 @@ export function createDiaryButtonInDom() {
   const leftSide = document.querySelector('.left-side');
   const createDiaryButtonWrapper = document.createElement('div');
   createDiaryButtonWrapper.classList.add('create-diary-button-wrapper');
-  const createDiaryButton = document.createElement('button');
-  createDiaryButton.classList.add('create-diary-button');
-  createDiaryButton.textContent = 'Create new Diary';
+  const createDiaryButton = createButton('create-diary-button', 'Create new Diary');
   createDiaryButtonWrapper.appendChild(createDiaryButton);
   leftSide.appendChild(createDiaryButtonWrapper);
-  openNewDiaryPrompt();
+  openNewDiaryPrompt(createDiaryButton);
 }
 
-function openNewDiaryPrompt() {
-  const createDiaryButtonSelector = document.querySelector('.create-diary-button');
+function openNewDiaryPrompt(createDiaryButton) {
   const mainWrapper = document.querySelector('.main-wrapper');
-  createDiaryButtonSelector.addEventListener('click', () => {
-    const promptWindow = document.createElement('div');
-    promptWindow.classList.add('prompt-window');
+  createDiaryButton.addEventListener('click', () => {
+    const promptWindow = createPromptWindow('prompt-window');
     mainWrapper.appendChild(promptWindow);
     createPromptWindowElements();
   });
@@ -40,26 +42,15 @@ function openNewDiaryPrompt() {
 function createPromptWindowElements() {
   const prompt = document.querySelector('.prompt-window');
   const backdrop = createBackdrop();
-
   const promptHeadline = headline('Create a new Diary', 'prompt-headline');
-
-  // Create the label for the input for accessability reasons
   const promptInputAndInputHeadlineWrapper = document.createElement('div');
   promptInputAndInputHeadlineWrapper.classList.add("prompt-input-and-input-headline-wrapper"); //prettier-ignore
-
-  const inputLabel = createInputFieldLabel('create-new-diary-input', 'Diary Name');
+  //creating all DOM Elements using functions in the reused-DOM-functions js file
+  const inputLabel = createFormLabel('create-new-diary-input', 'Diary Name');
   const input = createInputField('create-new-diary-input');
-
-  const diaryDescription = document.createElement('textarea');
-  diaryDescription.id = 'describe-your-diary-textarea';
-  const diaryDescriptionLabel = document.createElement('label');
-  diaryDescriptionLabel.setAttribute('for', 'describe-your-diary');
-  diaryDescriptionLabel.textContent = 'Describe your Diary';
-  textareaCharCounter(diaryDescription, prompt);
-
-  const createDiaryButton = document.createElement('button');
-  createDiaryButton.classList.add('create-diary-button-prompt');
-  createDiaryButton.textContent = 'Create Diary';
+  const diaryDescription = createTextarea('describe-your-diary');
+  const diaryDescriptionLabel = createFormLabel('describe-your-diary', 'Describe your Diary');
+  const createDiaryButton = createButton('create-diary-button-prompt', 'Create Diary');
 
   prompt.appendChild(promptHeadline);
   prompt.appendChild(closeIcon());
@@ -71,7 +62,7 @@ function createPromptWindowElements() {
   prompt.appendChild(createDiaryButton);
   document.body.appendChild(backdrop);
   closePrompt(prompt);
-  createDiaryItem(prompt, input, diaryDescription, backdrop);
+  createDiaryItem(prompt, input, diaryDescription);
 }
 
 function createDiaryItem(prompt, promptInput, diaryDescription) {
@@ -155,7 +146,7 @@ function editDiary(diaryID, diaryMenuIconElement) {
     editMenu.classList.add('prompt-window');
 
     const textarea = document.createElement('textarea');
-    textarea.id = 'describe-your-diary-textarea';
+    textarea.id = 'describe-your-diary';
     const editdiaryDescriptionLabel = document.createElement('label');
     editdiaryDescriptionLabel.setAttribute('for', 'edit-the-diary-description');
     editdiaryDescriptionLabel.textContent = 'Edit Diary Description';

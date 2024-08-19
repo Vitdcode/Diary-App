@@ -12,20 +12,35 @@ export function headline(headlineText, className) {
 }
 
 export function createInputField(inputId) {
-  const promptInput = document.createElement('input');
-  promptInput.id = inputId;
-  promptInput.type = 'text';
-  promptInput.setAttribute('autocomplete', 'off');
-  return promptInput;
+  const input = document.createElement('input');
+  input.id = inputId;
+  input.type = 'text';
+  input.setAttribute('autocomplete', 'off');
+  return input;
 }
 
-export function createInputFieldLabel(forAttribute, textContent) {
+export function createFormLabel(forAttribute, textContent) {
   const promptLabel = document.createElement('label');
   promptLabel.setAttribute('for', forAttribute);
   promptLabel.textContent = textContent;
   return promptLabel;
 }
 
-/* 
-promptHeadline.classList.add('prompt-headline');
-promptHeadline.textContent = 'Create a new Diary'; */
+export function createTextarea(textareaId) {
+  const textarea = document.createElement('textarea');
+  textarea.id = textareaId;
+  return textarea;
+}
+
+export function createButton(className, textContent) {
+  const button = document.createElement('button');
+  button.classList.add(`${className}`);
+  button.textContent = textContent;
+  return button;
+}
+
+export function createPromptWindow(className) {
+  const promptWindow = document.createElement('div');
+  promptWindow.classList.add(`${className}`);
+  return promptWindow;
+}
