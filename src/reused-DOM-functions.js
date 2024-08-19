@@ -44,3 +44,10 @@ export function createPromptWindow(className) {
   promptWindow.classList.add(`${className}`);
   return promptWindow;
 }
+
+export function createParagraph(className, textContent) {
+  const paragraph = document.createElement('p');
+  paragraph.classList.add(className);
+  paragraph.textContent = textContent;
+  return paragraph;
+}

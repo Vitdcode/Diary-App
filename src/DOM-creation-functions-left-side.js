@@ -12,11 +12,13 @@ import {
   createTextarea,
   createButton,
   createPromptWindow,
+  createParagraph,
 } from './reused-DOM-functions.js';
 //other functions
 import { closePrompt, deleteItemsFromLeftSide, deleteAndMenuIconHover, deleteDiary } from './ui-functions.js';
 import { pushToDiariesArray, diaries } from './diary-list-handling.js';
 import { createDiaryDetailsRightSide } from './DOM-creation-functions-right-side.js';
+import { saveToLocalStorage } from './local-storage-handling';
 
 export function createDiaryButtonInDom() {
   const leftSide = document.querySelector('.left-side');
@@ -37,10 +39,9 @@ function openNewDiaryPrompt(createDiaryButton) {
   });
 }
 
-//creating a backdrop div to darken the background if the prompt is open and make the background unresponsive until the prompt is closed
-
 function createPromptWindowElements() {
   const prompt = document.querySelector('.prompt-window');
+  //creating a backdrop div to darken the background if the prompt is open and make the background unresponsive until the prompt is closed
   const backdrop = createBackdrop();
   const promptHeadline = headline('Create a new Diary', 'prompt-headline');
   const promptInputAndInputHeadlineWrapper = document.createElement('div');
@@ -62,15 +63,14 @@ function createPromptWindowElements() {
   prompt.appendChild(createDiaryButton);
   document.body.appendChild(backdrop);
   closePrompt(prompt);
-  createDiaryItem(prompt, input, diaryDescription);
+  createDiaryItem(prompt, input, diaryDescription, createDiaryButton);
 }
 
-function createDiaryItem(prompt, promptInput, diaryDescription) {
+function createDiaryItem(prompt, input, diaryDescription, createDiaryButton) {
   if (prompt) {
-    const createDiaryButton = document.querySelector('.create-diary-button-prompt');
     const leftSide = document.querySelector('.left-side');
     createDiaryButton.addEventListener('click', () => {
-      if (promptInput.value != '') {
+      if (input.value != '') {
         const diaryItemWrapper = document.createElement('div');
         diaryItemWrapper.id = uuidv4();
         diaryItemWrapper.classList.add('diary-item-wrapper');
@@ -79,21 +79,16 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
         const diaryMenuIconElement = diaryMenuIcon(diaryItemWrapper);
         deleteAndMenuIconHover(diaryItemWrapper, deleteDiaryIconElement, diaryMenuIconElement);
         deleteDiaryPrompt(diaryItemWrapper, deleteDiaryIconElement);
+        const diaryItemName = createParagraph('diary-item-name', input.value);
+        const diaryDescriptionItem = createParagraph('diary-description-item', diaryDescription.value);
 
-        const diaryItemName = document.createElement('p');
-        diaryItemName.classList.add('diary-item-name');
-        diaryItemName.textContent = promptInput.value;
-
-        const diaryDescriptionItem = document.createElement('p');
-        diaryDescriptionItem.classList.add('diary-description-item');
-        diaryDescriptionItem.textContent = diaryDescription.value;
-        diaryItemWrapper.appendChild(diaryMenuIcon(diaryItemWrapper));
+        diaryItemWrapper.appendChild(diaryMenuIconElement);
         diaryItemWrapper.appendChild(deleteDiaryIconElement);
         diaryItemWrapper.appendChild(diaryItemName);
         diaryItemWrapper.appendChild(quoteIcon());
         diaryItemWrapper.appendChild(diaryDescriptionItem);
-
         leftSide.appendChild(diaryItemWrapper);
+
         pushToDiariesArray(
           diaryItemName.textContent,
           diaryItemWrapper.id,
@@ -101,17 +96,40 @@ function createDiaryItem(prompt, promptInput, diaryDescription) {
           diaryTimestamp(diaryItemWrapper),
           []
         );
-        console.log(diaries);
-
         editDiary(diaryItemWrapper.id, diaryMenuIconElement);
         createDiaryDetailsRightSide(diaryItemWrapper.id);
 
-        localStorage.setItem('diaries', JSON.stringify(diaries));
+        saveToLocalStorage();
       } else {
         alert('Diary Name cannot be Empty');
       }
     });
   }
+}
+
+export function createDiariesFromLocalStorage() {
+  diaries.forEach((diary) => {
+    const leftSide = document.querySelector('.left-side');
+    const diaryItemWrapper = document.createElement('div');
+    diaryItemWrapper.id = diary.id;
+    diaryItemWrapper.classList.add('diary-item-wrapper');
+    const deleteDiaryIconElement = deleteDiaryIcon();
+    const diaryMenuIconElement = diaryMenuIcon(diaryItemWrapper);
+    editDiary(diary.id, diaryMenuIconElement);
+    deleteDiaryPrompt(diaryItemWrapper, deleteDiaryIconElement);
+    const diaryItemName = createParagraph('diary-item-name', diary.name);
+    const diaryDescriptionItem = createParagraph('diary-description-item', diary.description);
+    diaryTimestampFromLocalStorage(diaryItemWrapper, diary);
+
+    diaryItemWrapper.appendChild(diaryMenuIconElement);
+    deleteAndMenuIconHover(diaryItemWrapper, deleteDiaryIconElement, diaryMenuIconElement);
+    diaryItemWrapper.appendChild(deleteDiaryIconElement);
+    diaryItemWrapper.appendChild(diaryItemName);
+    diaryItemWrapper.appendChild(quoteIcon());
+    diaryItemWrapper.appendChild(diaryDescriptionItem);
+    leftSide.appendChild(diaryItemWrapper);
+    createDiaryDetailsRightSide(diary.id);
+  });
 }
 
 function diaryTimestamp(diaryItemWrapper) {
@@ -131,47 +149,26 @@ function diaryTimestampFromLocalStorage(diaryItemWrapper, diary) {
 function editDiary(diaryID, diaryMenuIconElement) {
   diaryMenuIconElement.addEventListener('click', () => {
     const mainWrapper = document.querySelector('.main-wrapper');
-
-    const backdrop = document.createElement('div');
-    backdrop.classList.add('backdrop');
-
+    const backdrop = createBackdrop();
     const inputAndTextWrapper = document.createElement('div');
     inputAndTextWrapper.classList.add('prompt-input-and-input-headline-wrapper');
-
-    const editHeadlline = document.createElement('p');
-    editHeadlline.classList.add('diary-edit-prompt-headline');
-    editHeadlline.textContent = 'Edit Diary';
-
+    const editHeadlline = createParagraph('diary-edit-prompt-headline', 'Edit Diary');
     const editMenu = document.createElement('div');
     editMenu.classList.add('prompt-window');
-
-    const textarea = document.createElement('textarea');
-    textarea.id = 'describe-your-diary';
-    const editdiaryDescriptionLabel = document.createElement('label');
-    editdiaryDescriptionLabel.setAttribute('for', 'edit-the-diary-description');
-    editdiaryDescriptionLabel.textContent = 'Edit Diary Description';
-
-    const promptLabel = document.createElement('label');
-    promptLabel.setAttribute('for', 'Edit-diary-input');
-    promptLabel.textContent = 'Edit Diary Name';
-    const promptInput = document.createElement('input');
-    promptInput.id = 'create-new-diary-input';
-    promptInput.type = 'text';
-    promptInput.setAttribute('autocomplete', 'off');
-
-    const editDiarySaveButton = document.createElement('button');
-    editDiarySaveButton.classList.add('create-diary-button-prompt');
-    editDiarySaveButton.textContent = 'Save';
-
+    const textarea = createTextarea('describe-your-diary');
+    const editdiaryDescriptionLabel = createFormLabel('describe-your-diary', 'Edit Diary Description');
+    const inputLabel = createFormLabel('create-new-diary-input', 'Diary Name');
+    const input = createInputField('create-new-diary-input');
+    const editDiarySaveButton = createButton('create-diary-button-prompt', 'Save');
     const diary = diaries.find((item) => item.id === diaryID);
     if (diary) {
-      promptInput.value = diary.name;
+      input.value = diary.name;
       textarea.value = diary.description;
     }
 
     textareaCharCounter(textarea, editMenu);
-    inputAndTextWrapper.appendChild(promptLabel);
-    inputAndTextWrapper.appendChild(promptInput);
+    inputAndTextWrapper.appendChild(inputLabel);
+    inputAndTextWrapper.appendChild(input);
     inputAndTextWrapper.appendChild(editdiaryDescriptionLabel);
     inputAndTextWrapper.appendChild(textarea);
 
@@ -183,17 +180,17 @@ function editDiary(diaryID, diaryMenuIconElement) {
     mainWrapper.appendChild(editMenu);
 
     closePrompt(editMenu);
-    saveEditedDiary(editDiarySaveButton, diary, textarea, promptInput, editMenu);
+    saveEditedDiary(editDiarySaveButton, diary, textarea, input, editMenu);
   });
 }
 
-function saveEditedDiary(editDiarySaveButton, diary, textarea, promptInput, prompt) {
+function saveEditedDiary(editDiarySaveButton, diary, textarea, input, prompt) {
   editDiarySaveButton.addEventListener('click', () => {
-    diary.name = promptInput.value;
+    diary.name = input.value;
     diary.description = textarea.value;
     deleteItemsFromLeftSide();
     savedText(prompt, 'saved-icon-edit-diary-prompt', 'saved-text-diary-edit');
-    localStorage.setItem('diaries', JSON.stringify(diaries));
+    saveToLocalStorage();
     createDiariesFromLocalStorage();
   });
 }
@@ -219,42 +216,6 @@ export function savedText(prompt, iconClass, textClass) {
   }, 2000);
 }
 
-export function createDiariesFromLocalStorage() {
-  diaries.forEach((diary) => {
-    const leftSide = document.querySelector('.left-side');
-
-    const diaryItemWrapper = document.createElement('div');
-    diaryItemWrapper.id = diary.id;
-    diaryItemWrapper.classList.add('diary-item-wrapper');
-
-    const deleteDiaryIconElement = deleteDiaryIcon();
-
-    const diaryMenuIconElement = diaryMenuIcon(diaryItemWrapper);
-    editDiary(diary.id, diaryMenuIconElement);
-    deleteDiaryPrompt(diaryItemWrapper, deleteDiaryIconElement);
-
-    const diaryItemName = document.createElement('p');
-    diaryItemName.classList.add('diary-item-name');
-    diaryItemName.textContent = diary.name;
-
-    const diaryDescriptionItem = document.createElement('p');
-    diaryDescriptionItem.classList.add('diary-description-item');
-    diaryDescriptionItem.textContent = diary.description;
-
-    diaryTimestampFromLocalStorage(diaryItemWrapper, diary);
-
-    diaryItemWrapper.appendChild(diaryMenuIconElement);
-
-    deleteAndMenuIconHover(diaryItemWrapper, deleteDiaryIconElement, diaryMenuIconElement);
-    diaryItemWrapper.appendChild(deleteDiaryIconElement);
-    diaryItemWrapper.appendChild(diaryItemName);
-    diaryItemWrapper.appendChild(quoteIcon());
-    diaryItemWrapper.appendChild(diaryDescriptionItem);
-    leftSide.appendChild(diaryItemWrapper);
-    createDiaryDetailsRightSide(diary.id);
-  });
-}
-
 function textareaCharCounter(textarea, promptWindow) {
   textarea.setAttribute('maxlength', 80);
   const charCounter = document.createElement('p');
@@ -272,24 +233,12 @@ function textareaCharCounter(textarea, promptWindow) {
 function deleteDiaryPrompt(diaryItemWrapper, deleteIcon) {
   deleteIcon.addEventListener('click', () => {
     const mainWrapper = document.querySelector('.main-wrapper');
-    const backdrop = document.createElement('div');
-    backdrop.classList.add('backdrop');
-
+    const backdrop = createBackdrop();
     const deletePromptWindow = document.createElement('div');
     deletePromptWindow.classList.add('delete-prompt-window');
-
-    const deleteDiaryHeadline = document.createElement('h1');
-    deleteDiaryHeadline.classList.add('delete-diary-headline');
-    deleteDiaryHeadline.textContent = 'Do you want to delete this Diary?';
-
-    const yesButton = document.createElement('button');
-    yesButton.classList.add('yes-button');
-    yesButton.textContent = 'YES';
-
-    const noButton = document.createElement('button');
-    noButton.classList.add('no-button');
-    noButton.textContent = 'NO';
-
+    const deleteDiaryHeadline = createParagraph('delete-diary-headline', 'Do you want to delete this Diary?');
+    const yesButton = createButton('yes-button', 'YES');
+    const noButton = createButton('no-button', 'NO');
     document.body.appendChild(backdrop);
     deletePromptWindow.appendChild(deleteDiaryHeadline);
     deletePromptWindow.appendChild(yesButton);

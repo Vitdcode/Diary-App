@@ -98,7 +98,6 @@ export function deleteDiary(yesButton, noButton, diaryItemWrapper, backdrop, del
 export function deleteDiaryEntry(diary, diaryIndex, promptWindow) {
   const deleteIcon = deleteDiaryEntryIcon();
   promptWindow.appendChild(deleteIcon);
-  console.log(deleteDiaryEntryIcon());
 
   deleteIcon.addEventListener('mouseenter', () => {
     promptWindow.style.outline = '2px solid rgba(194, 78, 78, 0.815)';
