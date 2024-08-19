@@ -2,7 +2,15 @@
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 //icons
-import { closeIcon, quoteIcon, profilePic, speechBubble } from './icons-creation-functions.js';
+import {
+  closeIcon,
+  quoteIcon,
+  profilePic,
+  speechBubble,
+  pinnedIconSelected,
+  pinnedIconNotSelected,
+  pinnedDiaryEntriesIcons,
+} from './icons-creation-functions.js';
 //functions for creating DOM elements
 import {
   createBackdrop,
@@ -44,6 +52,10 @@ export function createDiaryDetailsRightSide(diaryID) {
       });
       diaryId.style.boxShadow = '0px 0px 10px 0px #6366f1';
 
+      const pinnedCollapsableMenu = createParagraph('pinned-collapsable-menu-text', 'Pinned Entries');
+      pinnedCollapsableMenu.appendChild(pinnedIconSelected('pinned-inside-collapsable-menu-icon'));
+      rightSide.appendChild(pinnedCollapsableMenu);
+
       let uniqueYears = new Set();
       let uniqueMonths = new Set();
       diary.entries.forEach((entry) => {
@@ -79,7 +91,7 @@ export function createDiaryDetailsRightSide(diaryID) {
               const diaryEntryTextAndProfilePicWrapper = document.createElement('div');
               diaryEntryTextAndProfilePicWrapper.classList.add('diary-entry-text-and-profile-pic-wrapper');
               const profilePicAndSpeechBubbleWrapper = document.createElement('div');
-              profilePicAndSpeechBubbleWrapper.classList.add('profile-pic-speechbubble-wrapper');
+              profilePicAndSpeechBubbleWrapper.classList.add('profile-pic-speechbubble-pinned-wrapper');
               profilePicAndSpeechBubbleWrapper.appendChild(speechBubble());
               profilePicAndSpeechBubbleWrapper.appendChild(profilePic());
               diaryEntryTextAndProfilePicWrapper.appendChild(profilePicAndSpeechBubbleWrapper);
@@ -219,6 +231,19 @@ function editDiaryEntriesEventListener(entriesWrapper, diary) {
     }
   });
 }
+
+function pinnedIconEventListener(entriesWrapper, diary) {
+  // using event delegation to select the clicked id and passing it to the edit prompt
+  entriesWrapper.addEventListener('click', (event) => {
+    const clickedElement = event.target;
+    if (clickedElement.classList.contains('pinned-not-selected')) {
+      const diaryEntryId = clickedElement.id;
+      pinnedDiaryEntries(diary, diaryEntryId);
+    }
+  });
+}
+
+function pinnedDiaryEntries(diary, diaryEntryId) {}
 
 function createPromptEditDiary(diary, diaryEntryId) {
   const mainWrapper = document.querySelector('.main-wrapper');

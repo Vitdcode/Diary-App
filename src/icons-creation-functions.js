@@ -6,6 +6,8 @@ import deleteentryicon from '../src/images/delete-icon.png';
 import deletediaryicon from '../src/images/delete-icon2.png';
 import menuicon from '../src/images/3dots.png';
 import savedicon from '../src/images/saved-icon.png';
+import pinnediconcolor from '../src/images/pinned-color.png';
+import pinnedblackwhite from '../src/images/pinned-black-white.png';
 
 export function closeIcon() {
   const closeWindowIcon = document.createElement('img');
@@ -64,3 +66,21 @@ export function savedIcon(className) {
   savedIcon.src = savedicon;
   return savedIcon;
 }
+
+export function pinnedIconSelected(className, id) {
+  const pinnedIconColor = document.createElement('img');
+  pinnedIconColor.src = pinnediconcolor;
+  pinnedIconColor.id = id;
+  pinnedIconColor.classList.add(className);
+  return pinnedIconColor;
+}
+
+export function pinnedIconNotSelected(id, className) {
+  const pinnedIconBlackWhite = document.createElement('img');
+  pinnedIconBlackWhite.src = pinnedblackwhite;
+  pinnedIconBlackWhite.id = id;
+  pinnedIconBlackWhite.classList.add(className);
+  return pinnedIconBlackWhite;
+}
+
+export function pinnedDiaryEntriesIcons(diary, id, className) {}

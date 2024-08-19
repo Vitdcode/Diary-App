@@ -634,7 +634,7 @@ body {
   z-index: 1;
 }
 
-.profile-pic-speechbubble-wrapper {
+.profile-pic-speechbubble-pinned-wrapper {
   display: flex;
   justify-content: end;
 }
@@ -782,4 +782,31 @@ body {
   background-color: var(--green-color-button);
   background-color: rgb(140, 255, 182);
   cursor: pointer;
+}
+
+/* pinned entries */
+
+.pinned-collapsable-menu-text {
+  position: relative;
+  width: 95%;
+  margin-inline: auto;
+  text-align: center;
+  font-size: 2rem;
+  color: rgb(140, 255, 182);
+  background-color: rgba(22, 42, 97, 0.959);
+  border-radius: 5px;
+  margin-bottom: 30px;
+  user-select: none;
+}
+
+.pinned-collapsable-menu-text:hover {
+  cursor: pointer;
+  background-color: rgba(41, 70, 150, 0.959);
+}
+
+.pinned-inside-collapsable-menu-icon {
+  position: absolute;
+  right: 2%;
+  height: 44px;
+  width: 44px;
 }

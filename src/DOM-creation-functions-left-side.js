@@ -93,6 +93,7 @@ function createDiaryItem(prompt, input, diaryDescription, createDiaryButton) {
           diaryItemWrapper.id,
           diaryDescriptionItem.textContent,
           diaryTimestamp(diaryItemWrapper),
+          [],
           []
         );
         editDiary(diaryItemWrapper.id, diaryMenuIconElement);
