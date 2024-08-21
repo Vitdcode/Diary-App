@@ -38,12 +38,6 @@ function openNewDiaryPrompt(createDiaryButton) {
   });
 }
 
-document.querySelector('.empty-pinned-entries').addEventListener('click', () => {
-  diaries[0].pinnedEntries = [];
-  saveToLocalStorage();
-  console.log(diaries);
-});
-
 function createPromptWindowElements() {
   const prompt = document.querySelector('.prompt-window');
   //creating a backdrop div to darken the background if the prompt is open and make the background unresponsive until the prompt is closed
