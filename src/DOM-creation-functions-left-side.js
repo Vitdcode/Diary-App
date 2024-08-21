@@ -38,6 +38,12 @@ function openNewDiaryPrompt(createDiaryButton) {
   });
 }
 
+document.querySelector('.empty-pinned-entries').addEventListener('click', () => {
+  diaries[0].pinnedEntries = [];
+  saveToLocalStorage();
+  console.log(diaries);
+});
+
 function createPromptWindowElements() {
   const prompt = document.querySelector('.prompt-window');
   //creating a backdrop div to darken the background if the prompt is open and make the background unresponsive until the prompt is closed
@@ -94,11 +100,11 @@ function createDiaryItem(prompt, input, diaryDescription, createDiaryButton) {
           diaryDescriptionItem.textContent,
           diaryTimestamp(diaryItemWrapper),
           [],
-          []
+          [],
+          'rgba(37, 139, 153, 0.7)'
         );
         editDiary(diaryItemWrapper.id, diaryMenuIconElement);
         createDiaryDetailsRightSide(diaryItemWrapper.id);
-
         saveToLocalStorage();
       } else {
         alert('Diary Name cannot be Empty');

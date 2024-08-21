@@ -503,7 +503,6 @@ body {
   font-family: var(--font-family-poppins);
   height: 60px;
   width: 200px;
-  /*   margin-block: 65px; */
   margin-left: 30px;
   border-radius: 10px;
   outline: transparent;
@@ -634,7 +633,7 @@ body {
   z-index: 1;
 }
 
-.profile-pic-speechbubble-pinned-wrapper {
+.profile-pic-speechbubble-wrapper {
   display: flex;
   justify-content: end;
 }
@@ -799,14 +798,42 @@ body {
   user-select: none;
 }
 
+.pinned-collapsable-menu-text:after {
+  margin-left: 5px;
+  content: '\002B';
+  float: left;
+}
+
+.diary-entries-wrapper-pinned-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 150ms ease-out;
+}
+
+.active-pinned-menu:after {
+  content: '\2212';
+}
+
 .pinned-collapsable-menu-text:hover {
   cursor: pointer;
   background-color: rgba(41, 70, 150, 0.959);
 }
 
-.pinned-inside-collapsable-menu-icon {
+.pinned-inside-collapsible-menu-icon {
   position: absolute;
   right: 2%;
   height: 44px;
   width: 44px;
+}
+
+.not-pinned {
+  position: absolute;
+  height: 54px;
+  width: 54px;
+}
+
+.pinned {
+  position: absolute;
+  height: 54px;
+  width: 54px;
 }

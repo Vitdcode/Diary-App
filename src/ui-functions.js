@@ -93,7 +93,7 @@ export function deleteDiary(yesButton, noButton, diaryItemWrapper, backdrop, del
   });
 }
 
-export function deleteDiaryEntry(diary, diaryIndex, promptWindow) {
+export function deleteDiaryEntry(diary, diaryIndex, diaryPinnedEntryIndex, promptWindow) {
   const deleteIcon = deleteDiaryEntryIcon();
   promptWindow.appendChild(deleteIcon);
   deleteIcon.addEventListener('mouseenter', () => {
@@ -106,7 +106,10 @@ export function deleteDiaryEntry(diary, diaryIndex, promptWindow) {
   deleteIcon.addEventListener('click', () => {
     const entryId = document.getElementById(diary.entries[diaryIndex].id);
     entryId.remove();
+    const pinnedEntryId = document.getElementById(diary.pinnedEntries[diaryPinnedEntryIndex].id);
+    pinnedEntryId.remove();
     diary.entries.splice(diaryIndex, 1);
+    diary.pinnedEntries.splice(diaryPinnedEntryIndex, 1);
     document.querySelector('.main-wrapper').removeChild(promptWindow);
     document.body.removeChild(document.querySelector('.backdrop'));
     saveToLocalStorage();
@@ -138,6 +141,24 @@ export function monthCollapsible() {
     const clickedElement = event.target;
     if (clickedElement.classList.contains('month-text')) {
       clickedElement.classList.toggle('active-month');
+      const content = clickedElement.nextElementSibling;
+      if (content.style.maxHeight) {
+        // If the content is already expanded, collapse it
+        content.style.maxHeight = null;
+      } else {
+        // Expand the content to its full height
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    }
+  });
+}
+
+export function pinnedCollapsibale() {
+  document.querySelector('.right-side').addEventListener('click', (event) => {
+    const clickedElement = event.target;
+    if (clickedElement.classList.contains('pinned-collapsable-menu-text')) {
+      clickedElement.classList.toggle('active-pinned-menu');
+      /*   const content = document.querySelector('.diary-entries-wrapper-pinned-menu'); */
       const content = clickedElement.nextElementSibling;
       if (content.style.maxHeight) {
         // If the content is already expanded, collapse it

@@ -75,12 +75,10 @@ export function pinnedIconSelected(className, id) {
   return pinnedIconColor;
 }
 
-export function pinnedIconNotSelected(id, className) {
+export function pinnedIconNotSelected(className, id) {
   const pinnedIconBlackWhite = document.createElement('img');
   pinnedIconBlackWhite.src = pinnedblackwhite;
   pinnedIconBlackWhite.id = id;
   pinnedIconBlackWhite.classList.add(className);
   return pinnedIconBlackWhite;
 }
-
-export function pinnedDiaryEntriesIcons(diary, id, className) {}
