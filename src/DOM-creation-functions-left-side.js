@@ -17,7 +17,7 @@ import {
 import { closePrompt, deleteItemsFromLeftSide, deleteAndMenuIconHover, deleteDiary } from './ui-functions.js';
 import { pushToDiariesArray, diaries } from './diary-list-handling.js';
 import { createDiaryDetailsRightSide } from './DOM-creation-functions-right-side.js';
-import { saveToLocalStorage } from './local-storage-handling';
+import { saveToLocalStorage, localStorageBackup } from './local-storage-handling';
 
 export function createDiaryButtonInDom() {
   const leftSide = document.querySelector('.left-side');
@@ -128,6 +128,7 @@ export function createDiariesFromLocalStorage() {
     diaryItemWrapper.appendChild(quoteIcon());
     diaryItemWrapper.appendChild(diaryDescriptionItem);
     leftSide.appendChild(diaryItemWrapper);
+    leftSide.appendChild(localStorageBackup());
     createDiaryDetailsRightSide(diary.id);
   });
 }
