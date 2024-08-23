@@ -1,6 +1,7 @@
 //libraries
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
+
 //icons
 import {
   closeIcon,
@@ -20,6 +21,7 @@ import {
   createButton,
   createPromptWindow,
   createParagraph,
+  createQuillEditor,
 } from './reused-DOM-functions.js';
 //other functions
 import { diaries } from './diary-list-handling';
@@ -169,22 +171,28 @@ function createEntryPrompt(diary) {
   const promptWindow = createPromptWindow('prompt-window-new-entry');
   //creating a backdrop div to darken the background if the prompt is open and make the background unresponsive until he prompt is closed
   const backdrop = createBackdrop();
-  const entryTextLabel = createFormLabel('create-new-entry-textarea', 'Create new Entry');
-  const entryText = createTextarea('create-new-entry-textarea');
+
   const createEntryButton = createButton('create-entry-button', 'Create new Entry');
 
+  mainWrapper.appendChild(promptWindow);
   promptWindow.appendChild(closeIcon());
   promptWindow.appendChild(quoteIcon('quote-icon-new-entry-prompt'));
+  const entryTextLabel = createFormLabel('quill-editor-create-entry', 'Create new Entry');
   promptWindow.appendChild(entryTextLabel);
-  promptWindow.appendChild(entryText);
+
+  const quillWrapper = document.createElement('div');
+  quillWrapper.id = 'quill-editor-create-entry';
+  promptWindow.appendChild(quillWrapper);
+  const quill = createQuillEditor('quill-editor-create-entry');
+
   promptWindow.appendChild(createEntryButton);
-  mainWrapper.appendChild(promptWindow);
+
   document.body.appendChild(backdrop);
   closePrompt(promptWindow);
-  createEntry(diary, entryText, createEntryButton);
+  createEntry(diary, quill, createEntryButton);
 }
 
-function createEntry(diary, entryText, createEntryButton) {
+function createEntry(diary, quill, createEntryButton) {
   createEntryButton.addEventListener('click', () => {
     const diaryText = document.createElement('p');
     diaryText.classList.add('diary-entry-text');
@@ -194,7 +202,7 @@ function createEntry(diary, entryText, createEntryButton) {
       day: format(new Date(), 'dd'),
       seconds: format(new Date(), 'ss'),
       entryTimestamp: format(new Date(), 'dd. MMMM. yyyy'),
-      text: entryText.value,
+      text: quill.root.innerHTML,
       id: uuidv4(),
       pinned: false,
     };

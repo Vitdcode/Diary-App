@@ -85,7 +85,7 @@ body {
 
 .prompt-window {
   position: relative;
-  font-weight: bold;
+  /*   font-weight: bold; */
   font-size: 1.3rem;
   height: 800px;
   width: 500px;
@@ -657,8 +657,8 @@ body {
 /* prompt new entry */
 
 .prompt-window-new-entry {
-  font-weight: bold;
-  font-size: 1.3rem;
+  /*   font-weight: bold; */
+  font-size: 1.5rem;
   height: 80%;
   width: 80%;
   position: absolute;
@@ -683,7 +683,7 @@ body {
   color: beige;
 }
 
-#create-new-entry-textarea {
+/* #create-new-entry-textarea {
   position: relative;
   width: 60%;
   height: 60%;
@@ -694,6 +694,18 @@ body {
   resize: none;
   border-radius: 10px;
   padding: 40px;
+} */
+
+#quill-editor-create-entry {
+  position: relative;
+  width: 60%;
+  height: 60%;
+  background-color: rgba(37, 139, 153, 0.7);
+  backdrop-filter: blur(10px);
+  color: rgba(0, 0, 0, 0.829);
+  border-radius: 10px;
+  padding: 40px;
+  border: none;
 }
 
 #create-new-entry-textarea:focus {
@@ -723,8 +735,8 @@ body {
   height: 64px;
   width: 64px;
   z-index: 1;
-  left: 17%;
-  top: 10%;
+  left: 20%;
+  top: 15%;
 }
 
 /* edit diary entry prompt window */
@@ -852,4 +864,21 @@ body {
   position: absolute;
   height: 54px;
   width: 54px;
+}
+
+/* quill text editor */
+
+.ql-snow.ql-toolbar,
+.ql-snow .ql-toolbar {
+  padding: 10px;
+  background-color: rgb(122, 224, 160);
+  border-radius: 10px;
+}
+
+.ql-container {
+  border: none;
+}
+
+#quill-editor-create-entry {
+  font-size: 1.3rem;
 }

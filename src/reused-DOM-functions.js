@@ -1,3 +1,8 @@
+import Quill from 'quill';
+import 'quill/dist/quill.snow.css';
+import ImageCompress from 'quill-image-compress';
+import DOMPurify from 'dompurify';
+
 export function createBackdrop() {
   const backdrop = document.createElement('div');
   backdrop.classList.add('backdrop');
@@ -25,6 +30,24 @@ export function createTextarea(textareaId) {
   return textarea;
 }
 
+export function createQuillEditor(quillWrapperId) {
+  const toolbarOptions = [
+    [{ header: [1, 2, 3, false] }],
+    ['bold', 'italic', 'underline'], // Toggle buttons
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    [{ color: [] }], // Add color picker
+    [{ align: [] }],
+    ['clean'], // Remove formatting button
+  ];
+  const quill = new Quill(`#${quillWrapperId}`, {
+    theme: 'snow',
+    modules: {
+      toolbar: toolbarOptions,
+    },
+  });
+  return quill;
+}
+
 export function createButton(className, textContent) {
   const button = document.createElement('button');
   button.classList.add(`${className}`);
@@ -39,8 +62,8 @@ export function createPromptWindow(className) {
 }
 
 export function createParagraph(className, textContent) {
-  const paragraph = document.createElement('p');
+  const paragraph = document.createElement('div');
   paragraph.classList.add(className);
-  paragraph.textContent = textContent;
+  paragraph.innerHTML = DOMPurify.sanitize(textContent);
   return paragraph;
 }
