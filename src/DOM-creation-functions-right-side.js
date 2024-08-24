@@ -202,15 +202,18 @@ function createEntry(diary, quillEditor, createEntryButton) {
       day: format(new Date(), 'dd'),
       seconds: format(new Date(), 'ss'),
       entryTimestamp: format(new Date(), 'dd. MMMM. yyyy'),
-      text: quillEditor.root.innerHTML,
+      text: quillEditor.getSemanticHTML(),
       id: uuidv4(),
       pinned: false,
     };
+
+    // Custom logic to handle missing <br> tags in Quill after a Enter Press
+    newEntry.text = newEntry.text.replace(/<p>\s*<\/p>/g, '<p><br></p>');
+
     diary.entries.push(newEntry);
     diaryText.textContent = newEntry.text;
     printEntriesInDom(diary);
     saveToLocalStorage();
-    console.log(diaries);
   });
 }
 
@@ -218,10 +221,8 @@ function editDiaryEntriesEventListener(entriesWrapper, diary) {
   // using event delegation to select the clicked id and passing it to the edit prompt
   entriesWrapper.addEventListener('click', (event) => {
     const clickedElement = event.target;
-    console.log(clickedElement);
     if (clickedElement.classList.contains('dot-entry-menu')) {
       const diaryEntryId = clickedElement.id;
-      console.log(diaryEntryId);
       createPromptEditDiary(diary, diaryEntryId);
     }
   });
@@ -235,22 +236,17 @@ function pinnedIconEventListener(entriesWrapper, diary) {
     if (clickedElement.classList.contains('not-pinned')) {
       clickedElement.classList.replace('not-pinned', 'pinned');
       diary.entries[indexEntry].pinned = true;
-      console.log(diaries);
       clickedElement.src = pinnediconcolor;
       newEntryPinnedMenu(diary, diaryEntryId, indexEntry);
-      console.log('not pinned to pinned');
 
       saveToLocalStorage();
     } else if (clickedElement.classList.contains('pinned')) {
       clickedElement.classList.replace('pinned', 'not-pinned');
-      console.log('pinned to not pinned');
       diary.entries[indexEntry].pinned = false;
       const indexPinnedEntry = diary.pinnedEntries.findIndex((item) => item.id === diaryEntryId);
-      console.log(indexPinnedEntry);
       diary.pinnedEntries.splice(indexPinnedEntry, 1);
 
       document.getElementById(diaryEntryId).remove();
-      console.log(diaries);
       clickedElement.src = pinnedblackwhite;
 
       saveToLocalStorage();
@@ -343,10 +339,7 @@ function createPromptEditDiary(diary, diaryEntryId) {
 
   const quillWrapper = document.createElement('div');
   quillWrapper.id = 'edit-entry-textarea';
-  /*   promptWindow.appendChild(quillWrapper); */
 
-  /*   const entryText = createTextarea('create-new-entry-textarea');
-  entryText.value = diary.entries[diaryEntryIndex].text; */
   const editEntryButton = createButton('edit-entry-button', 'Edit Entry');
 
   promptWindow.appendChild(closeIcon());
@@ -354,7 +347,7 @@ function createPromptEditDiary(diary, diaryEntryId) {
   promptWindow.appendChild(entryTextLabel);
   promptWindow.appendChild(quillWrapper);
   const quillEditor = createQuillEditor('edit-entry-textarea');
-  quillEditor.root.innerHTML = diary.entries[diaryEntryIndex].text;
+  quillEditor.clipboard.dangerouslyPasteHTML(diary.entries[diaryEntryIndex].text);
   promptWindow.appendChild(editEntryButton);
 
   document.body.appendChild(backdrop);
@@ -381,9 +374,14 @@ function editDiaryButton(
   promptWindow
 ) {
   editEntryButton.addEventListener('click', () => {
-    diary.entries[diaryIndex].text = quillEditor.root.innerHTML;
+    diary.entries[diaryIndex].text = quillEditor.getSemanticHTML();
+    diary.entries[diaryIndex].text = diary.entries[diaryIndex].text.replace(/<p>\s*<\/p>/g, '<p><br></p>');
     if (diary.pinnedEntries[diaryPinnedEntryIndex]) {
-      diary.pinnedEntries[diaryPinnedEntryIndex].text = quillEditor.root.innerHTML;
+      diary.pinnedEntries[diaryPinnedEntryIndex].text = quillEditor.getSemanticHTML();
+      diary.pinnedEntries[diaryPinnedEntryIndex].text = diary.pinnedEntries[diaryPinnedEntryIndex].text.replace(
+        /<p>\s*<\/p>/g,
+        '<p><br></p>'
+      );
 
       pushPinnedEntriesToPinnedMenu(diary, diaryEntryId);
     }

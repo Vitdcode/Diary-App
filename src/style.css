@@ -542,6 +542,11 @@ body {
   gap: 30px;
 }
 
+.entry-details-wrapper {
+  max-width: 1700px;
+  margin-inline: auto;
+}
+
 .year-text {
   width: 95%;
   margin-inline: auto;
@@ -642,8 +647,8 @@ body {
 .profile-pic {
   margin-top: 10px;
   margin-right: 10px;
-  height: 95px;
-  width: 80px;
+  height: 120px;
+  width: 90px;
   background-color: rgba(255, 255, 255, 0.74);
   border-radius: 100%;
   padding: 2px;
@@ -934,9 +939,74 @@ body {
   align-items: center;
 }
 
-img {
-  position: relative;
+p > img {
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.301);
+  padding: 4px;
 }
+
+blockquote {
+  margin: 20px auto;
+  padding: 1.2em 30px 1.2em 75px;
+  border-left: 8px solid #78c0a8;
+  line-height: 1.6;
+  position: relative;
+  background: rgba(132, 133, 132, 0.432);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+}
+
+blockquote::before {
+  content: '\201C';
+  font-size: 4em;
+  position: absolute;
+  left: 10px;
+  top: -10px;
+  font-family: Open Sans;
+}
+
+blockquote::after {
+  content: '';
+}
+
+blockquote span {
+  display: block;
+  margin-top: 1em;
+}
+
+.ql-align-center {
+  margin-inline: auto !important;
+  text-align: center;
+}
+
+ol > .ql-align-center {
+  text-align: center;
+  margin: auto;
+}
+
+.ql-color > .ql-picker-options {
+  height: 120px;
+  width: 450px !important;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  background-color: rgba(120, 192, 168, 0.596) !important;
+  animation: fadeIn 250ms ease-in;
+  border: none !important;
+  box-shadow: 1px 1px 10px 1px #00000085 !important;
+}
+
+#ql-picker-options-4 .ql-picker-item {
+  height: 20px !important;
+  width: 20px !important;
+  padding: 15px !important;
+  border-radius: 15px;
+}
+
+.ql-picker-item:hover {
+  border: 2px solid rgba(0, 0, 0, 0.685) !important;
+}
+
+/* image resizing toolbar */
 
 #editor-resizer {
   background-color: #3d2770c0 !important;
@@ -945,7 +1015,6 @@ img {
   top: 10% !important;
 }
 
-/* image resizing toolbar */
 .group {
   width: 330px;
   background-color: rgb(122, 224, 160);
@@ -961,10 +1030,4 @@ img {
 .btn:hover {
   background-color: rgb(151, 255, 189);
   cursor: pointer;
-}
-
-p > img {
-  border-radius: 20px;
-  background-color: rgb(255, 255, 255);
-  padding: 10px;
 }

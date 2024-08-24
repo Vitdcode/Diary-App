@@ -105,15 +105,19 @@ export function deleteDiaryEntry(diary, diaryIndex, diaryPinnedEntryIndex, promp
 
   deleteIcon.addEventListener('click', () => {
     const entryId = document.getElementById(diary.entries[diaryIndex].id);
+    console.log(diaryIndex);
     entryId.remove();
     if (diary.pinnedEntries[diaryPinnedEntryIndex]) {
       const pinnedEntryId = document.getElementById(diary.pinnedEntries[diaryPinnedEntryIndex].id);
+      console.log(diaryPinnedEntryIndex);
       pinnedEntryId.remove();
+      diary.pinnedEntries.splice(diaryPinnedEntryIndex, 1);
     }
     diary.entries.splice(diaryIndex, 1);
-    diary.pinnedEntries.splice(diaryPinnedEntryIndex, 1);
+
     document.querySelector('.main-wrapper').removeChild(promptWindow);
     document.body.removeChild(document.querySelector('.backdrop'));
+    console.log(diaries);
     saveToLocalStorage();
   });
 }
