@@ -1,6 +1,13 @@
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
-import ImageCompress from 'quill-image-compress';
+/* import { ImageDrop } from 'quill-image-drop-module'; */
+import ResizeModule from '@ssumo/quill-resize-module';
+
+Quill.register('modules/resize', ResizeModule);
+
+/* Quill.register('modules/imageDrop', ImageDrop); */
+
+/* import ImageCompress from 'quill-image-compress'; */
 import DOMPurify from 'dompurify';
 
 export function createBackdrop() {
@@ -37,12 +44,19 @@ export function createQuillEditor(quillWrapperId) {
     [{ list: 'ordered' }, { list: 'bullet' }],
     [{ color: [] }], // Add color picker
     [{ align: [] }],
+    ['image'],
     ['clean'], // Remove formatting button
   ];
   const quill = new Quill(`#${quillWrapperId}`, {
     theme: 'snow',
     modules: {
       toolbar: toolbarOptions,
+      /*       imageDrop: true, */
+      resize: {
+        locale: {
+          center: 'center',
+        },
+      },
     },
   });
   return quill;

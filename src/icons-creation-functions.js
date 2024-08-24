@@ -8,6 +8,7 @@ import menuicon from '../src/images/3dots.png';
 import savedicon from '../src/images/saved-icon.png';
 import pinnediconcolor from '../src/images/pinned-color.png';
 import pinnedblackwhite from '../src/images/pinned-black-white.png';
+import dots from '../src/images/three-dots.png';
 
 export function closeIcon() {
   const closeWindowIcon = document.createElement('img');
@@ -81,4 +82,12 @@ export function pinnedIconNotSelected(className, id) {
   pinnedIconBlackWhite.id = id;
   pinnedIconBlackWhite.classList.add(className);
   return pinnedIconBlackWhite;
+}
+
+export function editEntryMenu(id) {
+  const clickableDots = document.createElement('img');
+  clickableDots.classList.add('dot-entry-menu');
+  clickableDots.id = id;
+  clickableDots.src = dots;
+  return clickableDots;
 }

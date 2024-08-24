@@ -625,6 +625,7 @@ body {
 }
 
 .diary-entry-text-and-profile-pic-wrapper {
+  position: relative;
   background-color: rgba(37, 139, 153, 0.7);
   backdrop-filter: blur(10px);
   margin-inline: 40px;
@@ -654,10 +655,22 @@ body {
   justify-content: end;
 }
 
+.dot-entry-menu {
+  position: absolute;
+  top: 4%;
+  left: 1%;
+  height: 34px;
+  padding: 1px;
+  border-radius: 100%;
+  transition-duration: 200ms;
+}
+
+.dot-entry-menu:hover {
+  background-color: rgb(255, 255, 255);
+}
 /* prompt new entry */
 
 .prompt-window-new-entry {
-  /*   font-weight: bold; */
   font-size: 1.5rem;
   height: 80%;
   width: 80%;
@@ -680,6 +693,7 @@ body {
 }
 
 .prompt-window-new-entry label {
+  font-weight: 600;
   color: beige;
 }
 
@@ -696,7 +710,8 @@ body {
   padding: 40px;
 } */
 
-#quill-editor-create-entry {
+#quill-editor-create-entry,
+#edit-entry-textarea {
   position: relative;
   width: 60%;
   height: 60%;
@@ -736,7 +751,7 @@ body {
   width: 64px;
   z-index: 1;
   left: 20%;
-  top: 15%;
+  top: 20%;
 }
 
 /* edit diary entry prompt window */
@@ -856,14 +871,30 @@ body {
 
 .not-pinned {
   position: absolute;
+  bottom: 2%;
+  right: 1%;
   height: 54px;
   width: 54px;
+  padding-block: 5px;
+}
+
+.not-pinned:hover {
+  background-color: rgba(122, 42, 105, 0.5);
+  border-radius: 30%;
 }
 
 .pinned {
   position: absolute;
+  bottom: 2%;
+  right: 1%;
   height: 54px;
   width: 54px;
+  padding-block: 5px;
+}
+
+.pinned:hover {
+  background-color: rgba(122, 42, 105, 0.5);
+  border-radius: 30%;
 }
 
 /* quill text editor */
@@ -873,6 +904,8 @@ body {
   padding: 10px;
   background-color: rgb(122, 224, 160);
   border-radius: 10px;
+  border: none !important;
+  box-shadow: var(--boxshadowCardTemplate);
 }
 
 .ql-container {
@@ -880,5 +913,9 @@ body {
 }
 
 #quill-editor-create-entry {
+  font-size: 1.3rem;
+}
+
+#edit-entry-textarea {
   font-size: 1.3rem;
 }

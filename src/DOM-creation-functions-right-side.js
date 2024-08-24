@@ -10,6 +10,7 @@ import {
   speechBubble,
   pinnedIconSelected,
   pinnedIconNotSelected,
+  editEntryMenu,
 } from './icons-creation-functions.js';
 import pinnediconcolor from '../src/images/pinned-color.png';
 import pinnedblackwhite from '../src/images/pinned-black-white.png';
@@ -183,16 +184,16 @@ function createEntryPrompt(diary) {
   const quillWrapper = document.createElement('div');
   quillWrapper.id = 'quill-editor-create-entry';
   promptWindow.appendChild(quillWrapper);
-  const quill = createQuillEditor('quill-editor-create-entry');
+  const quillEditor = createQuillEditor('quill-editor-create-entry');
 
   promptWindow.appendChild(createEntryButton);
 
   document.body.appendChild(backdrop);
   closePrompt(promptWindow);
-  createEntry(diary, quill, createEntryButton);
+  createEntry(diary, quillEditor, createEntryButton);
 }
 
-function createEntry(diary, quill, createEntryButton) {
+function createEntry(diary, quillEditor, createEntryButton) {
   createEntryButton.addEventListener('click', () => {
     const diaryText = document.createElement('p');
     diaryText.classList.add('diary-entry-text');
@@ -202,7 +203,7 @@ function createEntry(diary, quill, createEntryButton) {
       day: format(new Date(), 'dd'),
       seconds: format(new Date(), 'ss'),
       entryTimestamp: format(new Date(), 'dd. MMMM. yyyy'),
-      text: quill.root.innerHTML,
+      text: quillEditor.root.innerHTML,
       id: uuidv4(),
       pinned: false,
     };
@@ -218,8 +219,10 @@ function editDiaryEntriesEventListener(entriesWrapper, diary) {
   // using event delegation to select the clicked id and passing it to the edit prompt
   entriesWrapper.addEventListener('click', (event) => {
     const clickedElement = event.target;
-    if (clickedElement.classList.contains('diary-entry-text')) {
+    console.log(clickedElement);
+    if (clickedElement.classList.contains('dot-entry-menu')) {
       const diaryEntryId = clickedElement.id;
+      console.log(diaryEntryId);
       createPromptEditDiary(diary, diaryEntryId);
     }
   });
@@ -336,16 +339,24 @@ function createPromptEditDiary(diary, diaryEntryId) {
   const diaryEntryIndex = diary.entries.findIndex((item) => item.id === diaryEntryId);
   const diaryPinnedEntryIndex = diary.pinnedEntries.findIndex((item) => item.id === diaryEntryId);
   const entryTextLabel = createFormLabel('create-new-entry-textarea', 'Edit Diary Entry');
-  const entryText = createTextarea('create-new-entry-textarea');
-  entryText.value = diary.entries[diaryEntryIndex].text;
+  mainWrapper.appendChild(promptWindow);
+
+  const quillWrapper = document.createElement('div');
+  quillWrapper.id = 'edit-entry-textarea';
+  /*   promptWindow.appendChild(quillWrapper); */
+
+  /*   const entryText = createTextarea('create-new-entry-textarea');
+  entryText.value = diary.entries[diaryEntryIndex].text; */
   const editEntryButton = createButton('edit-entry-button', 'Edit Entry');
 
   promptWindow.appendChild(closeIcon());
   promptWindow.appendChild(quoteIcon('edit-entry-prompt-quote-icon'));
   promptWindow.appendChild(entryTextLabel);
-  promptWindow.appendChild(entryText);
+  promptWindow.appendChild(quillWrapper);
+  const quillEditor = createQuillEditor('edit-entry-textarea');
+  quillEditor.root.innerHTML = diary.entries[diaryEntryIndex].text;
   promptWindow.appendChild(editEntryButton);
-  mainWrapper.appendChild(promptWindow);
+
   document.body.appendChild(backdrop);
   deleteDiaryEntry(diary, diaryEntryIndex, diaryPinnedEntryIndex, promptWindow);
   closePrompt(promptWindow);
@@ -355,7 +366,7 @@ function createPromptEditDiary(diary, diaryEntryId) {
     diaryEntryIndex,
     diaryPinnedEntryIndex,
     editEntryButton,
-    entryText,
+    quillEditor,
     promptWindow
   );
 }
@@ -366,13 +377,16 @@ function editDiaryButton(
   diaryIndex,
   diaryPinnedEntryIndex,
   editEntryButton,
-  entryText,
+  quillEditor,
   promptWindow
 ) {
   editEntryButton.addEventListener('click', () => {
-    diary.entries[diaryIndex].text = entryText.value;
-    diary.pinnedEntries[diaryPinnedEntryIndex].text = entryText.value;
-    pushPinnedEntriesToPinnedMenu(diary, diaryEntryId);
+    diary.entries[diaryIndex].text = quillEditor.root.innerHTML;
+    if (diary.pinnedEntries[diaryPinnedEntryIndex]) {
+      diary.pinnedEntries[diaryPinnedEntryIndex].text = quillEditor.root.innerHTML;
+
+      pushPinnedEntriesToPinnedMenu(diary, diaryEntryId);
+    }
     savedText(promptWindow, 'saved-icon-edit-entry-prompt', 'saved-text-entry-edit');
     saveToLocalStorage();
     printEntriesInDom(diary);
@@ -431,6 +445,7 @@ function loopingAndAppendingEntries(diary, entriesWrapper) {
       entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
       const diaryEntryTextAndProfilePicWrapper = document.createElement('div');
       diaryEntryTextAndProfilePicWrapper.classList.add('diary-entry-text-and-profile-pic-wrapper');
+      const editMenu = editEntryMenu(diary.entries[i].id);
 
       const profilePicAndSpeechBubbleWrapper = document.createElement('div');
       profilePicAndSpeechBubbleWrapper.classList.add('profile-pic-speechbubble-wrapper');
@@ -444,6 +459,7 @@ function loopingAndAppendingEntries(diary, entriesWrapper) {
         diaryEntryTextAndProfilePicWrapper.appendChild(pinnedSelected);
       }
       diaryEntryTextAndProfilePicWrapper.appendChild(profilePicAndSpeechBubbleWrapper);
+      diaryEntryTextAndProfilePicWrapper.appendChild(editMenu);
       const diaryText = createParagraph('diary-entry-text', diary.entries[i].text);
       diaryText.id = diary.entries[i].id;
       diaryEntryTextAndProfilePicWrapper.appendChild(diaryText);

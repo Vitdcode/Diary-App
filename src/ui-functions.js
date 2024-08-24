@@ -106,8 +106,10 @@ export function deleteDiaryEntry(diary, diaryIndex, diaryPinnedEntryIndex, promp
   deleteIcon.addEventListener('click', () => {
     const entryId = document.getElementById(diary.entries[diaryIndex].id);
     entryId.remove();
-    const pinnedEntryId = document.getElementById(diary.pinnedEntries[diaryPinnedEntryIndex].id);
-    pinnedEntryId.remove();
+    if (diary.pinnedEntries[diaryPinnedEntryIndex]) {
+      const pinnedEntryId = document.getElementById(diary.pinnedEntries[diaryPinnedEntryIndex].id);
+      pinnedEntryId.remove();
+    }
     diary.entries.splice(diaryIndex, 1);
     diary.pinnedEntries.splice(diaryPinnedEntryIndex, 1);
     document.querySelector('.main-wrapper').removeChild(promptWindow);
