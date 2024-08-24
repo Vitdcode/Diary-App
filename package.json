@@ -31,10 +31,9 @@
     "@ssumo/quill-resize-module": "^1.0.1",
     "date-fns": "^3.6.0",
     "dompurify": "^3.1.6",
-    "quill": "^2.0.2",
     "quill-image-compress": "^2.0.2",
-    "quill-image-drop-module": "^1.0.3",
     "quill-image-resize-module": "^1.0.0",
+    "quill-paste-smart": "^2.0.0",
     "quill-resize-image": "^1.0.5",
     "uuid": "^10.0.0"
   }

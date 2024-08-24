@@ -18,7 +18,6 @@ import pinnedblackwhite from '../src/images/pinned-black-white.png';
 import {
   createBackdrop,
   createFormLabel,
-  createTextarea,
   createButton,
   createPromptWindow,
   createParagraph,
@@ -247,6 +246,7 @@ function pinnedIconEventListener(entriesWrapper, diary) {
       console.log('pinned to not pinned');
       diary.entries[indexEntry].pinned = false;
       const indexPinnedEntry = diary.pinnedEntries.findIndex((item) => item.id === diaryEntryId);
+      console.log(indexPinnedEntry);
       diary.pinnedEntries.splice(indexPinnedEntry, 1);
 
       document.getElementById(diaryEntryId).remove();

@@ -7,7 +7,12 @@ Quill.register('modules/resize', ResizeModule);
 
 /* Quill.register('modules/imageDrop', ImageDrop); */
 
-/* import ImageCompress from 'quill-image-compress'; */
+import ImageCompress from 'quill-image-compress';
+Quill.register('modules/imageCompress', ImageCompress);
+
+import QuillPasteSmart from 'quill-paste-smart';
+Quill.register('modules/pasteSmart', QuillPasteSmart);
+
 import DOMPurify from 'dompurify';
 
 export function createBackdrop() {
@@ -51,12 +56,29 @@ export function createQuillEditor(quillWrapperId) {
     theme: 'snow',
     modules: {
       toolbar: toolbarOptions,
-      /*       imageDrop: true, */
       resize: {
         locale: {
-          center: 'center',
+          locale: {
+            floatLeft: 'left',
+            floatRight: 'right',
+            center: 'center',
+            restore: 'restore',
+            altTip: 'Press and hold alt to lock ratio!',
+            inputTip: 'Press enter key to apply change!',
+          },
         },
       },
+      imageCompress: {
+        quality: 0.7, // default
+        maxWidth: 1000, // default
+        maxHeight: 1000, // default
+        imageType: 'image/jpeg', // default
+        debug: true, // default
+        suppressErrorLogging: false, // default
+        handleOnPaste: true, //default
+        insertIntoEditor: undefined, // default
+      },
+      pasteSmart: {},
     },
   });
   return quill;

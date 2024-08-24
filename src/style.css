@@ -919,3 +919,52 @@ body {
 #edit-entry-textarea {
   font-size: 1.3rem;
 }
+
+.toolbar {
+  top: -80% !important;
+  width: 370px;
+  border-radius: 10px;
+  background-color: rgba(151, 255, 160, 0.479) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 10px !important;
+  border: none !important;
+  padding: 20px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+img {
+  position: relative;
+}
+
+#editor-resizer {
+  background-color: #3d2770c0 !important;
+  backdrop-filter: blur(30px);
+  position: absolute !important;
+  top: 10% !important;
+}
+
+/* image resizing toolbar */
+.group {
+  width: 330px;
+  background-color: rgb(122, 224, 160);
+  border: none !important;
+}
+
+.btn {
+  padding: 5px !important;
+  color: rgb(56, 56, 56) !important;
+  border-right: 1px solid rgba(139, 139, 139, 0.438) !important;
+}
+
+.btn:hover {
+  background-color: rgb(151, 255, 189);
+  cursor: pointer;
+}
+
+p > img {
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+}
