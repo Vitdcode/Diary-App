@@ -538,6 +538,7 @@ body {
 }
 
 .colors-and-headline-text-wrapper {
+  padding: 10px;
   border-radius: 15px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -773,19 +774,6 @@ body {
   color: beige;
 }
 
-/* #create-new-entry-textarea {
-  position: relative;
-  width: 60%;
-  height: 60%;
-  background-color: rgba(37, 139, 153, 0.7);
-  backdrop-filter: blur(10px);
-  color: rgba(0, 0, 0, 0.829);
-  font-size: 1.3rem;
-  resize: none;
-  border-radius: 10px;
-  padding: 40px;
-} */
-
 #quill-editor-create-entry,
 #edit-entry-textarea {
   position: relative;
@@ -915,6 +903,7 @@ body {
   border-radius: 5px;
   margin-bottom: 30px;
   user-select: none;
+  transition-duration: 200ms;
 }
 
 .pinned-collapsable-menu-text:after {

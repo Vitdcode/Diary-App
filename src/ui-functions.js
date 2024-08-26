@@ -189,3 +189,21 @@ export function addingHeightToCollapsableMenu() {
   month.style.maxHeight = month.scrollHeight + 'px';
   year.style.maxHeight = year.scrollHeight + 'px';
 }
+
+export function animatePinnedIconPinnedEntriesText() {
+  const pinnedEntriesWrapper = document.querySelector('.pinned-collapsable-menu-text');
+  const pinnedIcon = document.querySelector('.pinned-inside-collapsible-menu-icon');
+
+  if (pinnedEntriesWrapper) {
+    console.log('test');
+    pinnedEntriesWrapper.addEventListener('mouseenter', () => {
+      pinnedEntriesWrapper.style.transition = 'transform 250ms ease-in-out';
+      pinnedIcon.style.transform = 'rotate(20deg)';
+    });
+
+    pinnedEntriesWrapper.addEventListener('mouseleave', () => {
+      pinnedIcon.style.transition = 'transform 250ms ease-in-out';
+      pinnedIcon.style.transform = 'rotate(0deg)';
+    });
+  }
+}

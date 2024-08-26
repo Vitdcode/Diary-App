@@ -28,11 +28,9 @@ import {
 import { diaries } from './diary-list-handling';
 import {
   closePrompt,
-  yearCollapsible,
   deleteDiaryEntry,
   addingHeightToCollapsableMenu,
-  monthCollapsible,
-  pinnedCollapsibale,
+  animatePinnedIconPinnedEntriesText,
 } from './ui-functions';
 import { savedText } from './DOM-creation-functions-left-side';
 import { saveToLocalStorage } from './local-storage-handling';
@@ -64,7 +62,6 @@ export function createDiaryDetailsRightSide(diaryID) {
       rightSide.appendChild(pinnedCollapsableMenu);
       rightSide.appendChild(entriesWrapperPinned);
       pushPinnedEntriesToPinnedMenu(diary);
-      pinnedCollapsibale();
 
       let uniqueYears = new Set();
       let uniqueMonths = new Set();
@@ -91,12 +88,11 @@ export function createDiaryDetailsRightSide(diaryID) {
         });
         rightSide.appendChild(entriesWrapper);
         editDiaryEntriesEventListener(entriesWrapper, diary);
+        animatePinnedIconPinnedEntriesText();
       });
     }
     initialEntriesColorPicker(diary);
   });
-  yearCollapsible();
-  monthCollapsible();
 }
 
 function createNewEntryButton(rightSide, diary) {
@@ -448,7 +444,7 @@ function printEntriesInDom(diary) {
     rightSide.appendChild(entriesWrapper);
     editDiaryEntriesEventListener(entriesWrapper, diary);
   });
-  addingHeightToCollapsableMenu();
+  addingHeightToCollapsableMenu(diary.id);
   initialEntriesColorPicker(diary);
 }
 

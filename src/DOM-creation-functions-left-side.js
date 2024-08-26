@@ -21,7 +21,15 @@ import {
   createParagraph,
 } from './reused-DOM-functions.js';
 //other functions
-import { closePrompt, deleteItemsFromLeftSide, deleteAndMenuIconHover, deleteDiary } from './ui-functions.js';
+import {
+  closePrompt,
+  deleteItemsFromLeftSide,
+  deleteAndMenuIconHover,
+  deleteDiary,
+  monthCollapsible,
+  yearCollapsible,
+  pinnedCollapsibale,
+} from './ui-functions.js';
 import { pushToDiariesArray, diaries } from './diary-list-handling.js';
 import { createDiaryDetailsRightSide } from './DOM-creation-functions-right-side.js';
 import { saveToLocalStorage, localStorageBackup } from './local-storage-handling';
@@ -112,6 +120,9 @@ function createDiaryItem(prompt, input, diaryDescription, createDiaryButton) {
 }
 
 export function createDiariesFromLocalStorage() {
+  pinnedCollapsibale();
+  yearCollapsible();
+  monthCollapsible();
   diaries.forEach((diary) => {
     const leftSide = document.querySelector('.left-side');
     const diaryItemWrapper = document.createElement('div');
