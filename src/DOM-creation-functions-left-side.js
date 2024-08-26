@@ -60,6 +60,7 @@ function createPromptWindowElements() {
   const createDiaryButton = createButton('create-diary-button-prompt', 'Create Diary');
 
   prompt.appendChild(promptHeadline);
+  textareaCharCounter(diaryDescription, prompt);
   closeAnimation(prompt);
   promptInputAndInputHeadlineWrapper.appendChild(inputLabel);
   promptInputAndInputHeadlineWrapper.appendChild(input);
