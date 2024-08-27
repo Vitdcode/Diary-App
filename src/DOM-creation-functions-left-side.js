@@ -123,6 +123,10 @@ export function createDiariesFromLocalStorage() {
   pinnedCollapsibale();
   yearCollapsible();
   monthCollapsible();
+  printElementsLeftSide();
+}
+
+function printElementsLeftSide() {
   diaries.forEach((diary) => {
     const leftSide = document.querySelector('.left-side');
     const diaryItemWrapper = document.createElement('div');
@@ -203,7 +207,7 @@ function saveEditedDiary(editDiarySaveButton, diary, textarea, input, prompt) {
     deleteItemsFromLeftSide();
     savedIconAnimated(prompt, 'saved-animated-icon-edit-diary');
     saveToLocalStorage();
-    /*  createDiariesFromLocalStorage(); */
+    printElementsLeftSide();
   });
 }
 

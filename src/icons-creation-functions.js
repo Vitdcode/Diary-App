@@ -4,7 +4,6 @@ import profileimg from '../src/images/profile-pic.jpeg';
 import speechbubble from '../src/images/speech-bubble.png';
 import deleteentryicon from '../src/images/delete-icon.png';
 import menuicon from '../src/images/3dots.png';
-import savedicon from '../src/images/saved-icon.png';
 import pinnediconcolor from '../src/images/pinned-color.png';
 import pinnedblackwhite from '../src/images/pinned-black-white.png';
 import dots from '../src/images/three-dots.png';
@@ -232,7 +231,7 @@ export function deleteDiaryIcon(parentWrapper) {
   return deleteDiary;
 }
 
-export function savedIconAnimated(parentWrapper, className, editButton) {
+export function savedIconAnimated(parentWrapper, className) {
   const saved = document.createElement('div');
   saved.classList.add(className);
   lottie.loadAnimation({
@@ -243,22 +242,10 @@ export function savedIconAnimated(parentWrapper, className, editButton) {
     animationData: savediconanim,
   });
   parentWrapper.appendChild(saved);
-  /*   editButton.addEventListener('click', function () { */
   setTimeout(() => {
-    console.log('test');
     saved.classList.add('fade-out');
   }, 2000);
-
   setTimeout(() => {
-    console.log('test');
     parentWrapper.removeChild(saved);
   }, 3500);
-  /*   }); */
 }
-
-// export function savedIcon(className) {
-//   const savedIcon = document.createElement('img');
-//   savedIcon.classList.add(className);
-//   savedIcon.src = savedicon;
-//   return savedIcon;
-// }
