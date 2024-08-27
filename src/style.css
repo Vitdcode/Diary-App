@@ -84,7 +84,6 @@ body {
 }
 
 .create-new-entry-writing-animation {
-  /* position: absolute; */
   width: 200px;
   height: 200px;
   bottom: 0;
@@ -148,30 +147,10 @@ body {
   width: 95%;
 }
 
-#background-attribution {
-  position: absolute;
-  bottom: 0;
-  right: 2%;
-  color: rgba(199, 199, 199, 0.582);
-  border-radius: 5px;
-  padding-inline: 2px;
-  backdrop-filter: brightness(70%);
-}
-
-#background-attribution a {
-  text-decoration: none;
-  color: rgba(70, 238, 159, 0.938);
-}
-
-#background-attribution a:hover {
-  color: rgb(0, 255, 136);
-}
-
 /* prompt */
 
 .prompt-window {
   position: relative;
-  /*   font-weight: bold; */
   font-size: 1.3rem;
   height: 800px;
   width: 500px;
@@ -274,27 +253,99 @@ body {
   cursor: pointer;
 }
 
+/* attribution prompt */
+
+.attribution-prompt {
+  position: relative;
+  font-size: 1.3rem;
+  height: 800px;
+  width: 1320px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  gap: 60px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: var(--svg-background-image4-animated);
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.664);
+  animation: fadeIn 350ms ease-in;
+  z-index: 2;
+}
+
+.attribution-prompt > * {
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
+.attribution-prompt > .close-icon-animation {
+  position: absolute;
+  top: -5%;
+}
+
+.attribution-headline {
+  color: beige;
+  text-decoration: underline;
+}
+
+.thanks-image {
+  position: absolute;
+  height: 300px;
+  width: 300px;
+  right: 15%;
+  top: -5%;
+}
+
+#background-attribution {
+  position: absolute;
+  bottom: 0;
+  right: 2%;
+  color: rgba(70, 238, 159, 0.938);
+  border-radius: 5px;
+  padding-inline: 2px;
+  backdrop-filter: brightness(70%);
+  font-size: 1.1rem;
+}
+
+#background-attribution:hover {
+  cursor: pointer;
+  color: rgb(0, 255, 136);
+}
+
+.attribution-prompt a {
+  text-decoration: underline;
+  color: rgba(70, 238, 159, 0.938);
+}
+
+.attribution-prompt p {
+  text-align: left;
+}
+
+.attribution-prompt div {
+  color: beige;
+}
+
+.attribution-prompt a:hover {
+  color: rgb(0, 255, 136);
+}
+
 /* edit diary prompt */
 
 .diary-edit-prompt-headline {
   color: beige;
 }
 
-.saved-icon-edit-diary-prompt {
+.saved-animated-icon-edit-diary {
   position: absolute;
-  height: 36px;
-  width: 36px;
+  height: 64px;
+  width: 64px;
   animation: fadeIn 350ms ease-in;
-  bottom: 12%;
-  left: 38%;
-}
-
-.saved-text-diary-edit {
-  position: absolute;
-  color: var(--green-color-button);
-  animation: fadeIn 350ms ease-in;
-  bottom: 12%;
-  left: 48%;
+  bottom: 6.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .fade-out {
@@ -858,22 +909,8 @@ body {
   cursor: pointer;
 }
 
-.saved-text-entry-edit {
-  position: absolute;
-  color: var(--green-color-button);
-  bottom: 9%;
-  left: 48%;
-}
-
-.saved-icon-edit-entry-prompt {
-  position: absolute;
-  height: 36px;
-  width: 36px;
-  bottom: 9%;
-  left: 43%;
-}
-
 .edit-entry-button {
+  position: relative;
   font-family: var(--font-family-poppins);
   font-size: 1rem;
   font-weight: 600;
@@ -888,6 +925,20 @@ body {
   background-color: var(--green-color-button);
   background-color: rgb(140, 255, 182);
   cursor: pointer;
+}
+
+.edit-entry-button:active {
+  background-color: rgb(202, 255, 221);
+}
+
+.saved-animated-icon {
+  position: absolute;
+  height: 64px;
+  width: 64px;
+  animation: fadeIn 350ms ease-in;
+  bottom: 5.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* pinned entries */
@@ -1074,8 +1125,7 @@ ol > .ql-align-center {
 /* image resizing toolbar */
 
 #editor-resizer {
-  background-color: #3d2770c0 !important;
-  backdrop-filter: blur(30px);
+  background-color: #ebebeb48 !important;
   position: absolute !important;
   top: 10% !important;
 }

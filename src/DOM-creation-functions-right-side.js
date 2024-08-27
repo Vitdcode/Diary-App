@@ -12,6 +12,7 @@ import {
   calenderAnimation,
   closeAnimation,
   diaryWritingAnimation,
+  savedIconAnimated,
 } from './icons-creation-functions.js';
 import pinnediconcolor from '../src/images/pinned-color.png';
 import pinnedblackwhite from '../src/images/pinned-black-white.png';
@@ -32,7 +33,6 @@ import {
   addingHeightToCollapsableMenu,
   animatePinnedIconPinnedEntriesText,
 } from './ui-functions';
-import { savedText } from './DOM-creation-functions-left-side';
 import { saveToLocalStorage } from './local-storage-handling';
 
 export function createDiaryDetailsRightSide(diaryID) {
@@ -399,7 +399,7 @@ function editDiaryButton(
 
       pushPinnedEntriesToPinnedMenu(diary, diaryEntryId);
     }
-    savedText(promptWindow, 'saved-icon-edit-entry-prompt', 'saved-text-entry-edit');
+    savedIconAnimated(promptWindow, 'saved-animated-icon');
     saveToLocalStorage();
     printEntriesInDom(diary);
   });

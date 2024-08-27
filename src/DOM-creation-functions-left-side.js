@@ -6,9 +6,9 @@ import {
   quoteIcon,
   diaryMenuIcon,
   deleteDiaryIcon,
-  savedIcon,
   closeAnimation,
   menuAnimation,
+  savedIconAnimated,
 } from './icons-creation-functions.js';
 //functions for creating DOM elements
 import {
@@ -201,31 +201,10 @@ function saveEditedDiary(editDiarySaveButton, diary, textarea, input, prompt) {
     diary.name = input.value;
     diary.description = textarea.value;
     deleteItemsFromLeftSide();
-    savedText(prompt, 'saved-icon-edit-diary-prompt', 'saved-text-diary-edit');
+    savedIconAnimated(prompt, 'saved-animated-icon-edit-diary');
     saveToLocalStorage();
-    createDiariesFromLocalStorage();
+    /*  createDiariesFromLocalStorage(); */
   });
-}
-
-export function savedText(prompt, iconClass, textClass) {
-  const savedIconElement = savedIcon(iconClass);
-
-  const savedText = document.createElement('p');
-  savedText.classList.add(textClass);
-  savedText.textContent = 'Saved';
-
-  prompt.appendChild(savedIconElement);
-  prompt.appendChild(savedText);
-
-  setTimeout(() => {
-    savedIconElement.classList.add('fade-out');
-    savedText.classList.add('fade-out');
-  }, 1000);
-
-  setTimeout(() => {
-    prompt.removeChild(savedIconElement);
-    prompt.removeChild(savedText);
-  }, 2000);
 }
 
 function textareaCharCounter(textarea, promptWindow) {

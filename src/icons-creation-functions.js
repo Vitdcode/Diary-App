@@ -18,6 +18,7 @@ import writediaryanimation from '../src/animations/write-list2.json';
 import menu from '../src/animations/menu.json';
 import calenderanim from '../src/animations/calender-animation.json';
 import close from '../src/animations/close.json';
+import savediconanim from '../src/animations/saved-icon.json';
 
 export function closeIcon() {
   const closeWindowIcon = document.createElement('img');
@@ -61,13 +62,6 @@ export function diaryMenuIcon(diaryItemWrapper) {
   diaryMenuIcon.id = diaryItemWrapper.id;
   diaryMenuIcon.src = menuicon;
   return diaryMenuIcon;
-}
-
-export function savedIcon(className) {
-  const savedIcon = document.createElement('img');
-  savedIcon.classList.add(className);
-  savedIcon.src = savedicon;
-  return savedIcon;
 }
 
 export function pinnedIconSelected(className, id) {
@@ -237,3 +231,34 @@ export function deleteDiaryIcon(parentWrapper) {
   });
   return deleteDiary;
 }
+
+export function savedIconAnimated(parentWrapper, className, editButton) {
+  const saved = document.createElement('div');
+  saved.classList.add(className);
+  lottie.loadAnimation({
+    container: saved,
+    renderer: 'svg',
+    loop: false,
+    autoplay: true,
+    animationData: savediconanim,
+  });
+  parentWrapper.appendChild(saved);
+  /*   editButton.addEventListener('click', function () { */
+  setTimeout(() => {
+    console.log('test');
+    saved.classList.add('fade-out');
+  }, 2000);
+
+  setTimeout(() => {
+    console.log('test');
+    parentWrapper.removeChild(saved);
+  }, 3500);
+  /*   }); */
+}
+
+// export function savedIcon(className) {
+//   const savedIcon = document.createElement('img');
+//   savedIcon.classList.add(className);
+//   savedIcon.src = savedicon;
+//   return savedIcon;
+// }
