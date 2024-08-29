@@ -151,6 +151,13 @@ body {
 
 /* prompt */
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
 .prompt-window {
   position: relative;
   font-size: 1.3rem;
@@ -214,14 +221,14 @@ body {
   background-color: rgba(114, 118, 173, 0.699);
 }
 
-#describe-your-diary-textarea:focus {
+#describe-your-diary:focus {
   outline: 1px solid rgb(119, 218, 185, 0.7);
 }
 
 .char-counter {
   font-size: 1rem;
   position: absolute;
-  bottom: 23%;
+  bottom: 17%;
   color: rgba(39, 39, 39, 0.774);
 }
 
@@ -345,8 +352,8 @@ body {
   height: 64px;
   width: 64px;
   animation: fadeIn 350ms ease-in;
-  bottom: 6.5%;
-  left: 50%;
+  bottom: 3.5%;
+  left: 22%;
   transform: translate(-50%, -50%);
 }
 
@@ -1118,10 +1125,6 @@ ol > .ql-align-center {
   width: 20px !important;
   padding: 15px !important;
   border-radius: 15px;
-}
-
-.ql-picker-item:hover {
-  border: 2px solid rgba(0, 0, 0, 0.685) !important;
 }
 
 /* image resizing toolbar */

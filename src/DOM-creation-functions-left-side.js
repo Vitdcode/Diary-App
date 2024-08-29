@@ -11,15 +11,7 @@ import {
   savedIconAnimated,
 } from './icons-creation-functions.js';
 //functions for creating DOM elements
-import {
-  createBackdrop,
-  /*   createInputField,
-  createFormLabel, */
-  createTextarea,
-  createButton,
-  createPromptWindow,
-  createParagraph,
-} from './reused-DOM-functions.js';
+import { createBackdrop, createButton, createPromptWindow, createParagraph } from './reused-DOM-functions.js';
 //other functions
 import {
   closePrompt,
@@ -79,31 +71,25 @@ function createPromptWindowElements() {
     createDiaryButton,
     promptInputAndInputHeadlineWrapper
   );
-
   promptInputAndInputHeadlineWrapper.appendChild(formDiaryDescription);
-
   prompt.appendChild(promptHeadline);
   closeAnimation(prompt);
-
   prompt.appendChild(promptInputAndInputHeadlineWrapper);
   document.body.appendChild(backdrop);
   closePrompt(prompt);
   isFormValid(
     document.getElementById('create-new-diary-input'),
     document.getElementById('describe-your-diary'),
-    prompt,
-    createDiaryButton
+    createDiaryButton,
+    createDiaryItem.bind(null, prompt) //using bind to pass on the function with the needed argument without invoking the function createDiaryItem
   );
-  /*  createDiaryItem(prompt, createDiaryButton); */
 }
 
-export function createDiaryItem(prompt, createDiaryButton) {
+export function createDiaryItem(prompt) {
   if (prompt) {
-    console.log('test4');
     const leftSide = document.querySelector('.left-side');
     const input = document.getElementById('create-new-diary-input');
     const diaryDescription = document.getElementById('describe-your-diary');
-    /*   createDiaryButton.addEventListener('click', () => { */
     const diaryItemWrapper = document.createElement('div');
     diaryItemWrapper.id = uuidv4();
     diaryItemWrapper.classList.add('diary-item-wrapper');
@@ -130,7 +116,6 @@ export function createDiaryItem(prompt, createDiaryButton) {
     editDiary(diaryItemWrapper.id, diaryMenuIconElement);
     createDiaryDetailsRightSide(diaryItemWrapper.id);
     saveToLocalStorage();
-    /*   }); */
   }
 }
 
@@ -182,48 +167,56 @@ function editDiary(diaryID, diaryMenuIconElement) {
   diaryMenuIconElement.addEventListener('click', () => {
     const mainWrapper = document.querySelector('.main-wrapper');
     const backdrop = createBackdrop();
+    const editMenu = document.createElement('div');
+    editMenu.classList.add('prompt-window');
     const inputAndTextWrapper = document.createElement('div');
     inputAndTextWrapper.classList.add('prompt-input-and-input-headline-wrapper');
     const editHeadlline = createParagraph('diary-edit-prompt-headline', 'Edit Diary');
-    const editMenu = document.createElement('div');
-    editMenu.classList.add('prompt-window');
-    const textarea = createTextarea('describe-your-diary');
-    const editdiaryDescriptionLabel = createFormLabel('describe-your-diary', 'Edit Diary Description');
-    const inputLabel = createFormLabel('create-new-diary-input', 'Diary Name');
-    const input = createInputField('create-new-diary-input');
+    editMenu.appendChild(editHeadlline);
     const editDiarySaveButton = createButton('create-diary-button-prompt', 'Save');
+    editMenu.appendChild(editDiarySaveButton);
+    const formDiaryName = formValidation(
+      'create-new-diary-input',
+      'Diary Name',
+      'text',
+      '20',
+      editDiarySaveButton,
+      inputAndTextWrapper
+    );
+    inputAndTextWrapper.appendChild(formDiaryName);
+    const formDiaryDescription = formValidation(
+      'describe-your-diary',
+      'Describe your Diary',
+      'textarea',
+      '80',
+      editDiarySaveButton,
+      inputAndTextWrapper
+    );
+    inputAndTextWrapper.appendChild(formDiaryDescription);
+    editMenu.appendChild(inputAndTextWrapper);
+    mainWrapper.appendChild(editMenu);
+
     const diary = diaries.find((item) => item.id === diaryID);
+    const input = document.getElementById('create-new-diary-input');
+    const textarea = document.getElementById('describe-your-diary');
     if (diary) {
       input.value = diary.name;
       textarea.value = diary.description;
     }
-
-    textareaCharCounter(textarea, editMenu);
-    inputAndTextWrapper.appendChild(inputLabel);
-    inputAndTextWrapper.appendChild(input);
-    inputAndTextWrapper.appendChild(editdiaryDescriptionLabel);
-    inputAndTextWrapper.appendChild(textarea);
-    mainWrapper.appendChild(editMenu);
-    editMenu.appendChild(editHeadlline);
+    isFormValid(input, textarea, editDiarySaveButton, saveEditedDiary.bind(null, diary, textarea, input, editMenu));
     closeAnimation(editMenu);
-    editMenu.appendChild(inputAndTextWrapper);
-    editMenu.appendChild(editDiarySaveButton);
     document.body.appendChild(backdrop);
-
     closePrompt(editMenu);
-    saveEditedDiary(editDiarySaveButton, diary, textarea, input, editMenu);
   });
 }
 
-function saveEditedDiary(editDiarySaveButton, diary, textarea, input, prompt) {
-  editDiarySaveButton.addEventListener('click', () => {
-    diary.name = input.value;
-    diary.description = textarea.value;
-    deleteItemsFromLeftSide();
-    savedIconAnimated(prompt, 'saved-animated-icon-edit-diary');
-    saveToLocalStorage();
-    printElementsLeftSide();
-  });
+export function saveEditedDiary(diary, textarea, input, prompt) {
+  diary.name = input.value;
+  diary.description = textarea.value;
+  deleteItemsFromLeftSide();
+  savedIconAnimated(prompt, 'saved-animated-icon-edit-diary');
+  saveToLocalStorage();
+  printElementsLeftSide();
 }
 
 function deleteDiaryPrompt(diaryItemWrapper, deleteDiaryIconAnimated) {

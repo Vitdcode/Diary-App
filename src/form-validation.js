@@ -1,5 +1,3 @@
-import { createDiaryItem } from './DOM-creation-functions-left-side.js';
-
 export function formValidation(forAttribute, labelTextContent, inputType, maxLengthString, submitButton, prompt) {
   let form;
 
@@ -15,20 +13,23 @@ export function formValidation(forAttribute, labelTextContent, inputType, maxLen
   promptLabel.setAttribute('for', forAttribute);
   promptLabel.textContent = labelTextContent;
 
-  const input = document.createElement('input');
+  let input;
+
+  if (inputType === 'textarea') {
+    input = document.createElement('textarea');
+    textareaCharCounter(input, prompt);
+  } else {
+    input = document.createElement('input');
+    input.type = inputType;
+  }
   input.id = forAttribute;
   input.name = forAttribute;
-  input.type = inputType;
 
   Object.assign(input, {
     autocomplete: 'off',
     required: true,
     maxLength: maxLengthString,
   });
-
-  if (inputType === 'textarea') {
-    textareaCharCounter(input, prompt);
-  }
 
   form.appendChild(promptLabel);
   form.appendChild(input);
@@ -37,13 +38,13 @@ export function formValidation(forAttribute, labelTextContent, inputType, maxLen
   return form;
 }
 
-export function isFormValid(input, textarea, prompt, submitButton) {
+export function isFormValid(input, textarea, submitButton, createOrEditDiaryFunction) {
   submitButton.addEventListener('click', (event) => {
     event.preventDefault();
     input.checkValidity();
     textarea.checkValidity();
     if (input.checkValidity() && textarea.checkValidity()) {
-      createDiaryItem(prompt, submitButton);
+      createOrEditDiaryFunction();
     } else {
       input.reportValidity() && textarea.reportValidity();
     }

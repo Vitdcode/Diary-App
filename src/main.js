@@ -6,7 +6,7 @@ import { getDataFromLocalStorage } from './local-storage-handling.js';
 import { createBackdrop, createPromptWindow } from './reused-DOM-functions.js';
 import { closeAnimation } from './icons-creation-functions.js';
 import DOMPurify from 'dompurify';
-import thankyou from '../src/images/thank-you2.png';
+import thankyou from '../src/images/thank-you.png';
 
 createDiaryButtonInDom();
 randomizeSvgWallpaper(document.body);
