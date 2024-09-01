@@ -18,10 +18,19 @@ import svgbackground11 from '../src/images/svgs/svg11.svg';
 
 import { format } from 'date-fns';
 
-export function closePrompt(prompt) {
-  if (prompt) {
-    const mainWrapper = document.querySelector('.main-wrapper');
-    const closePromptIcon = document.querySelector('.close-icon-animation');
+export function closePrompt(prompt, closeIconId) {
+  const mainWrapper = document.querySelector('.main-wrapper');
+  const closePromptIcon = document.querySelector('.close-icon-animation');
+  if (prompt === document.querySelector('.gif-search-prompt')) {
+    document.getElementById(closeIconId).addEventListener('click', () => {
+      document.querySelector('.gif-search-prompt').classList.add('close');
+      setTimeout(() => {
+        mainWrapper.removeChild(prompt);
+      }, 250);
+
+      return;
+    });
+  } else if (prompt) {
     const backdrop = document.querySelector('.backdrop');
     closePromptIcon.addEventListener('click', () => {
       mainWrapper.removeChild(prompt);

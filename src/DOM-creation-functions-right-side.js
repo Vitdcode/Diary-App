@@ -23,8 +23,9 @@ import {
   createButton,
   createPromptWindow,
   createParagraph,
-  createQuillEditor,
 } from './reused-DOM-functions.js';
+//Quill
+import { createQuillEditor } from './quill.js';
 //other functions
 import { diaries } from './diary-list-handling';
 import {
@@ -34,6 +35,10 @@ import {
   animatePinnedIconPinnedEntriesText,
 } from './ui-functions';
 import { saveToLocalStorage } from './local-storage-handling';
+import { createGifSearchInToolbar } from './gif-search';
+
+export let quill; // making quill a global variable to use in other functions
+export let quillSelection;
 
 export function createDiaryDetailsRightSide(diaryID) {
   const rightSide = document.querySelector('.right-side');
@@ -188,16 +193,24 @@ function createEntryPrompt(diary) {
   const quillWrapper = document.createElement('div');
   quillWrapper.id = 'quill-editor-create-entry';
   promptWindow.appendChild(quillWrapper);
-  const quillEditor = createQuillEditor('quill-editor-create-entry');
+  quill = createQuillEditor('quill-editor-create-entry');
 
+  document.querySelector('#quill-editor-create-entry').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      //logging the quill selection index to insert a gif into the right place
+      quillSelection = quill.getSelection();
+    }
+  });
+
+  createGifSearchInToolbar();
   promptWindow.appendChild(createEntryButton);
 
   document.body.appendChild(backdrop);
   closePrompt(promptWindow);
-  createEntry(diary, quillEditor, createEntryButton);
+  createEntry(diary, quill, createEntryButton);
 }
 
-function createEntry(diary, quillEditor, createEntryButton) {
+function createEntry(diary, quill, createEntryButton) {
   createEntryButton.addEventListener('click', () => {
     const diaryText = document.createElement('p');
     diaryText.classList.add('diary-entry-text');
@@ -207,7 +220,7 @@ function createEntry(diary, quillEditor, createEntryButton) {
       day: format(new Date(), 'dd'),
       seconds: format(new Date(), 'ss'),
       entryTimestamp: format(new Date(), 'dd. MMMM. yyyy'),
-      text: quillEditor.getSemanticHTML(),
+      text: quill.getSemanticHTML(),
       id: uuidv4(),
       pinned: false,
     };
@@ -228,9 +241,7 @@ function editDiaryEntriesEventListener(entriesWrapper, diary) {
     const clickedElement = event.target;
     const editIcon = clickedElement.closest('.menu-icon-edit-diary-entry');
     if (editIcon) {
-      console.log(editIcon);
       const diaryEntryId = editIcon.id;
-      console.log(diaryEntryId);
       createPromptEditDiary(diary, diaryEntryId);
     }
   });
@@ -359,39 +370,34 @@ function createPromptEditDiary(diary, diaryEntryId) {
   promptWindow.appendChild(quoteIcon('edit-entry-prompt-quote-icon'));
   promptWindow.appendChild(entryTextLabel);
   promptWindow.appendChild(quillWrapper);
-  const quillEditor = createQuillEditor('edit-entry-textarea');
-  quillEditor.clipboard.dangerouslyPasteHTML(diary.entries[diaryEntryIndex].text);
+  quill = createQuillEditor('edit-entry-textarea');
+  quill.clipboard.dangerouslyPasteHTML(diary.entries[diaryEntryIndex].text);
+
+  document.querySelector('#edit-entry-textarea').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      //logging the quill selection index to insert a gif into the right place
+      quillSelection = quill.getSelection();
+      console.log(quillSelection);
+    }
+  });
+
+  createGifSearchInToolbar();
+
   promptWindow.appendChild(editEntryButton);
 
   document.body.appendChild(backdrop);
 
   deleteDiaryEntry(diary, diaryEntryIndex, diaryPinnedEntryIndex, promptWindow);
   closePrompt(promptWindow);
-  editDiaryButton(
-    diary,
-    diaryEntryId,
-    diaryEntryIndex,
-    diaryPinnedEntryIndex,
-    editEntryButton,
-    quillEditor,
-    promptWindow
-  );
+  editDiaryButton(diary, diaryEntryId, diaryEntryIndex, diaryPinnedEntryIndex, editEntryButton, quill, promptWindow);
 }
 
-function editDiaryButton(
-  diary,
-  diaryEntryId,
-  diaryIndex,
-  diaryPinnedEntryIndex,
-  editEntryButton,
-  quillEditor,
-  promptWindow
-) {
+function editDiaryButton(diary, diaryEntryId, diaryIndex, diaryPinnedEntryIndex, editEntryButton, quill, promptWindow) {
   editEntryButton.addEventListener('click', () => {
-    diary.entries[diaryIndex].text = quillEditor.getSemanticHTML();
+    diary.entries[diaryIndex].text = quill.getSemanticHTML();
     diary.entries[diaryIndex].text = diary.entries[diaryIndex].text.replace(/<p>\s*<\/p>/g, '<p><br></p>');
     if (diary.pinnedEntries[diaryPinnedEntryIndex]) {
-      diary.pinnedEntries[diaryPinnedEntryIndex].text = quillEditor.getSemanticHTML();
+      diary.pinnedEntries[diaryPinnedEntryIndex].text = quill.getSemanticHTML();
       diary.pinnedEntries[diaryPinnedEntryIndex].text = diary.pinnedEntries[diaryPinnedEntryIndex].text.replace(
         /<p>\s*<\/p>/g,
         '<p><br></p>'

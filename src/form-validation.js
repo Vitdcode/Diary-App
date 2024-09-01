@@ -41,8 +41,8 @@ export function formValidation(forAttribute, labelTextContent, inputType, maxLen
 export function isFormValid(input, textarea, submitButton, createOrEditDiaryFunction) {
   submitButton.addEventListener('click', (event) => {
     event.preventDefault();
-    input.checkValidity();
-    textarea.checkValidity();
+    /*    input.checkValidity();
+    textarea.checkValidity(); */
     if (input.checkValidity() && textarea.checkValidity()) {
       createOrEditDiaryFunction();
     } else {

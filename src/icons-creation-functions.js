@@ -7,6 +7,8 @@ import menuicon from '../src/images/3dots.png';
 import pinnediconcolor from '../src/images/pinned-color.png';
 import pinnedblackwhite from '../src/images/pinned-black-white.png';
 import dots from '../src/images/three-dots.png';
+import gificon from '../src/images/gif.png';
+import gificonhover from '../src/images/gif-hover.png';
 
 //lottie animations
 import lottie from 'lottie-web';
@@ -85,6 +87,19 @@ export function editEntryMenu(id) {
   clickableDots.id = id;
   clickableDots.src = dots;
   return clickableDots;
+}
+
+export function gif(className) {
+  const gifIcon = document.createElement('img');
+  gifIcon.classList.add(className);
+  gifIcon.src = gificon;
+  gifIcon.addEventListener('mouseover', () => {
+    gifIcon.src = gificonhover;
+  });
+  gifIcon.addEventListener('mouseleave', () => {
+    gifIcon.src = gificon;
+  });
+  return gifIcon;
 }
 
 //animated icons
@@ -190,10 +205,10 @@ export function calenderAnimation(parentWrapper) {
   return calender;
 }
 
-export function closeAnimation(parentWrapper) {
+export function closeAnimation(parentWrapper, id) {
   const closeIcon = document.createElement('div');
   closeIcon.classList.add('close-icon-animation');
-
+  closeIcon.id = id;
   const closeAnim = lottie.loadAnimation({
     container: closeIcon,
     renderer: 'svg',
