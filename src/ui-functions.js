@@ -138,17 +138,19 @@ export function yearCollapsible() {
     const clickedElement = event.target;
     if (clickedElement.classList.contains('year-text')) {
       clickedElement.classList.toggle('active-year');
-      const month = clickedElement.nextElementSibling;
-      const diaryEntries = month.nextElementSibling;
-      if (month.style.maxHeight || (diaryEntries.style.maxHeight && month.style.maxHeight)) {
-        // If the content is already expanded, collapse it
-        month.style.maxHeight = null;
-        diaryEntries.style.maxHeight = null;
-        month.classList.remove('active-month');
-      } else {
-        // Expand the content to its full height
-        month.style.maxHeight = month.scrollHeight + 'px';
-      }
+      const months = document.querySelectorAll('.month-text');
+      months.forEach((month) => {
+        const diaryEntries = month.nextElementSibling;
+        if (month.style.maxHeight || (diaryEntries.style.maxHeight && month.style.maxHeight)) {
+          // If the content is already expanded, collapse it
+          month.style.maxHeight = null;
+          diaryEntries.style.maxHeight = null;
+          month.classList.remove('active-month');
+        } else {
+          // Expand the content to its full height
+          month.style.maxHeight = month.scrollHeight + 'px';
+        }
+      });
     }
   });
 }
@@ -159,6 +161,7 @@ export function monthCollapsible() {
     if (clickedElement.classList.contains('month-text')) {
       clickedElement.classList.toggle('active-month');
       const content = clickedElement.nextElementSibling;
+      content.classList.toggle('active-entries');
       if (content.style.maxHeight) {
         // If the content is already expanded, collapse it
         content.style.maxHeight = null;
@@ -191,11 +194,19 @@ export function pinnedCollapsibale() {
 export function addingHeightToCollapsableMenu() {
   const year = document.getElementById(`year-text-${format(new Date(), 'yyyy')}`);
   year.classList.toggle('active-year'); // adding classlist active to the clickable year text so the + symbol correctly changes to the - symbol
-  const month = document.getElementById(`${format(new Date(), 'yyyy')}-${format(new Date(), 'MMMM')}`);
-  month.classList.toggle('active-month');
-  const entriesWrapper = document.getElementById(format(new Date(), 'yyyy'));
+  const currentMonth = document.getElementById(`${format(new Date(), 'yyyy')}-${format(new Date(), 'MMMM')}`);
+  console.log(`${format(new Date(), 'yyyy')}-${format(new Date(), 'MMMM')}`);
+  currentMonth.classList.toggle('active-month');
+  const months = document.querySelectorAll('.month-text');
+  months.forEach((month) => {
+    // all months will still be visible but won't get a active month class so only the current month is collapsed when creating a new entry
+    if (month != currentMonth) {
+      month.style.maxHeight = month.scrollHeight + 'px';
+    }
+  });
+  const entriesWrapper = currentMonth.nextElementSibling;
   entriesWrapper.style.maxHeight = entriesWrapper.scrollHeight + 'px'; // adding additional height to the collapsable menu so the new entry is seen in the DOM
-  month.style.maxHeight = month.scrollHeight + 'px';
+  currentMonth.style.maxHeight = currentMonth.scrollHeight + 'px';
   year.style.maxHeight = year.scrollHeight + 'px';
 }
 

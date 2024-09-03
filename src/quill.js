@@ -7,9 +7,6 @@ Quill.register('modules/imageCompress', ImageCompress);
 import QuillPasteSmart from 'quill-paste-smart';
 Quill.register('modules/pasteSmart', QuillPasteSmart);
 
-export let quill; // making quill a global variable to use in other functions
-export let quillSelection;
-
 export function createQuillEditor(quillWrapperId) {
   const toolbarOptions = [
     [{ header: [1, 2, 3, false] }],

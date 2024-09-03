@@ -72,6 +72,15 @@ body {
   }
 }
 
+@keyframes heightAnimIn {
+  from {
+    max-height: 0;
+  }
+  to {
+    max-height: 100%;
+  }
+}
+
 .trash-animation-icon {
   position: absolute;
   top: 2%;
@@ -196,6 +205,7 @@ form {
   background-image: var(--svg-background-image4-animated);
   background-repeat: no-repeat;
   background-size: cover;
+  will-change: background-image;
   box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.664);
   animation: fadeIn 350ms ease-in;
   z-index: 2;
@@ -205,7 +215,9 @@ form {
   position: absolute;
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(10px);
+  will-change: backdrop-filter;
+  transform: translate3d(0, 0, 0);
   z-index: 1;
 }
 
@@ -705,13 +717,40 @@ form {
   cursor: pointer;
 }
 
-.diary-entries-wrapper {
+/* .diary-entries-wrapper {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 150ms ease-out;
+    transition: max-height 150ms ease-in;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  animation: fadeOut 300ms;
+} */
+
+.diary-entries-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  opacity: 0;
+  /*   transform: scaleY(0); */
+  transform-origin: top;
+  max-height: 0;
+  transition:
+    max-height 0.3s ease-out,
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out;
+}
+
+.diary-entries-wrapper.active-entries {
+  opacity: 1;
+  transform: scaleY(1);
+  max-height: auto; /* or auto */
+  transition:
+    max-height 0.3s ease-in,
+    opacity 0.3s ease-in;
+  /*   transform 0.2s ease-in; */
 }
 
 .entry-details-wrapper {
@@ -753,7 +792,7 @@ form {
   transition: max-height 150ms ease-out;
   width: 30%;
   margin-inline: auto;
-  margin-block: 60px;
+  margin-block: 40px;
   text-align: center;
   font-size: 2rem;
   color: rgb(140, 255, 182);
@@ -806,6 +845,8 @@ form {
   position: relative;
   background-color: rgba(37, 139, 153, 0.7);
   backdrop-filter: blur(10px);
+  will-change: backdrop-filter;
+  transform: translate3d(0, 0, 0);
   margin-inline: 40px;
   margin-bottom: 20px;
   border-radius: 10px;
@@ -862,6 +903,7 @@ form {
   background-image: var(--svg-background-image5);
   background-repeat: no-repeat;
   background-size: cover;
+  will-change: background-image;
   box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.664);
   animation: fadeIn 350ms ease-in;
   z-index: 2;
@@ -879,6 +921,8 @@ form {
   height: 60%;
   background-color: rgba(37, 139, 153, 0.7);
   backdrop-filter: blur(10px);
+  will-change: backdrop-filter;
+  transform: translate3d(0, 0, 0);
   color: rgba(0, 0, 0, 0.829);
   border-radius: 10px;
   padding: 40px;
@@ -1095,7 +1139,9 @@ form {
   height: 80%;
   width: 80%;
   background-color: rgba(71, 153, 135, 0.938);
-  backdrop-filter: brightness(50%);
+  backdrop-filter: blur(10px);
+  will-change: backdrop-filter;
+  transform: translate3d(0, 0, 0);
   border-radius: 15px;
   z-index: 2;
   animation: heightAnimIn 300ms;
@@ -1106,9 +1152,6 @@ form {
   display: flex;
   align-items: center;
   justify-content: center;
-  /*   top: 28%;
-  left: 40%; */
-  /*   transform: translate(-50%, -50%); */
 }
 
 .gif-added-to-editor {
@@ -1196,6 +1239,8 @@ form {
   border-radius: 10px;
   background-color: rgba(151, 255, 160, 0.479) !important;
   backdrop-filter: blur(10px);
+  will-change: backdrop-filter;
+  transform: translate3d(0, 0, 0);
   border-radius: 10px !important;
   border: none !important;
   padding: 20px !important;
@@ -1218,6 +1263,8 @@ blockquote {
   position: relative;
   background: rgba(132, 133, 132, 0.432);
   backdrop-filter: blur(10px);
+  will-change: backdrop-filter;
+  transform: translate3d(0, 0, 0);
   border-radius: 10px;
 }
 
@@ -1254,6 +1301,8 @@ ol > .ql-align-center {
   width: 450px !important;
   border-radius: 10px;
   backdrop-filter: blur(10px);
+  will-change: backdrop-filter;
+  transform: translate3d(0, 0, 0);
   background-color: rgba(120, 192, 168, 0.596) !important;
   animation: fadeIn 250ms ease-in;
   border: none !important;
