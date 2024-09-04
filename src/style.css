@@ -718,16 +718,6 @@ form {
   cursor: pointer;
 }
 
-/* .diary-entries-wrapper {
-  max-height: 0;
-  overflow: hidden;
-    transition: max-height 150ms ease-in;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  animation: fadeOut 300ms;
-} */
-
 .diary-entries-wrapper {
   max-height: 0;
   overflow: hidden;
@@ -751,7 +741,6 @@ form {
   transition:
     max-height 0.3s ease-in,
     opacity 0.3s ease-in;
-  /*   transform 0.2s ease-in; */
 }
 
 .entry-details-wrapper {
@@ -1139,7 +1128,7 @@ form {
   gap: 20px;
   height: 80%;
   width: 80%;
-  background-color: rgba(71, 153, 135, 0.938);
+  background-color: rgba(52, 134, 202, 0.288);
   backdrop-filter: blur(10px);
   will-change: backdrop-filter;
   transform: translate3d(0, 0, 0);
@@ -1172,7 +1161,7 @@ form {
 }
 
 .gif-wrapper {
-  background-color: #1315278e;
+  background-color: #34629648;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
