@@ -60,7 +60,10 @@ export function createDiaryDetailsRightSide(diaryID) {
       });
       diaryId.style.boxShadow = '0px 0px 10px 0px #6366f1';
 
-      const pinnedCollapsableMenu = createParagraph('pinned-collapsable-menu-text', 'Pinned Entries');
+      const pinnedCollapsableMenu = createParagraph(
+        'pinned-collapsable-menu-text',
+        'Pinned Entries'
+      );
       pinnedCollapsableMenu.appendChild(pinnedIconSelected('pinned-inside-collapsible-menu-icon'));
       const entriesWrapperPinned = document.createElement('div');
       entriesWrapperPinned.classList.add('diary-entries-wrapper-pinned-menu');
@@ -110,10 +113,15 @@ function createNewEntryButton(rightSide, diary) {
 
 function colorPickerEntries(rightSide, diary) {
   const colorPickerAndCreateEntryButtonWrapper = document.createElement('div');
-  colorPickerAndCreateEntryButtonWrapper.classList.add('color-picker-and-create-entry-button-wrapper');
+  colorPickerAndCreateEntryButtonWrapper.classList.add(
+    'color-picker-and-create-entry-button-wrapper'
+  );
   const colorsAndHeadlineTextWrapper = document.createElement('div');
   colorsAndHeadlineTextWrapper.classList.add('colors-and-headline-text-wrapper');
-  const colorsHeadlineText = createParagraph('colors-picker-headline-text', 'Diary Entries Color Picker');
+  const colorsHeadlineText = createParagraph(
+    'colors-picker-headline-text',
+    'Diary Entries Color Picker'
+  );
 
   const color1 = document.createElement('div');
   color1.classList.add('color-picker-entries');
@@ -128,18 +136,32 @@ function colorPickerEntries(rightSide, diary) {
   color4.classList.add('color-picker-entries');
   color4.id = 'color4-picker';
 
-  colorPickerAndCreateEntryButtonWrapper.appendChild(document.querySelector('.create-new-entry-button'));
+  colorPickerAndCreateEntryButtonWrapper.appendChild(
+    document.querySelector('.create-new-entry-button')
+  );
   colorsAndHeadlineTextWrapper.append(colorsHeadlineText, color1, color2, color3, color4);
   colorPickerAndCreateEntryButtonWrapper.appendChild(colorsAndHeadlineTextWrapper);
-  diaryWritingAnimation(colorPickerAndCreateEntryButtonWrapper, 'create-new-entry-writing-animation');
+  diaryWritingAnimation(
+    colorPickerAndCreateEntryButtonWrapper,
+    'create-new-entry-writing-animation'
+  );
   rightSide.appendChild(colorPickerAndCreateEntryButtonWrapper);
   colorPickerEventListener(colorsAndHeadlineTextWrapper, diary, color1, color2, color3, color4);
 }
 
-function colorPickerEventListener(colorsAndHeadlineTextWrapper, diary, color1, color2, color3, color4) {
+function colorPickerEventListener(
+  colorsAndHeadlineTextWrapper,
+  diary,
+  color1,
+  color2,
+  color3,
+  color4
+) {
   colorsAndHeadlineTextWrapper.addEventListener('click', (event) => {
     const clickedElement = event.target;
-    const colorPickerWrapper = document.querySelector('.color-picker-and-create-entry-button-wrapper');
+    const colorPickerWrapper = document.querySelector(
+      '.color-picker-and-create-entry-button-wrapper'
+    );
     const diaryEntries = document.querySelectorAll('.diary-entry-text-and-profile-pic-wrapper');
     diaryEntries.forEach((entry) => {
       if (clickedElement.id === color1.id) {
@@ -165,7 +187,9 @@ function colorPickerEventListener(colorsAndHeadlineTextWrapper, diary, color1, c
 
 function initialEntriesColorPicker(diary) {
   const diaryEntries = document.querySelectorAll('.diary-entry-text-and-profile-pic-wrapper');
-  const colorPickerWrapper = document.querySelector('.color-picker-and-create-entry-button-wrapper');
+  const colorPickerWrapper = document.querySelector(
+    '.color-picker-and-create-entry-button-wrapper'
+  );
   colorPickerWrapper.style.backgroundColor = diary.entriesColor;
   diaryEntries.forEach((entry) => {
     entry.style.backgroundColor = diary.entriesColor;
@@ -288,7 +312,11 @@ function pushPinnedEntriesToPinnedMenu(diary, diaryEntryId, newEntry) {
   const entriesWrapperPinned = document.querySelector('.diary-entries-wrapper-pinned-menu');
   if (entriesWrapperPinned.childElementCount === 0) {
     for (let i = 0; i < diary.pinnedEntries.length; i++) {
-      createElementsInPinnedMenu(diary.pinnedEntries[i].id, diary.pinnedEntries[i], entriesWrapperPinned);
+      createElementsInPinnedMenu(
+        diary.pinnedEntries[i].id,
+        diary.pinnedEntries[i],
+        entriesWrapperPinned
+      );
     }
     return;
   } else if (
@@ -300,7 +328,11 @@ function pushPinnedEntriesToPinnedMenu(diary, diaryEntryId, newEntry) {
       pinnedEntry.remove();
     });
     for (let i = 0; i < diary.pinnedEntries.length; i++) {
-      createElementsInPinnedMenu(diary.pinnedEntries[i].id, diary.pinnedEntries[i], entriesWrapperPinned);
+      createElementsInPinnedMenu(
+        diary.pinnedEntries[i].id,
+        diary.pinnedEntries[i],
+        entriesWrapperPinned
+      );
     }
     return;
   } else {
@@ -322,7 +354,10 @@ function createElementsInPinnedMenu(id, entry, entriesWrapperPinned) {
   const pushedEntryDetailsWrapper = document.createElement('div');
   pushedEntryDetailsWrapper.classList.add('entry-details-wrapper-pinned-menu');
   pushedEntryDetailsWrapper.id = id;
-  const printEntryTimestampRightSide = createParagraph('diary-entry-timestamp', entry.entryTimestamp);
+  const printEntryTimestampRightSide = createParagraph(
+    'diary-entry-timestamp',
+    entry.entryTimestamp
+  );
   pushedEntryDetailsWrapper.appendChild(printEntryTimestampRightSide);
   const diaryEntryTextAndProfilePicWrapper = document.createElement('div');
   diaryEntryTextAndProfilePicWrapper.classList.add('diary-entry-text-and-profile-pic-wrapper');
@@ -340,7 +375,9 @@ function createElementsInPinnedMenu(id, entry, entriesWrapperPinned) {
   diaryEntryTextAndProfilePicWrapper.appendChild(pinnedNotSelected);
   const diaryText = createParagraph('diary-entry-text', entry.text);
   diaryEntryTextAndProfilePicWrapper.appendChild(diaryText);
-  document.querySelector('.right-side').insertBefore(entriesWrapperPinned, document.querySelector('.year-text'));
+  document
+    .querySelector('.right-side')
+    .insertBefore(entriesWrapperPinned, document.querySelector('.year-text'));
 }
 
 function createPromptEditDiary(diary, diaryEntryId) {
@@ -374,19 +411,37 @@ function createPromptEditDiary(diary, diaryEntryId) {
   document.body.appendChild(backdrop);
   deleteDiaryEntry(diary, diaryEntryIndex, diaryPinnedEntryIndex, promptWindow);
   closePrompt(promptWindow);
-  editDiaryButton(diary, diaryEntryId, diaryEntryIndex, diaryPinnedEntryIndex, editEntryButton, quill, promptWindow);
+  editDiaryButton(
+    diary,
+    diaryEntryId,
+    diaryEntryIndex,
+    diaryPinnedEntryIndex,
+    editEntryButton,
+    quill,
+    promptWindow
+  );
 }
 
-function editDiaryButton(diary, diaryEntryId, diaryIndex, diaryPinnedEntryIndex, editEntryButton, quill, promptWindow) {
+function editDiaryButton(
+  diary,
+  diaryEntryId,
+  diaryIndex,
+  diaryPinnedEntryIndex,
+  editEntryButton,
+  quill,
+  promptWindow
+) {
   editEntryButton.addEventListener('click', () => {
     diary.entries[diaryIndex].text = quill.getSemanticHTML();
-    diary.entries[diaryIndex].text = diary.entries[diaryIndex].text.replace(/<p>\s*<\/p>/g, '<p><br></p>');
+    diary.entries[diaryIndex].text = diary.entries[diaryIndex].text.replace(
+      /<p>\s*<\/p>/g,
+      '<p><br></p>'
+    );
     if (diary.pinnedEntries[diaryPinnedEntryIndex]) {
       diary.pinnedEntries[diaryPinnedEntryIndex].text = quill.getSemanticHTML();
-      diary.pinnedEntries[diaryPinnedEntryIndex].text = diary.pinnedEntries[diaryPinnedEntryIndex].text.replace(
-        /<p>\s*<\/p>/g,
-        '<p><br></p>'
-      );
+      diary.pinnedEntries[diaryPinnedEntryIndex].text = diary.pinnedEntries[
+        diaryPinnedEntryIndex
+      ].text.replace(/<p>\s*<\/p>/g, '<p><br></p>');
 
       pushPinnedEntriesToPinnedMenu(diary, diaryEntryId);
     }
@@ -447,7 +502,10 @@ function loopingAndAppendingEntries(diary, entriesWrapper) {
       const entryDetailsWrapper = document.createElement('div');
       entryDetailsWrapper.classList.add('entry-details-wrapper');
       entryDetailsWrapper.id = diary.entries[i].id;
-      const printEntryTimestampRightSide = createParagraph('diary-entry-timestamp', diary.entries[i].entryTimestamp);
+      const printEntryTimestampRightSide = createParagraph(
+        'diary-entry-timestamp',
+        diary.entries[i].entryTimestamp
+      );
       entryDetailsWrapper.appendChild(printEntryTimestampRightSide);
       const diaryEntryTextAndProfilePicWrapper = document.createElement('div');
       diaryEntryTextAndProfilePicWrapper.classList.add('diary-entry-text-and-profile-pic-wrapper');
@@ -469,7 +527,11 @@ function loopingAndAppendingEntries(diary, entriesWrapper) {
         diaryEntryTextAndProfilePicWrapper.appendChild(pinnedSelected);
       }
       diaryEntryTextAndProfilePicWrapper.appendChild(profilePicAndSpeechBubbleWrapper);
-      menuAnimation(diaryEntryTextAndProfilePicWrapper, diary.entries[i].id, 'menu-icon-edit-diary-entry');
+      menuAnimation(
+        diaryEntryTextAndProfilePicWrapper,
+        diary.entries[i].id,
+        'menu-icon-edit-diary-entry'
+      );
       const diaryText = createParagraph('diary-entry-text', diary.entries[i].text);
       diaryText.id = diary.entries[i].id;
       diaryEntryTextAndProfilePicWrapper.appendChild(diaryText);

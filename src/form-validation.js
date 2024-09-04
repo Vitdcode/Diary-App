@@ -1,4 +1,11 @@
-export function formValidation(forAttribute, labelTextContent, inputType, maxLengthString, submitButton, prompt) {
+export function formValidation(
+  forAttribute,
+  labelTextContent,
+  inputType,
+  maxLengthString,
+  submitButton,
+  prompt
+) {
   let form;
 
   // Check if a form already exists in the prompt
@@ -49,6 +56,16 @@ export function isFormValid(input, textarea, submitButton, createOrEditDiaryFunc
       input.reportValidity() && textarea.reportValidity();
     }
   });
+}
+
+export function filePickerInput(prompt) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.id = 'file-input';
+  input.accept = 'image/*';
+  input.style.display = 'none';
+  prompt.appendChild(input);
+  return input;
 }
 
 function textareaCharCounter(textarea, promptWindow) {

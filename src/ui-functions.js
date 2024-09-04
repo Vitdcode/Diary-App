@@ -82,7 +82,14 @@ export function deleteAndMenuIconHover(diaryItemWrapper, deleteIcon, diaryMenuIc
   });
 }
 
-export function deleteDiary(yesButton, noButton, diaryItemWrapper, backdrop, deletePromptWindow, mainWrapper) {
+export function deleteDiary(
+  yesButton,
+  noButton,
+  diaryItemWrapper,
+  backdrop,
+  deletePromptWindow,
+  mainWrapper
+) {
   yesButton.addEventListener('click', () => {
     const leftSide = document.querySelector('.left-side');
     const rightSide = document.querySelector('.right-side');
@@ -194,8 +201,9 @@ export function pinnedCollapsibale() {
 export function addingHeightToCollapsableMenu() {
   const year = document.getElementById(`year-text-${format(new Date(), 'yyyy')}`);
   year.classList.toggle('active-year'); // adding classlist active to the clickable year text so the + symbol correctly changes to the - symbol
-  const currentMonth = document.getElementById(`${format(new Date(), 'yyyy')}-${format(new Date(), 'MMMM')}`);
-  console.log(`${format(new Date(), 'yyyy')}-${format(new Date(), 'MMMM')}`);
+  const currentMonth = document.getElementById(
+    `${format(new Date(), 'yyyy')}-${format(new Date(), 'MMMM')}`
+  );
   currentMonth.classList.toggle('active-month');
   const months = document.querySelectorAll('.month-text');
   months.forEach((month) => {
@@ -206,6 +214,7 @@ export function addingHeightToCollapsableMenu() {
   });
   const entriesWrapper = currentMonth.nextElementSibling;
   entriesWrapper.style.maxHeight = entriesWrapper.scrollHeight + 'px'; // adding additional height to the collapsable menu so the new entry is seen in the DOM
+  entriesWrapper.classList.toggle('active-entries');
   currentMonth.style.maxHeight = currentMonth.scrollHeight + 'px';
   year.style.maxHeight = year.scrollHeight + 'px';
 }

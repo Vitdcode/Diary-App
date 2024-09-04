@@ -11,7 +11,12 @@ import {
   savedIconAnimated,
 } from './icons-creation-functions.js';
 //functions for creating DOM elements
-import { createBackdrop, createButton, createPromptWindow, createParagraph } from './reused-DOM-functions.js';
+import {
+  createBackdrop,
+  createButton,
+  createPromptWindow,
+  createParagraph,
+} from './reused-DOM-functions.js';
 //other functions
 import {
   closePrompt,
@@ -133,7 +138,11 @@ function printElementsLeftSide() {
     diaryItemWrapper.id = diary.id;
     diaryItemWrapper.classList.add('diary-item-wrapper');
     leftSide.appendChild(diaryItemWrapper);
-    const diaryMenuIconAnimated = menuAnimation(diaryItemWrapper, diaryItemWrapper.id, 'menu-icon-edit-diary');
+    const diaryMenuIconAnimated = menuAnimation(
+      diaryItemWrapper,
+      diaryItemWrapper.id,
+      'menu-icon-edit-diary'
+    );
     editDiary(diary.id, diaryMenuIconAnimated);
     const diaryItemName = createParagraph('diary-item-name', diary.name);
     const diaryDescriptionItem = createParagraph('diary-description-item', diary.description);
@@ -203,7 +212,12 @@ function editDiary(diaryID, diaryMenuIconElement) {
       input.value = diary.name;
       textarea.value = diary.description;
     }
-    isFormValid(input, textarea, editDiarySaveButton, saveEditedDiary.bind(null, diary, textarea, input, editMenu));
+    isFormValid(
+      input,
+      textarea,
+      editDiarySaveButton,
+      saveEditedDiary.bind(null, diary, textarea, input, editMenu)
+    );
     closeAnimation(editMenu);
     document.body.appendChild(backdrop);
     closePrompt(editMenu);
@@ -225,7 +239,10 @@ function deleteDiaryPrompt(diaryItemWrapper, deleteDiaryIconAnimated) {
     const backdrop = createBackdrop();
     const deletePromptWindow = document.createElement('div');
     deletePromptWindow.classList.add('delete-prompt-window');
-    const deleteDiaryHeadline = createParagraph('delete-diary-headline', 'Do you want to delete this Diary?');
+    const deleteDiaryHeadline = createParagraph(
+      'delete-diary-headline',
+      'Do you want to delete this Diary?'
+    );
     const yesButton = createButton('yes-button', 'YES');
     const noButton = createButton('no-button', 'NO');
     document.body.appendChild(backdrop);
